@@ -1,0 +1,73 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0"><title>指针的常用用法 | AyaSanae の小窝</title><meta name="author" content="AyaSanae"><meta name="description" content=""><meta name="keywords" content=""><link rel="icon" href="/assets/avatar.png"><script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script><script src="https://cdn.staticfile.org/font-awesome/6.2.0/js/all.min.js"></script><link rel="stylesheet" href="/css/test/fonts.min.css"><link rel="stylesheet" href="/css/test/particlex.css"><script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script><script src="https://cdn.staticfile.org/animejs/3.2.1/anime.min.js"></script><meta name="generator" content="Hexo 6.3.0"><style>mjx-container[jax=SVG]{direction:ltr}mjx-container[jax=SVG]>svg{overflow:visible}mjx-container[jax=SVG][display=true]{display:block;text-align:center;margin:1em 0}mjx-container[jax=SVG][justify=left]{text-align:left}mjx-container[jax=SVG][justify=right]{text-align:right}g[data-mml-node=merror]>g{fill:red;stroke:red}g[data-mml-node=merror]>rect[data-background]{fill:#ff0;stroke:none}g[data-mml-node=mtable]>line[data-line]{stroke-width:70px;fill:none}g[data-mml-node=mtable]>rect[data-frame]{stroke-width:70px;fill:none}g[data-mml-node=mtable]>.mjx-dashed{stroke-dasharray:140}g[data-mml-node=mtable]>.mjx-dotted{stroke-linecap:round;stroke-dasharray:0,140}g[data-mml-node=mtable]>svg{overflow:visible}[jax=SVG] mjx-tool{display:inline-block;position:relative;width:0;height:0}[jax=SVG] mjx-tool>mjx-tip{position:absolute;top:0;left:0}mjx-tool>mjx-tip{display:inline-block;padding:.2em;border:1px solid #888;font-size:70%;background-color:#f8f8f8;color:#000;box-shadow:2px 2px 5px #aaa}g[data-mml-node=maction][data-toggle]{cursor:pointer}mjx-status{display:block;position:fixed;left:1em;bottom:1em;min-width:25%;padding:.2em .4em;border:1px solid #888;font-size:90%;background-color:#f8f8f8;color:#000}foreignObject[data-mjx-xml]{font-family:initial;line-height:normal;overflow:visible}.MathJax path{stroke-width:3}mjx-container[display=true]{overflow:auto hidden}mjx-container[display=true]+br{display:none}</style></head><body><div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity .3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:50vmin;height:50vmin;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #a3ddfb;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">加载过慢请开启缓存(浏览器默认开启)</p><div><img alt="loading" src="/loading.gif"></div></div></div></div></div><div id="layout"><i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i> <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i> <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i><transition name="into"><div v-show="show_page" style="display:-not-none"><div id="menu_show"><nav id="menu"><div class="desktop-menu"><a href="/"><span class="title">AyaSanae の小窝</span> </a><a href="/"><i class="fa-solid fa-house fa-fw"></i> <span>&ensp;home</span> </a><a href="/about"><i class="fa-solid fa-id-card fa-fw"></i> <span>&ensp;about</span> </a><a href="/archives"><i class="fa-solid fa-box-archive fa-fw"></i> <span>&ensp;archives</span> </a><a href="/categories"><i class="fa-solid fa-bookmark fa-fw"></i> <span>&ensp;categories</span> </a><a href="/tags"><i class="fa-solid fa-tags fa-fw"></i> <span>&ensp;tags</span></a></div><div :class="'phone-menu ' + menu_show" id="phone-menu"><div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div><div :class="'title'" @click="menu_show = !menu_show"><i class="fa-solid fa-bars fa-fw"></i> <span>&emsp;AyaSanae の小窝</span></div><transition name="slide"><div class="items" v-show="menu_show"><a href="/"><div class="item"><div style="min-width:20px;max-width:50px;width:10%"><i class="fa-solid fa-house fa-fw"></i></div><div style="min-width:100px;max-width:150%;width:20%">home</div></div></a><a href="/about"><div class="item"><div style="min-width:20px;max-width:50px;width:10%"><i class="fa-solid fa-id-card fa-fw"></i></div><div style="min-width:100px;max-width:150%;width:20%">about</div></div></a><a href="/archives"><div class="item"><div style="min-width:20px;max-width:50px;width:10%"><i class="fa-solid fa-box-archive fa-fw"></i></div><div style="min-width:100px;max-width:150%;width:20%">archives</div></div></a><a href="/categories"><div class="item"><div style="min-width:20px;max-width:50px;width:10%"><i class="fa-solid fa-bookmark fa-fw"></i></div><div style="min-width:100px;max-width:150%;width:20%">categories</div></div></a><a href="/tags"><div class="item"><div style="min-width:20px;max-width:50px;width:10%"><i class="fa-solid fa-tags fa-fw"></i></div><div style="min-width:100px;max-width:150%;width:20%">tags</div></div></a></div></transition></div></nav></div><div id="main"><div class="article"><div><h1>指针的常用用法</h1></div><div class="info"><span class="date"><span class="icon"><svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg> </span>2022/11/17</span></div><div class="content" v-pre><h1 id="xfe-指针基础">0xFE 指针基础</h1><h2 id="x01-计算机存储机制">0x01 计算机存储机制</h2><p>虽然学的时候可能已经学过了,但多少还是写点.<br>假如我们有</p><pre><code>int a = 0x1024EF;
+char b[] = {0xEF,0x24,0x10};</code></pre><p>0x6950开始的这段是a存储在内存中的数据，int占四个字节，所以占用了0x6950~0x6953的空间</p><p>从EF低位开始存储称之为小端存储</p><p>0x7950开始的这段是b数组存储在内存中的数据,char占1个字节,又因为数组是连续存储,所以0x7950~0x7952是b数组的存储位置.</p><table><thead><tr class="header"><th style="text-align:center">地址</th><th style="text-align:center">内存</th></tr></thead><tbody><tr class="odd"><td style="text-align:center">...</td><td style="text-align:center">...</td></tr><tr class="even"><td style="text-align:center">...</td><td style="text-align:center">...</td></tr><tr class="odd"><td style="text-align:center">0x6950</td><td style="text-align:center">EF</td></tr><tr class="even"><td style="text-align:center">0x6951</td><td style="text-align:center">24</td></tr><tr class="odd"><td style="text-align:center">0x6952</td><td style="text-align:center">10</td></tr><tr class="even"><td style="text-align:center">0x6953</td><td style="text-align:center">00</td></tr><tr class="odd"><td style="text-align:center">...</td><td style="text-align:center">...</td></tr><tr class="even"><td style="text-align:center">...</td><td style="text-align:center">...</td></tr><tr class="odd"><td style="text-align:center">0x7950</td><td style="text-align:center">EF</td></tr><tr class="even"><td style="text-align:center">0x7951</td><td style="text-align:center">24</td></tr><tr class="odd"><td style="text-align:center">0x7952</td><td style="text-align:center">10</td></tr><tr class="even"><td style="text-align:center">...</td><td style="text-align:center">...</td></tr><tr class="odd"><td style="text-align:center">...</td><td style="text-align:center">...</td></tr></tbody></table><p>我们可以看到每个字节的内存空间都对应着一段地址,相当于门牌号<br><strong><em>指针本身是一个变量,但是它一般存储着其他变量或数组,函数的地址</em></strong>.所以我们可以用指针操作数据的地址，实现数据的间接访问.</p><h4 id="直接访问不香">直接访问不香???</h4><h2 id="x02-指针定义">0x02 指针定义</h2><p>定义:</p><pre><code>int *p,a;   //只有p是指针
+int* b,c;   //a,b都是指针
+int* d = 0; //等价于int* d = NULL; 是空指针</code></pre><p>用完了的指针不用,一般会给NULL,防止乱指.<br>比如说</p><pre><code>int ptr_p;
+for(int p=1;...){
+    ...
+    ptr_p=&amp;p
+    ...
+}</code></pre><p>p变量在for循环结束后会被销毁,但是我们ptr_p还指向了p的地址,如果后续再有变量被分到了这个地址,操作指针时就会改变这个新变量.</p><p>同级指针之间才能相互赋值，跨级赋值将会导致编译器报错或警告</p><p>无论是什么类型的指针，其本身占用的大小与操作系统的位数有关<br>比如64位系统指针占用8字节,32位占用4字节,16位占用2字节</p><h4 id="为什么">为什么?</h4><p>我们知道一个字节是8位,一位能表达2个数值,0 或 1也就是2^1.<br>那么8字节能表示2^64个数值<br>用64位操作系统举例:<br>64位cpu的寻址范围是2<sup>64位也就是说可以有2</sup>64个地址,那我们要用一个指针,存2^64内的任一地址,那么我们指针占用的空间就要大于等于64位<br>也就是8个字节.而64位系统指针占用的空间就是8字节.</p><h2 id="x03-指针基本操作">0x03 指针基本操作</h2><pre><code>int p =1,b;
+int* ptr_p;
+
+ptr_p=&amp;p;   //'&amp;p'取p地址
+b = *ptr_p; //'*p'取p内容
+ptr_p++     //指针向下移动一个数据宽度
+ptr_p--     //指针向上移动一个数据宽度
+</code></pre><h2 id="x04-数组与指针">0x04 数组与指针</h2><p>事实上数组是指针的一种表达形式.<br>比如我们有:</p><pre><code>char p[20]={0x23,0x98};
+
+printf("%x,%x",p[0],p[1]);</code></pre><p>等效于</p><pre><code>char* p = malloc(20);   //定义指针并申请内存
+*p = 0x23;              //初始化数组
+*(p+1) = 0x98; 
+
+//printf("%x,%x",p[0],p[1]); 此种方法也可以输出,p[0]等效于*p
+printf("%x,%x",*p,*(p+1));</code></pre><p>数名是一个指向数组首地址的指针,这里后面会用更清晰的运用,此处暂不细说.<br>我们来看<em>(p+1),p+1是指针向下移动一个数据宽度,移动后会指向下一个值的地址然后我们用</em>号取出.</p><table><thead><tr class="header"><th style="text-align:center">指针</th><th style="text-align:center">地址</th><th style="text-align:center">内存</th></tr></thead><tbody><tr class="odd"><td style="text-align:center">...</td><td style="text-align:center">...</td><td style="text-align:center"></td></tr><tr class="even"><td style="text-align:center">...</td><td style="text-align:center">...</td><td style="text-align:center"></td></tr><tr class="odd"><td style="text-align:center">p--&gt;</td><td style="text-align:center">0x6950</td><td style="text-align:center">23</td></tr><tr class="even"><td style="text-align:center">(p+1)--&gt;</td><td style="text-align:center">0x6951</td><td style="text-align:center">98</td></tr><tr class="odd"><td style="text-align:center">...</td><td style="text-align:center">...</td><td style="text-align:center"></td></tr><tr class="even"><td style="text-align:center">...</td><td style="text-align:center">...</td><td style="text-align:center"></td></tr></tbody></table><p>P.S. char型的数据宽度是一个字节.</p><h1 id="xff-指针应用">0xFF 指针应用</h1><h2 id="x10-传参">0x10 传参</h2><h3 id="x11-使用指针传递大容量的参数">0x11 使用指针传递大容量的参数</h3><p>我们先来看下一般的传参过程<br>如果我们有void test(int a[]);<br>那么当我们传入a[]时,程序会在内存中开辟一个新的空间,把a[]的数据复制一份放到这个新的空间中,称为值传递,就像:<br><img src="/assets/pointer/1.jpg" alt="数据复制"><br>这样做的好处是能隔离数据,比如说</p><pre><code>int a[]={1,2,3,4};
+test(a);</code></pre><p>这样子无论test怎么操作a都不会对函数外的a数组造成任何改变,因为函数内的a[]的是独立的一块内存</p><p>而这恰好又是缺点,因为要开辟一段新的内存空间而且还有进行数据复制,这就造成了内存和算力消耗.</p><p>如果数据量小还好,数据量一大,函数外的数组占的空间本来就大,传参又开辟一块空间,而且要数据复制.<br>这样子看来直接访问好像不那么香了.</p><p>如果我们用指针呢?</p><pre><code>void test(int *a);</code></pre><p>传参时,函数只会开辟一块内存用来放指针,指针存着a[]的地址,这样函数访问a[]时,<br>将会顺着指针里的地址,找到函数外的a[],直接操作a数值这样子就避免了数据复制,称为指针传递,能节省很多内存空间和算力就像:<br><img src="/assets/pointer/2.jpg" alt="指针参数"></p><p>但是呢,这也是缺点,函数对a[]的修改会直接影响到函数外的a[]没有达到隔离的效果,但是还是有解决方法</p><pre><code>void test(const int* a);</code></pre><p>这样定义成常量的话test就无法更改a数组的值</p><h3 id="其实这种指针用法非常常见接下来例举几个常见函数">其实这种指针用法非常常见,接下来例举几个常见函数</h3><pre><code>char *strcpy(char* dest, const char *src);  //字符串拷贝
+int strcmp(const char *s1,const char *s2);  //字符串比较
+size_t strlen(const char *string);          //字符串长度计算
+</code></pre><p>这些都用到了指针作为参数,<strong>避免了数据复制节省了空间大大提升了速度,加入const还能保证安全性</strong></p><h2 id="x12-指针传递输出参数">0x12 指针传递输出参数</h2><p>前面有提到如果用指针传参不加const的话,会导致函数可能修改函数外传入的值.<br>我们可以利用这个特性,达到用指针来传递输出参数<br>我们知道一个函数有一个返回值,但是我们用指针可以达到多个输出参数的效果如:</p><pre><code>/**********************
+功能:找到int型数组中的最大值并计数
+参数:
+    const int* Data:目标数组首地址
+    int *Max:用于存放最大值的地址
+    int *MaxNum:用于存放最大值个数的地址
+    int count:搜索宽度
+***********************/
+void FindMax(const int* Data,int *Max,int *MaxNum,int count){
+    *(Max) = Data[0];
+    *(MaxNum) = 1;
+    
+    for(int i = 1; i &lt;=count; i++){
+        if(*(Max) &lt; Data[i])
+            *(Max) = Data[i];
+            else if(*(Max) == Data[i])
+                (*MaxNum)++; 
+    }
+}
+int main()
+{
+    int Data[]={8,9,10,10,9,8};
+    int Max,MaxNum;
+    
+    FindMax(Data,&amp;Max,&amp;MaxNum,6);
+    
+    printf("%d,%d",Max,MaxNum);
+    
+    
+    return(0);
+}</code></pre><p>从上面的FindMax()可以看出这个函数有两个输出参数Max,MaxNum,就是因为函数通过指针对函数外的变量进行修改而达成的</p><h2 id="x20传递返回值">0x20传递返回值</h2><p>分装函数时常常会用到指针来返回句柄,用指针将模块内的公有部分返回,让主函数持有模块的“句柄”(相当于现实中的"把手")<br>便于程序对指定对象的操作.<br>比如说</p><pre><code>/************************
+这是一个分装的模块里的一部分(假设)
+************************/
+int Time[]={19,00,00};
+
+int* GetTime(){
+    return Time;
+}
+/*-------------------*/
+
+int main(){
+    int *p = GetTime(); //获取句柄
+
+    //这样便可以对模块里的Time进行操作
+}
+
+</code></pre><p>如果我们不用句柄的方式来访问模块里的数据,将模块里的数据放出模块外来访问的话,很明显<br>这不利于分装,所以分装模块时常常会采取指针来传递返回值.</p><h2 id="x30-直接访问物理地址下的数据">0x30 直接访问物理地址下的数据</h2><h3 id="x31-访问硬件指定内存下的数据如设备id">0x31 访问硬件指定内存下的数据，如设备ID</h3><p>这里用51单片机举例</p><h3 id="x32-将复杂格式的数据转换为字节方便通信与存储">0x32 将复杂格式的数据转换为字节，方便通信与存储</h3><p>如果我们有一个float型变量Data=12.345,我们想把它作为信息发送出去,我们可以利用指针特性来完成这件事.</p><p>浮点型的数据存储方式比较特殊,这里且不展开讨论.<br>我们知道float占4个字节内存空间,看起来是这样的:<br><img src="/assets/3.jpg" alt="float存储"></p></div></div><footer id="footer"><div class="footer-wrap"><div>© 20xx - 2022 AyaSanae の小窝 <span class="footer-icon"><i class="fa-solid fa-font-awesome fa-fw"></i> </span>@AyaSanae</div><div></div><p id="hitokoto"></p><script src="https://v1.hitokoto.cn/?c=a&amp;encode=js&select=%23hitokoto" defer></script><script>document.getElementById("hitokoto").style.color="DeepPink"</script><div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a target="_blank" rel="noopener" href="https://github.com/argvchs/hexo-theme-particlex">ParticleX Theme</a></div></div></footer></div></div></transition><div id="img_show"><img id="img_content" alt="img_show"></div></div><script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script><script src="/js/particlex.js"></script><script src="/js/showimg.js"></script><canvas id="fireworks" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:2147483647"></canvas><canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:1"></canvas><script src="/js/background.js"></script><script src="/js/firework.js"></script></body></html>
