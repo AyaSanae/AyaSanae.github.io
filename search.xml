@@ -850,6 +850,88 @@ point)是一种作曲技法,他开始于和弦音,然后当和声围绕着他作
 <p>持续音偶尔可以用于低音以外的声部,这时他们被称为转位持续音.<br>
 持续音的另一种可能是包含不同的音级(双持续音等),虽然多数持续音都是连续的,但是断续的持续音爷不少见,如下图:<br>
 <img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/ped1.png" alt="断续持续音"></p>
+<h1 id="v7和弦">V7和弦</h1>
+<p>常见的七和弦类型有:大七和弦,大小七和弦,小七和弦,半减七和弦,减七和弦.<br>
+在这五种类型中,大小七和弦最为常用.通常大小七和弦建立在属音上,所以属七和弦和大小七和弦两个名称常常相互代替使用.属七和弦几乎总是大小七和弦,当它为原位和弦时,它由一个大三和弦加上根音上方七度音组成.</p>
+<p>在大调中建立在5上面的七和弦自然就是大小七和弦,但是小调要用要升高7(即导音而不是和弦的七音),也就是使用和声小调,而不是自然小调,自然小调在5上建立的v7极少使用,它只能作为经过和弦,前面也说过了他不具备属功能因为缺少作为属功能的和弦基础音导音,如果v7确实出现,他一定是由下行旋律线1-7-6造成的.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/V7.png" alt="V7"></p>
+<h2 id="声部进行的一般原则">声部进行的一般原则</h2>
+<p>任何七和弦要面对的最基本问题就是七音的处理,七音总是下行级进解决的.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/vsb.png" alt="七音的解决"><br>
+当然使用V7时还有注意导音的处理,如果是在外声部,导音一般上行级进解决到主音.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/vsb1.png" alt="导音的解决"></p>
+<h2 id="原位v7和弦">原位V7和弦</h2>
+<p>原位属七和弦解决到原位主和弦比其他结合更困难些,需要牢记以下原则:<br>
+1.七音(4)必须下行解决到3<br>
+2.当和弦的三音(7)在最上方声部时,必须上行解决到1<br>
+用另一种方式说明这一原则是根据三全音的解决:增四度倾向向外解于六度,如下图的a部分.减五度倾向向内解决于三度,如下图的b.<br>
+如果按照上面的原则,就可以有下图结果,可以看到主三和弦是不完整的缺少五音的,这是一种极为常见的结果.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/vsb2.png" alt="V7和弦的解决"></p>
+<p>如果想要将四声部原位属七和弦解决到一个完整的主和弦,可以用以下两个方法:<br>
+1.使用不完全的属七和弦(通常省略五音.三音极少被省略),并重复根音.<br>
+2.使用完全的属七和弦,把导音(V7的三音)放到内声部,然后把三音下行大三度解决到主和弦的五音,这里相当于"阻挠"导音的自然解决了.<br>
+相较于第一种,第二种方法更为常用.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/vsb3.png" alt="V7和弦解决到完整三和弦"><br>
+下面是使用例:<br>
+法一:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/vsb4.png" alt="V7和弦解决到完整三和弦例子"><br>
+法二:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/vsb5.png" alt="V7和弦解决到完整三和弦例子"></p>
+<p>其实还有一种方法,但是会以构成平行五度为代价:V7的五音跳进解决到主三和弦的主音.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/vsb6.png" alt="V7和弦解决到完整三和弦"><br>
+在器乐中,如果五度以反向进行,是偶尔有见到的.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/vsb7.png" alt="V7和弦解决到完整三和弦反向五度解决"><br>
+但是两个休止符分散了听众对反向五度的注意力.</p>
+<h2 id="三声部中的v7和弦">三声部中的V7和弦</h2>
+<p>常常省略五音.三音也偶尔有见.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/vt.png" alt="三声部V7"><br>
+下图是例子:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/vte.png" alt="三声部V7"></p>
+<h2 id="v7和弦的其他解决">V7和弦的其他解决</h2>
+<p>原位属七和弦常常以阻碍进行解决到下中音和弦.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/v7an.png" alt="V7和弦的其他解决"><br>
+上图可以看到导音上行解决到主音,其他上方声部下行解决到最近的和弦音构成一个重复三音的vi和弦,唯一例外就是大调的导音在内声部时可以下行解决到6,如图中的c部分.</p>
+<p>跟在原位V7和弦后面的自然和弦,一般来说只有原位主和弦和原位下中音和弦.V7后面跟i6和I6都不是好的选择,因为暗含平行八度.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/V7pxbd.png" alt="不好的V7解决"></p>
+<h2 id="转位v7和弦">转位V7和弦</h2>
+<p>转位属七和弦比原位好解决.转位属七和弦不能替代原位功能.<br>
+转位属七和弦解决中,声部进行原则如下:<br>
+1.三音(7)上行解决到1.<br>
+2.七音(4)下行解决到3.<br>
+V7的其他和弦音具有很大的自由,但是一般以级进进行(2-1),或者共同音保持(5-5)</p>
+<h3 id="v56和弦">V56和弦</h3>
+<p>属七和弦的第一转位.<br>
+下图显示了五六和弦解决的基本声部进行.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/V56S.png" alt="五六和弦的解决"><br>
+在实际运用中,五六和弦常常在乐句相对较弱的位置上,下图是一个典型运用.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/V56S1.png" alt="五六和弦的运用"><br>
+上图中F配置了五六和弦,从而延伸I的和声领域</p>
+<h3 id="v34和弦">V34和弦</h3>
+<p>属七和弦的第二转位.<br>
+三四和弦的使用像经过四六和弦的使用方式:在低音1-2-3或者3-2-1线条中为2配置和声.<br>
+三四和弦很少用于三声部织体,而以四六和弦或者减七和弦的第一转位代替.<br>
+下图是三四和弦在四声部中的处理方法.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/V34S.png" alt="三四和弦的解决"><br>
+图中c部分三四和弦的七音上行解决到5,作曲家在这里"阻挠"了七音的正常解决,这是比较少见的.<br>
+c部分中出现了不相等的五度,这是可以被接受的.</p>
+<p>下图是一个I-V34-I6进行中七音上行的例子.V56和和V34延伸了主和声领域,成为了被修饰了的I-ii6-V进行<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/V34S1.png" alt="三四和弦的运用"></p>
+<h3 id="v24和弦">V24和弦</h3>
+<p>属七和弦的第三转位.<br>
+由于七音下行解决的要求,二四和弦后面几乎总是跟着I6,二四和弦前面也常常用I6如下图的a,或用IV的某种形式或ii和弦如下图的b,其前面也可以用经过的I46或者终止I46和弦,如图中的c.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/V24E.png" alt="二四和弦运用"></p>
+<p>上方声部的一个少见却有效果的处理如下图,二四和弦的五音跳进到I6和弦的五音<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/V24S.png" alt="二四和弦的解决"></p>
+<h2 id="七音的到达">七音的到达</h2>
+<p>如前面所说,七音的解决(包括所有七和弦)是下行级进.<br>
+而七音的到达有许多方式,不同到达会有不同的音乐效果,下面结合和弦外音命名:<br>
+1.与七音同一音高--延留音式<br>
+2.七音上方相邻音级--经过音式<br>
+3.七音下方相邻音级--邻音式<br>
+4.七音下方非相邻音级--倚音式<br>
+第四种是最少用的到达方式.跳进几乎是上行的,应该尽量避免下行跳进到七音.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/SAF.png" alt="七音到达的方式"><br>
+图中为了方便演示把属七和弦的七音都放在了高音部,实际上七音可以出现在任何声部.</p>
 ]]></content>
       <tags>
         <tag>Music</tag>
