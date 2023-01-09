@@ -1139,6 +1139,52 @@ c部分中出现了不相等的五度,这是可以被接受的.</p>
 第四种是最少用的到达方式.跳进几乎是上行的,应该尽量避免下行跳进到七音.<br>
 <img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/SAF.png" alt="七音到达的方式"><br>
 图中为了方便演示把属七和弦的七音都放在了高音部,实际上七音可以出现在任何声部.</p>
+<h1 id="ii7与vii7和弦">II7与VII7和弦</h1>
+<p>大调中七和弦的使用频率如图:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/sc.png" alt="七和弦频率"><br>
+小调中也是相似的.</p>
+<p>声部进行原则上文都大体说过了,所以下面不会太多赘述,这些原则将始终贯彻:<br>
+1.和弦的七音几乎总是下行解决<br>
+2.和弦的七音可以以各种不同的方式到达.最常见的是延留音式,经过音的效果也不错.<br>
+3.不完全的七和弦最少要包括根音和七音.<br>
+4.和弦的七音及导音不能重复.</p>
+<h2 id="ii7和弦">II7和弦</h2>
+<p>除了属七和弦以外,在调性音乐时期,最常用的非属功能和弦就是上主七和弦,在大调,ii7是小七和弦,而在小调,是半减七和弦.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/sch.png" alt="II7和弦"><br>
+与上主三和弦一样,上主七和弦最经典就是进行到V.原位V之前可以通过插入终止I46和弦而使其延迟出现,或者V可以被VII°6所替代<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/sch1.png" alt="II7和弦使用"></p>
+<p>相比于ii7,其第一转位ii56比较常用.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/sch2.png" alt="ii56的使用"><br>
+下图是第二转位ii24的用法,其七音以经过音的形式到达<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/sch3.png" alt="ii24的使用"></p>
+<p>上主七和弦的一种非典型用法,是在变格终止中替代IV和弦,这种情况下,ii7常用第一转位,因为与IV更像.</p>
+<p>下图使用了ii半减七的第一转位-i的变格终止来终止这个乐句<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/sch4.png" alt="ii半减七第一转位的使用"><br>
+对于这个例子更好的解释是ii半减七的第一转位实际上是带有附加六度音的iv和弦.</p>
+<h2 id="大调vii7和弦">大调VII7和弦</h2>
+<p>大调导七和弦是一个半减七和弦,像vii°6和弦一样具有属功能.它通常直接解决到主和弦,但也可以简单地通过将和弦七音下行级进,先到达V7和弦,再解决到I和弦.<br>
+下图是简单的使用例,第三转位没有给出例子,因为极少使用,vii半减七和弦的第一转位-I也没有例子,因为包含了平行五度.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/sch5.png" alt="VII7的使用"><br>
+注意vii半减七和其第一转位和弦解决必须非常小心,以避免平行五度,要做到这一点,可以通过重复I和弦的三音,或重新安排导和弦的声部排列,用平行四度替代平行五度.</p>
+<p>vii半减七第二转位较少用到的解决方式是到原位I和弦.如下图:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/sch6.png" alt="vii半减七第二转位"><br>
+半减导七和弦的第二转位解决到I往往形成一种典型声部关系,即从IV开始:一个声部为1-2-3另一个为6-7-1(图中为两个中声部),构成平行三度或者平行六度.这个链接造成了变格与正格终止的结合.</p>
+<p>不管怎说半减导七和弦并没有带来新的问题,前面所学的知识就可以解决半减导七和弦,但是要记住,大调中,半减导七和弦的应用要比其他属功能和弦--V,V7和vii°(6)要少的多.</p>
+<h2 id="小调vii7和弦">小调VII7和弦</h2>
+<p>在小调中,导七和弦是一个完全减七和弦(vii°7),下主七和弦一般用于模进,或作为附属和弦(III的V7),这些后面讨论,现在讨论非常常用的VII°7.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/sch7.png" alt="小调VII7和弦"><br>
+无论是原位还是转位,vii°7都倾向解决到主和弦,像vii半减7一样,vii°7可以先简单将七音下行到5从而到V7.</p>
+<p>vii°7包含两个三全音.如果三全音是减五度,他倾向与向内级进解决,如果三全音是增四度,则倾向向外解决,如下图,主和弦重复三音.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/sch8.png" alt="vii°7"><br>
+作曲家并不总是关系是否遵循,而常常将2下行到1代替上行到3,在某些声部关系中,这可能带来不相等的五度.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/sch9.png" alt="vii°7"></p>
+<p>尽管不相等的五度是可以接受的,但却常常通过使用和弦外音做一些干扰.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/sch10.png" alt="不相等五度干扰"></p>
+<p>当和弦转位时,vii°7的各个和弦音进行的方式与原位是一样的,是否重复三音也是一样的,如上图的和弦.<br>
+vii°7第一转位通常解决到主和弦的第一转位,如下图a部分,如果解决到原位将会构成不相等的平行五度,vii°的第二转位平稳进行到主和弦的第一转位也偶尔可见,下图b部分,vii°的第二转位-i很像之前说到的vii半减七第二转位-I终止.vii°24后面常跟V7或跟终止或经过i46,图中c<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/sch11.png" alt="转位的运用"></p>
+<p>下图是vii°34在合唱织体中,此时他解决到重复三音的i6.如果将A4看做延留音,则省去了与vii°34同一小节的两个和弦ii半减56和ii半减七,形成了另一种分析结果,我们把这种结果放在下方的第一个括号中,但如果将两个G#4看作下方邻音,由此省去vii°34和vii°6并不好,因为导致了一个非常规的进行:ii半减56-i6-ii半减七-i.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/sch12.png" alt="分析"></p>
 ]]></content>
       <tags>
         <tag>Music</tag>
