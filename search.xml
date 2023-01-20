@@ -1224,8 +1224,66 @@ iii7通常进行到VI(7),他也可以跟IV和弦,如在下图中:<br>
 注意除了下图的a中的低音线,所有声部要么是共同音保持(用虚线连接表示),要么是下行级进.<br>
 <img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/sfof.png" alt="七和弦五度圈模进"></p>
 <p>三声部织体中,五度圈模进通常只用原位和弦,省略五音.<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/sfof1.png" alt="七和弦五度圈模进"><br>
 三声部同理除了低音线,所有声部要么是共同音保持(用虚线连接表示),要么是下行级进.</p>
+<h1 id="半音体系">半音体系</h1>
+<p>半音体系是指在音乐中使用不属于本调自然音阶的音.<br>
+有人用非实质性半音体系来说明作为和弦外音的半音变化音,那么,实质性半音体系就是作为和弦音使用费本调音阶音的半音变化音,这些和弦叫变化和弦.</p>
+<h3 id="副属功能与离调">副属功能与离调</h3>
+<p>副属功能和弦是调性音乐中最常见的变化和弦,其是一个功能更接近另一个调而不是本段音乐主要调性的和弦.</p>
+<p>如下图,第七小节的F#不是和弦外音,事实上最后两个和弦是D和G他们听上去很像G大调的V-I<br>
+如果我们耳朵在这一刻失去的了原始主音的轨迹,或者通过强调F#音并将G音作为中心音从而使音乐继续在G调上运行,我们称为转调.<br>
+然而因为我们仍然会将G和弦听做V而且因为下一个乐句时第一个乐句的重复,所以我们还是要将G和弦标记为V,于是D和弦就成了V的V(标记为V/V).由于D和弦给了G和弦特别的强调,从而形成了对G和弦的离调,但是并没有发生真正的主音转换.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/ldl.png" alt="离调"></p>
+<p>大多数副属功能和弦可以是副属和弦(V或V7),也可以是副属导和弦(vii°,vii°7,vii半减七).</p>
+<p>(标记为V/V)要从右向左读,"/"读作的,比如:V/ii读作:ii的V.</p>
+<h3 id="副属和弦">副属和弦</h3>
+<p>因为主三和弦只能是大三或者小三和弦,所以就只有大三和弦或小三和弦才能够作为副属和弦的离调对象,或称为临时主和弦.<br>
+也就是说,不可能有小调的V/ii°,爷不可能有大调或小调的V/vii°.除此之外,其他的自然三和弦(当然除了I)都可以称为副属V或V7和弦的临时主和弦.</p>
+<p>下图是F大调的所有副属和弦,注意大多数变化音都称为临时主和弦根音的导音.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/ffshx.png" alt="F大调副属和弦"><br>
+在这些和弦中,只有V/IV与F大调的一个自然和弦完全一样.因为V/IV的音响与I相同,作曲家往往使用V7/IV代替V/IV,来使其副属功能更清晰.也就是说通常副属和弦都用七和弦.</p>
+<p>下图是d小调的副属和弦.<br>
+图中有三个和弦与d小调中的自然和弦完全一样,V/III(=VII)和V7/III(=VII7)尽管不是变化和弦,但它们都很有用,因为VII和VII7在音乐中一般都显示为III的属和弦功能.但是V/VI却常常被分析为III而不是副属和弦.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/dfshx.png" alt="d小调副属和弦"></p>
+<p>被副属和弦作为临时主和弦的大,小三和弦也可以带有七音,或者它本身也可以通过加入变化音而成为副属和弦.<br>
+举例来说,下面进行在C大调中都是可能的.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/qtfshx.png" alt="副属和弦"></p>
+<h3 id="副属和弦的构成">副属和弦的构成</h3>
+<p>构成副属和弦可以采用下面三个步骤:<br>
+1.找到临时主音的根音<br>
+2.向上纯五度写一个音.<br>
+3.以该音为根音,构一个大三和弦或者大小七和弦.</p>
+<p>比如:<br>
+在Eb调上构建一个V/vi,步骤如下<br>
+1.Eb大调vi的根音是C<br>
+2.C上方纯五度是G<br>
+3.构建大三和弦G-B还原符号-D</p>
+<p>简洁一点的说,就是以临时主和弦根音构建一个调,找到这个调的五级,就是副属和弦.</p>
+<h3 id="副属和弦的辨识">副属和弦的辨识</h3>
+<p>大多数情况下,在一个作品遇到变化和弦,要判断是否为副属和弦,可以用以下步骤:<br>
+1.它是否是大三和弦或大小七和弦,如果不是那就不是副属和弦.<br>
+2.找到该变化和弦根音下方的纯五度音<br>
+3.以该音建立大三或小三和弦,判断建立起来的和弦是否是该调的自然三和弦.如果是,那么该变化和弦就是这个构建的和弦的副属和弦.</p>
+<h3 id="音乐中的副属和弦">音乐中的副属和弦</h3>
+<p>副属和弦的解决方式通常和原始属和弦的解决方式相同.例如:C大调的V56/V与G大调的V56的解决方式是一样的,如下图的a部分.唯一不同的是解决和弦有时可以包含七音.这时副属和弦的导音要半音下行"滑"到解决和弦的七音,如下图b.注意完全的原位七和弦要与不完全的原位七和弦交替,如下图c.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/fshxjj.png" alt="副属和弦解决"></p>
+<p>V7/V是最常用的副属和弦.如下图,V被终止四六和弦延迟.这并不是一个V7/V的不规则解决,因为I46-V一起代表了V,也就是一整个看成五级.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/fshxyy.png" alt="副属和弦"></p>
+<p>前面有提到,如果副属和弦后面的和弦包含七音,副属和弦的导音往往要下行半音进行,下图是一个例子:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/fshxjs.png" alt="副属和弦"></p>
+<p>常见的阻碍进行常常通过在V和vi之间插入一个vi的属和弦而增加进行的动力,如下图:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/fshxyy1.png" alt="副属和弦"><br>
+一般来说阻碍进行就是不在五级和弦后面接主和弦,下图是其他阻碍进行插入副属和弦有点应用:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/fshxyy2.png" alt="副属和弦"></p>
+<p>下图是副属和弦不太平滑引入的例子,这里可以看到包含了阻碍终止结束的乐句.然后所有声部立即跳进到C还原符号,即本调的降7,并重申了本作品开始时的三音动机,此外这个例子还演示了V/ii的应用:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/fshxyy3.png" alt="副属和弦"></p>
+<p>大调iii的属功能和弦的例子并不多见,因为iii本身就是不常用的自然三和弦.而小调中的III,它显示出关系大调的色彩,却常常成为大调的VII或VII7的临时主和弦,因此VII或VII7应该标记为V/III或V7/III<br>
+如下图,特别注意第二小节向Bb音的移动.同样注意原位的vii°,它不合常理地跟在IV56后面是因为要构成平滑的声部进行.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/fshxyy4.png" alt="副属和弦"></p>
+<p>像其他半音体系和声的应用一样,在爵士乐和流行乐中副属和弦也被大量运用,下图7-8小节到达半终止时使用了V7/V
+-
+V进行,最后一小节的V和弦包括一个4-3延留音,注意1-5小节低音部级进下行(C-B-A-G-F),并且包含一个经过I46和弦.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/fshxyy5.png" alt="副属和弦"></p>
 ]]></content>
       <tags>
         <tag>Music</tag>
