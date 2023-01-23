@@ -294,22 +294,6 @@ to merge unrelated histories</p>
       </tags>
   </entry>
   <entry>
-    <title>解决git clone 完成后提示 error:RPC failed;curl 56 GnuTLS recv error (-9)</title>
-    <url>/2021/02/10/git-error3/</url>
-    <content><![CDATA[<p>错误提示:<br>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">remote: Enumerating objects: 9817, done.</span><br><span class="line">error: RPC failed; curl 56 GnuTLS recv error (-9): A TLS packet with unexpected length was received.</span><br><span class="line">fatal: The remote end hung up unexpectedly</span><br><span class="line">fatal: early EOF</span><br><span class="line">fatal: index-pack failed</span><br></pre></td></tr></table></figure></div></p>
-<p>解决方法:<br>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">apt-get install gnutls-bin</span><br><span class="line">git config --global http.sslVerify false</span><br><span class="line">git config --global http.postBuffer 1048576000</span><br></pre></td></tr></table></figure></div></p>
-<p>转自:https://blog.csdn.net/tmaccs/article/details/101289284</p>
-]]></content>
-      <categories>
-        <category>Fix Error</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>解决Git push报shallow update not allowed</title>
     <url>/2020/04/07/git-error2/</url>
     <content><![CDATA[<h2 id="原因">原因</h2>
@@ -321,6 +305,22 @@ to merge unrelated histories</p>
 <p>如果不想丢失之前的提交就可以使用<br>
 <code>git filter-branch -- --all</code><br>
 去掉克隆的提交的 grafted 标记就可以重新推送了.</p>
+]]></content>
+      <categories>
+        <category>Fix Error</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>解决git clone 完成后提示 error:RPC failed;curl 56 GnuTLS recv error (-9)</title>
+    <url>/2021/02/10/git-error3/</url>
+    <content><![CDATA[<p>错误提示:<br>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">remote: Enumerating objects: 9817, done.</span><br><span class="line">error: RPC failed; curl 56 GnuTLS recv error (-9): A TLS packet with unexpected length was received.</span><br><span class="line">fatal: The remote end hung up unexpectedly</span><br><span class="line">fatal: early EOF</span><br><span class="line">fatal: index-pack failed</span><br></pre></td></tr></table></figure></div></p>
+<p>解决方法:<br>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">apt-get install gnutls-bin</span><br><span class="line">git config --global http.sslVerify false</span><br><span class="line">git config --global http.postBuffer 1048576000</span><br></pre></td></tr></table></figure></div></p>
+<p>转自:https://blog.csdn.net/tmaccs/article/details/101289284</p>
 ]]></content>
       <categories>
         <category>Fix Error</category>
@@ -415,6 +415,30 @@ https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/qca-w
       </categories>
       <tags>
         <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>提取Android手机内核</title>
+    <url>/2020/04/07/pick-up-kernel/</url>
+    <content><![CDATA[<h2 id="找到内核位置">1.找到内核位置</h2>
+<p>手机进入recovery模式,连接电脑,开adb<br>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">adb shell</span><br><span class="line">cat /etc/recovery.fstab</span><br></pre></td></tr></table></figure></div><br>
+得到内核的位置<br>
+以下是我报告</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># mount point	fstype		device			[device2]</span><br><span class="line"></span><br><span class="line">/modem         emmc     /dev/block/platform/msm_sdcc.1/by-name/modem    flags=backup=1</span><br><span class="line">/sbl1          emmc     /dev/block/platform/msm_sdcc.1/by-name/sbl1   flags=backup=1</span><br><span class="line">#OPPO 2014-02-18 hewei delete for without sbl2 and sbl3</span><br><span class="line">#/sbl2          emmc     /dev/block/platform/msm_sdcc.1/by-name/sbl2</span><br><span class="line">#/sbl3          emmc     /dev/block/platform/msm_sdcc.1/by-name/sbl3</span><br><span class="line">/rpm           emmc     /dev/block/platform/msm_sdcc.1/by-name/rpm   flags=backup=1</span><br><span class="line">/tz            emmc     /dev/block/platform/msm_sdcc.1/by-name/tz   flags=backup=1</span><br><span class="line">/modem_st1     emmc     /dev/block/platform/msm_sdcc.1/by-name/modemst1   flags=backup=1</span><br><span class="line">/modem_st2     emmc     /dev/block/platform/msm_sdcc.1/by-name/modemst2   flags=backup=1</span><br><span class="line">/static_nv_bk  emmc     /dev/block/platform/msm_sdcc.1/by-name/oppostanvbk   flags=backup=1</span><br><span class="line">/oppodycnvbk   emmc     /dev/block/platform/msm_sdcc.1/by-name/oppodycnvbk   flags=backup=1</span><br><span class="line">/aboot         emmc     /dev/block/platform/msm_sdcc.1/by-name/aboot   flags=backup=1</span><br><span class="line">/boot		   emmc		/dev/block/platform/msm_sdcc.1/by-name/boot</span><br><span class="line">/system		   ext4		/dev/block/platform/msm_sdcc.1/by-name/system</span><br><span class="line">/system_image      emmc		/dev/block/platform/msm_sdcc.1/by-name/system</span><br><span class="line">/data		   ext4		/dev/block/platform/msm_sdcc.1/by-name/userdata</span><br><span class="line">/cache		   ext4		/dev/block/platform/msm_sdcc.1/by-name/cache</span><br><span class="line">/misc		   emmc		/dev/block/platform/msm_sdcc.1/by-name/misc</span><br><span class="line">/recovery	   emmc		/dev/block/platform/msm_sdcc.1/by-name/recovery    flags=backup=1</span><br><span class="line">#OPPO 2014-01-14 hewei Add for logo volume, reserve4 volume and DRIVER.ISO</span><br><span class="line">/logo          emmc       /dev/block/platform/msm_sdcc.1/by-name/LOGO  flags=backup=1</span><br><span class="line">/reserve4      emmc     /dev/block/platform/msm_sdcc.1/by-name/reserve4  flags=backup=1</span><br><span class="line">#/driver      emmc     /dev/block/platform/msm_sdcc.1/by-name/DRIVER</span><br><span class="line"></span><br><span class="line">#OPPO 2014-01-26 hewei modify for 13077  mount  T-card and sdcard</span><br><span class="line">/external_sd		vfat		/dev/block/mmcblk1p1	/dev/block/mmcblk1    flags=display="Micro SDcard";storage;wipeingui;removable;backup=0</span><br><span class="line">/usbdisk        vfat        /dev/block/sda1 /dev/block/sda                 flags=fsflags=utf8;display="OTG-U盘(usbdisk)";storage;removable</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<p>可以看到boot分区对应的路径是/dev/block/platform/msm_sdcc.1/by-name/boot</p>
+<h2 id="提取内核">2.提取内核</h2>
+<p>使用dd工具<br>
+<code>dd if=boot分区的路径 of=输出路径.img</code><br>
+我的:<br>
+<code>dd if=/dev/block/platform/msm_sdcc.1/by-name/boot of=/sdcard/kernel.img</code></p>
+<p>sdcard里的kernel.img就是我提取的内核了</p>
+]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android Kernel</tag>
       </tags>
   </entry>
   <entry>
@@ -622,6 +646,139 @@ p变量在for循环结束后会被销毁,但是我们ptr_p还指向了p的地址
 ]]></content>
       <tags>
         <tag>C/C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>解决存储器目录损坏且无法读取</title>
+    <url>/2021/11/27/read/</url>
+    <content><![CDATA[<p>鉴于Windows对分区结构容错率低下，那就很可能会在读存储器时报:<br>
+文件或目录损坏且无法读取<br>
+# 0x01<br>
+工具: Chkdsk,脑子<br>
+损坏分区: E:<br>
+Grammar:<br>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Chkdsk [volume:][[Path] FileName] [/f] [/v] [/r] [/x] [/c] [/l[:size]]</span><br><span class="line">对应意义:</span><br><span class="line">volume 指定驱动器(后面跟一个冒号)、装入点、或卷名。</span><br><span class="line">filename 仅用于 FAT/FAT32: 指定要检查是否有碎片的文件。</span><br><span class="line">/F 修复磁盘上的错误。</span><br><span class="line">/V 在 FAT/FAT32 上: 显示磁盘上每个文件的完整路径和名称。在 NTFS 上: 如果有清除消息，将其显示。</span><br><span class="line">/R 查找不正确的扇区并恢复可读信息(隐含 /F)。</span><br><span class="line">/L:size 仅用于 NTFS: 将日志文件大小改成指定的 KB 数。如果没有指定大小，则显示当前的大小。</span><br><span class="line">/X 如果必要，强制卷先卸下。卷的所有打开的句柄就会无效(隐含 /F)。</span><br><span class="line">/I 仅用于 NTFS: 对索引项进行强度较小的检查。</span><br><span class="line">/C 仅用于 NTFS: 跳过文件夹结构的循环检查。</span><br><span class="line">/I 和 /C 命令行开关跳过卷的某些检查，减少运行 Chkdsk 所需的时间。</span><br></pre></td></tr></table></figure></div></p>
+<h1 id="x02">0x02</h1>
+<p>打开CMD<br>
+执行:<br>
+&gt; Chkdsk e:</p>
+<p>//
+e的意思是我的是e盘挂了,插上损坏的盘,在资源管理器就可以看见盘符了</p>
+<p>可以看到报告上写了是分区索引出问题</p>
+<h1 id="x03">0x03</h1>
+<p>执行:<br>
+&gt; Chkdsk e: /F</p>
+<p>// 在前面的Grammar中就已经可以看到F是Fix的意思</p>
+<p>到此,损坏的分区可以得到修复,你应该可以在资源管理器再次看到已经正常的磁盘</p>
+<h1 id="x04">0x04</h1>
+<p>数据无价,谨慎操作.</p>
+<p>Enjoy.😃</p>
+]]></content>
+      <categories>
+        <category>Fix Error</category>
+      </categories>
+      <tags>
+        <tag>Windows</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>scanf()与循环与缓冲区</title>
+    <url>/2022/10/27/scanf-fflush/</url>
+    <content><![CDATA[<p>有时Scanf()与循环结合判断输入的值是否合理时会陷入死循环</p>
+<h2 id="source">Source</h2>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line">    <span class="type">float</span> course_1=<span class="number">-1</span>,course_2=<span class="number">-1</span>,result;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>){</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Please enter the score of the first course:"</span>);</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%f"</span>,&amp;course_1);</span><br><span class="line">            <span class="keyword">if</span>(course_1 &lt; <span class="number">0</span> || course_1 &gt; <span class="number">100</span>){</span><br><span class="line">                    <span class="built_in">printf</span>(<span class="string">"Please enter the correct score!\n"</span>);</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">            }</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"\nPlease enter the score of the second course:"</span>);</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%f"</span>,&amp;course_2);</span><br><span class="line">            <span class="keyword">if</span>(course_2 &lt; <span class="number">0</span> || course_2 &gt; <span class="number">100</span>){</span><br><span class="line">                    <span class="built_in">printf</span>(<span class="string">"Please enter the correct score!\n"</span>);</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    }       </span><br><span class="line">    result = (course_1 + course_2)/<span class="number">2</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\nThe average score is:%.1f"</span>,result);</span><br><span class="line">}    </span><br></pre></td></tr></table></figure></div>
+<h2 id="输出">输出</h2>
+<p>如果输入的值为非字符时结果为:<br>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Please enter the score of the first course:20</span><br><span class="line"></span><br><span class="line">Please enter the score of the second course:30</span><br><span class="line"></span><br><span class="line">The average score is:25.0</span><br></pre></td></tr></table></figure></div><br>
+如果输入的值为字符时结果为:<br>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Please enter the score of the first course:a</span><br><span class="line"></span><br><span class="line">Please enter the score of the first course:Please enter the correct score!</span><br><span class="line">Please enter the score of the first course:Please enter the correct score!</span><br><span class="line">Please enter the score of the first course:Please enter the correct score!</span><br><span class="line">...</span><br></pre></td></tr></table></figure></div></p>
+<h2 id="原因">原因</h2>
+<p>因为scanf里占位符是%d,也就是录入缓冲区中的整形数字.<br>
+当缓冲区有字符,scanf便会读取,但是不是整形就不会录入.</p>
+<p>第一次输入了a,是非整形,scanf略过了但是又没有清空缓冲区,第二次便不会要求我输入<br>
+因为缓冲区里有字符,又略过,如此便是死循环</p>
+<h2 id="解决">解决</h2>
+<p>可以使用fflush(stdin)来清空缓冲区.<br>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line">   <span class="type">float</span> course_1=<span class="number">-1</span>,course_2=<span class="number">-1</span>,result;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>){</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Please enter the score of the first course:"</span>);</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%f"</span>,&amp;course_1);</span><br><span class="line">        fflush(<span class="built_in">stdin</span>)</span><br><span class="line">            <span class="keyword">if</span>(course_1 &lt; <span class="number">0</span> || course_1 &gt; <span class="number">100</span>){</span><br><span class="line">                    <span class="built_in">printf</span>(<span class="string">"Please enter the correct score!\n"</span>);</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">            }</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"\nPlease enter the score of the second course:"</span>);</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%f"</span>,&amp;course_2);</span><br><span class="line">        fflush(<span class="built_in">stdin</span>)</span><br><span class="line">            <span class="keyword">if</span>(course_2 &lt; <span class="number">0</span> || course_2 &gt; <span class="number">100</span>){</span><br><span class="line">                    <span class="built_in">printf</span>(<span class="string">"Please enter the correct score!\n"</span>);</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    }       </span><br><span class="line">    result = (course_1 + course_2)/<span class="number">2</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\nThe average score is:%.1f"</span>,result);</span><br><span class="line">}    </span><br></pre></td></tr></table></figure></div></p>
+<p>这时候程序就正常了.</p>
+]]></content>
+      <tags>
+        <tag>C</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>结构体的深拷贝与浅拷贝</title>
+    <url>/2022/11/22/struct-copy/</url>
+    <content><![CDATA[<p>浅拷贝:将结构体变量内存空间内容复制一份放到另一个相同类型的结构体变量内存空间中.<br>
+比如我们有<br>
+<div class="highlight-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">stu</span>{</span><br><span class="line">    <span class="type">int</span> num;</span><br><span class="line">}a,b;</span><br></pre></td></tr></table></figure></div><br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/struct-copy/1.jpg" alt="浅拷贝"></p>
+<p>这是结构体间的默认赋值方式,一般来说不会出现问题,但是如果结构体里有指针成员,这种方式会带来多次释放堆区空间的问题和一定的风险.</p>
+<p>如果说stu里有一个指针成员：<br>
+<div class="highlight-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">stu</span>{</span><br><span class="line">    <span class="type">int</span> num;</span><br><span class="line">    <span class="type">char</span> *name;</span><br><span class="line">}a,b;</span><br></pre></td></tr></table></figure></div><br>
+这时候给a初值,并令b=a<br>
+<div class="highlight-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="code"><pre><span class="line">a.num = <span class="number">100</span>;</span><br><span class="line">a.name = <span class="keyword">new</span> <span class="type">char</span>[<span class="number">32</span>];</span><br><span class="line"><span class="built_in">strcpy</span>(a.name,<span class="string">"bob"</span>);</span><br><span class="line"></span><br><span class="line">b=a;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">cout &lt;&lt; a.name &lt;&lt; <span class="string">"  "</span> &lt;&lt; b.name &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> [] a.name;</span><br><span class="line"></span><br><span class="line">cout &lt;&lt; b.name &lt;&lt; endl;</span><br></pre></td></tr></table></figure></div><br>
+Result:<br>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">bob bob</span><br></pre></td></tr></table></figure></div><br>
+很明显第二个cout里的b.name没有输出.</p>
+<p>由于是浅拷贝,所以a变量内存空间里的值会原封不动的拷贝一份给到b,那么就有b.name
+== a.name这么一个关系<br>
+两个指针同时指向了同一个地址<br>
+看起来像这样:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/struct-copy/2.jpg" alt="指向同一地址"></p>
+<p>如果我们释放a.name所指向的空间时程序不会出错,但是当我们不调整b.name指针指向,释放b.name指向的空间时程序就会出错,造成了重复释放.</p>
+<p>即使,没有释放b.name所指向的空间,也有不小风险,同时也是指针的经典风险.<br>
+因为我们已经释放了a.name所指向的空间,那么我们给某个变量c划分空间时,系统可能会给c分配了b.name所指向的空间,那么我们对b.name操作时,实际上更改的,是c的内容.读b.name所指向的空间时,读出的是c的值.</p>
+<p><em>用浅拷贝时结构体内没有指针的话是没有问题的,有指针时,根本问题就是拷贝后,两个结构体成员指针同时指向了同一个地址.</em></p>
+<p>那么要解决的话,只需要给b.name单独划一块空间,让b.name指向这块空间,并且把a.name指针所指向的内容拷贝到新划分的空间,这样就不会有两个结构体成员指针同时指向了同一个地址了,也就是--深拷贝.<br>
+RT:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/struct-copy/3.jpg" alt="深拷贝"></p>
+<p>代码实现:<br>
+<div class="highlight-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>{</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">stu</span>{</span><br><span class="line">        <span class="type">int</span> num;</span><br><span class="line">        <span class="type">char</span> *name;</span><br><span class="line">    }a,b;</span><br><span class="line"></span><br><span class="line">    a.num = <span class="number">100</span>;</span><br><span class="line">    a.name = <span class="keyword">new</span> <span class="type">char</span>[<span class="number">32</span>];</span><br><span class="line">    <span class="built_in">strcpy</span>(a.name,<span class="string">"bob"</span>);</span><br><span class="line"></span><br><span class="line">    b=a;</span><br><span class="line">    b.name = <span class="keyword">new</span> <span class="type">char</span>[<span class="number">32</span>];  <span class="comment">//划分新空间,并调整b.name指针指向</span></span><br><span class="line">    <span class="built_in">strcpy</span>(b.name,a.name);</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; a.name &lt;&lt; <span class="string">"  "</span> &lt;&lt; b.name &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">delete</span> [] a.name;</span><br><span class="line">    <span class="keyword">delete</span> [] b.name;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div><br>
+Result:<br>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">bob  bob</span><br></pre></td></tr></table></figure></div></p>
+<p>😃</p>
+]]></content>
+      <tags>
+        <tag>C/C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Vm环境下Kali没网</title>
+    <url>/2021/06/27/vm-network/</url>
+    <content><![CDATA[<h1 id="解决方法">解决方法</h1>
+<h2 id="x01-重置虚拟机网络配置">0x01 重置虚拟机网络配置</h2>
+<pre><code>这个不是这篇文章的侧重点所以可以看: https://jingyan.baidu.com/article/3c343ff7e366820d3679637f.html</code></pre>
+<h2 id="x02-修改ip配置">0x02 修改IP配置</h2>
+<h3 id="静态配置">静态配置</h3>
+<p>配置文件位于 /etc/network/interfaces</p>
+<p>sudo vim /etc/network/interfaces<br>
+加入以下语句：</p>
+<p>auto eth0<br>
+iface eth0 inet static<br>
+address xxx.xxx.xxx.xxx #IP地址<br>
+netmask xxx.xxx.xxx.xxx #子网掩码<br>
+gateway xxx.xxx.xxx.xxx #网关</p>
+<h3 id="动态配置">动态配置</h3>
+<p>配置文件位于 /etc/network/interfaces<br>
+sudo vim /etc/network/interfaces<br>
+加入以下语句：<br>
+auto eth0<br>
+iface eth0 inet dhcp</p>
+<p>推荐动态配置,能少输一点</p>
+<h2 id="x03-修改网卡的管理信息">0x03 修改网卡的管理信息</h2>
+<p>目标文件位于:/etc/NetworkManager/NetworkManager.conf<br>
+sudo vim /etc/NetworkManager/NetworkManager.conf<br>
+把最后一行的managed=false改为managed=true即可</p>
+<h2 id="x04-重启网卡">0x04 重启网卡</h2>
+<p>sudo /etc/init.d/networking restart</p>
+<h1 id="enjoy.">Enjoy.</h1>
+]]></content>
+      <categories>
+        <category>Fix Error</category>
+      </categories>
+      <tags>
+        <tag>Kali</tag>
       </tags>
   </entry>
   <entry>
@@ -1406,163 +1563,6 @@ V进行,最后一小节的V和弦包括一个4-3延留音,注意1-5小节低音�
 ]]></content>
       <tags>
         <tag>Music</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>提取Android手机内核</title>
-    <url>/2020/04/07/pick-up-kernel/</url>
-    <content><![CDATA[<h2 id="找到内核位置">1.找到内核位置</h2>
-<p>手机进入recovery模式,连接电脑,开adb<br>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">adb shell</span><br><span class="line">cat /etc/recovery.fstab</span><br></pre></td></tr></table></figure></div><br>
-得到内核的位置<br>
-以下是我报告</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># mount point	fstype		device			[device2]</span><br><span class="line"></span><br><span class="line">/modem         emmc     /dev/block/platform/msm_sdcc.1/by-name/modem    flags=backup=1</span><br><span class="line">/sbl1          emmc     /dev/block/platform/msm_sdcc.1/by-name/sbl1   flags=backup=1</span><br><span class="line">#OPPO 2014-02-18 hewei delete for without sbl2 and sbl3</span><br><span class="line">#/sbl2          emmc     /dev/block/platform/msm_sdcc.1/by-name/sbl2</span><br><span class="line">#/sbl3          emmc     /dev/block/platform/msm_sdcc.1/by-name/sbl3</span><br><span class="line">/rpm           emmc     /dev/block/platform/msm_sdcc.1/by-name/rpm   flags=backup=1</span><br><span class="line">/tz            emmc     /dev/block/platform/msm_sdcc.1/by-name/tz   flags=backup=1</span><br><span class="line">/modem_st1     emmc     /dev/block/platform/msm_sdcc.1/by-name/modemst1   flags=backup=1</span><br><span class="line">/modem_st2     emmc     /dev/block/platform/msm_sdcc.1/by-name/modemst2   flags=backup=1</span><br><span class="line">/static_nv_bk  emmc     /dev/block/platform/msm_sdcc.1/by-name/oppostanvbk   flags=backup=1</span><br><span class="line">/oppodycnvbk   emmc     /dev/block/platform/msm_sdcc.1/by-name/oppodycnvbk   flags=backup=1</span><br><span class="line">/aboot         emmc     /dev/block/platform/msm_sdcc.1/by-name/aboot   flags=backup=1</span><br><span class="line">/boot		   emmc		/dev/block/platform/msm_sdcc.1/by-name/boot</span><br><span class="line">/system		   ext4		/dev/block/platform/msm_sdcc.1/by-name/system</span><br><span class="line">/system_image      emmc		/dev/block/platform/msm_sdcc.1/by-name/system</span><br><span class="line">/data		   ext4		/dev/block/platform/msm_sdcc.1/by-name/userdata</span><br><span class="line">/cache		   ext4		/dev/block/platform/msm_sdcc.1/by-name/cache</span><br><span class="line">/misc		   emmc		/dev/block/platform/msm_sdcc.1/by-name/misc</span><br><span class="line">/recovery	   emmc		/dev/block/platform/msm_sdcc.1/by-name/recovery    flags=backup=1</span><br><span class="line">#OPPO 2014-01-14 hewei Add for logo volume, reserve4 volume and DRIVER.ISO</span><br><span class="line">/logo          emmc       /dev/block/platform/msm_sdcc.1/by-name/LOGO  flags=backup=1</span><br><span class="line">/reserve4      emmc     /dev/block/platform/msm_sdcc.1/by-name/reserve4  flags=backup=1</span><br><span class="line">#/driver      emmc     /dev/block/platform/msm_sdcc.1/by-name/DRIVER</span><br><span class="line"></span><br><span class="line">#OPPO 2014-01-26 hewei modify for 13077  mount  T-card and sdcard</span><br><span class="line">/external_sd		vfat		/dev/block/mmcblk1p1	/dev/block/mmcblk1    flags=display="Micro SDcard";storage;wipeingui;removable;backup=0</span><br><span class="line">/usbdisk        vfat        /dev/block/sda1 /dev/block/sda                 flags=fsflags=utf8;display="OTG-U盘(usbdisk)";storage;removable</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
-<p>可以看到boot分区对应的路径是/dev/block/platform/msm_sdcc.1/by-name/boot</p>
-<h2 id="提取内核">2.提取内核</h2>
-<p>使用dd工具<br>
-<code>dd if=boot分区的路径 of=输出路径.img</code><br>
-我的:<br>
-<code>dd if=/dev/block/platform/msm_sdcc.1/by-name/boot of=/sdcard/kernel.img</code></p>
-<p>sdcard里的kernel.img就是我提取的内核了</p>
-]]></content>
-      <categories>
-        <category>Android</category>
-      </categories>
-      <tags>
-        <tag>Android Kernel</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>解决存储器目录损坏且无法读取</title>
-    <url>/2021/11/27/read/</url>
-    <content><![CDATA[<p>鉴于Windows对分区结构容错率低下，那就很可能会在读存储器时报:<br>
-文件或目录损坏且无法读取<br>
-# 0x01<br>
-工具: Chkdsk,脑子<br>
-损坏分区: E:<br>
-Grammar:<br>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Chkdsk [volume:][[Path] FileName] [/f] [/v] [/r] [/x] [/c] [/l[:size]]</span><br><span class="line">对应意义:</span><br><span class="line">volume 指定驱动器(后面跟一个冒号)、装入点、或卷名。</span><br><span class="line">filename 仅用于 FAT/FAT32: 指定要检查是否有碎片的文件。</span><br><span class="line">/F 修复磁盘上的错误。</span><br><span class="line">/V 在 FAT/FAT32 上: 显示磁盘上每个文件的完整路径和名称。在 NTFS 上: 如果有清除消息，将其显示。</span><br><span class="line">/R 查找不正确的扇区并恢复可读信息(隐含 /F)。</span><br><span class="line">/L:size 仅用于 NTFS: 将日志文件大小改成指定的 KB 数。如果没有指定大小，则显示当前的大小。</span><br><span class="line">/X 如果必要，强制卷先卸下。卷的所有打开的句柄就会无效(隐含 /F)。</span><br><span class="line">/I 仅用于 NTFS: 对索引项进行强度较小的检查。</span><br><span class="line">/C 仅用于 NTFS: 跳过文件夹结构的循环检查。</span><br><span class="line">/I 和 /C 命令行开关跳过卷的某些检查，减少运行 Chkdsk 所需的时间。</span><br></pre></td></tr></table></figure></div></p>
-<h1 id="x02">0x02</h1>
-<p>打开CMD<br>
-执行:<br>
-&gt; Chkdsk e:</p>
-<p>//
-e的意思是我的是e盘挂了,插上损坏的盘,在资源管理器就可以看见盘符了</p>
-<p>可以看到报告上写了是分区索引出问题</p>
-<h1 id="x03">0x03</h1>
-<p>执行:<br>
-&gt; Chkdsk e: /F</p>
-<p>// 在前面的Grammar中就已经可以看到F是Fix的意思</p>
-<p>到此,损坏的分区可以得到修复,你应该可以在资源管理器再次看到已经正常的磁盘</p>
-<h1 id="x04">0x04</h1>
-<p>数据无价,谨慎操作.</p>
-<p>Enjoy.😃</p>
-]]></content>
-      <categories>
-        <category>Fix Error</category>
-      </categories>
-      <tags>
-        <tag>Windows</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>scanf()与循环与缓冲区</title>
-    <url>/2022/10/27/scanf-fflush/</url>
-    <content><![CDATA[<p>有时Scanf()与循环结合判断输入的值是否合理时会陷入死循环</p>
-<h2 id="source">Source</h2>
-<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line">    <span class="type">float</span> course_1=<span class="number">-1</span>,course_2=<span class="number">-1</span>,result;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>){</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Please enter the score of the first course:"</span>);</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%f"</span>,&amp;course_1);</span><br><span class="line">            <span class="keyword">if</span>(course_1 &lt; <span class="number">0</span> || course_1 &gt; <span class="number">100</span>){</span><br><span class="line">                    <span class="built_in">printf</span>(<span class="string">"Please enter the correct score!\n"</span>);</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">            }</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"\nPlease enter the score of the second course:"</span>);</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%f"</span>,&amp;course_2);</span><br><span class="line">            <span class="keyword">if</span>(course_2 &lt; <span class="number">0</span> || course_2 &gt; <span class="number">100</span>){</span><br><span class="line">                    <span class="built_in">printf</span>(<span class="string">"Please enter the correct score!\n"</span>);</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    }       </span><br><span class="line">    result = (course_1 + course_2)/<span class="number">2</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\nThe average score is:%.1f"</span>,result);</span><br><span class="line">}    </span><br></pre></td></tr></table></figure></div>
-<h2 id="输出">输出</h2>
-<p>如果输入的值为非字符时结果为:<br>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Please enter the score of the first course:20</span><br><span class="line"></span><br><span class="line">Please enter the score of the second course:30</span><br><span class="line"></span><br><span class="line">The average score is:25.0</span><br></pre></td></tr></table></figure></div><br>
-如果输入的值为字符时结果为:<br>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Please enter the score of the first course:a</span><br><span class="line"></span><br><span class="line">Please enter the score of the first course:Please enter the correct score!</span><br><span class="line">Please enter the score of the first course:Please enter the correct score!</span><br><span class="line">Please enter the score of the first course:Please enter the correct score!</span><br><span class="line">...</span><br></pre></td></tr></table></figure></div></p>
-<h2 id="原因">原因</h2>
-<p>因为scanf里占位符是%d,也就是录入缓冲区中的整形数字.<br>
-当缓冲区有字符,scanf便会读取,但是不是整形就不会录入.</p>
-<p>第一次输入了a,是非整形,scanf略过了但是又没有清空缓冲区,第二次便不会要求我输入<br>
-因为缓冲区里有字符,又略过,如此便是死循环</p>
-<h2 id="解决">解决</h2>
-<p>可以使用fflush(stdin)来清空缓冲区.<br>
-<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line">   <span class="type">float</span> course_1=<span class="number">-1</span>,course_2=<span class="number">-1</span>,result;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>){</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Please enter the score of the first course:"</span>);</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%f"</span>,&amp;course_1);</span><br><span class="line">        fflush(<span class="built_in">stdin</span>)</span><br><span class="line">            <span class="keyword">if</span>(course_1 &lt; <span class="number">0</span> || course_1 &gt; <span class="number">100</span>){</span><br><span class="line">                    <span class="built_in">printf</span>(<span class="string">"Please enter the correct score!\n"</span>);</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">            }</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"\nPlease enter the score of the second course:"</span>);</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%f"</span>,&amp;course_2);</span><br><span class="line">        fflush(<span class="built_in">stdin</span>)</span><br><span class="line">            <span class="keyword">if</span>(course_2 &lt; <span class="number">0</span> || course_2 &gt; <span class="number">100</span>){</span><br><span class="line">                    <span class="built_in">printf</span>(<span class="string">"Please enter the correct score!\n"</span>);</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    }       </span><br><span class="line">    result = (course_1 + course_2)/<span class="number">2</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\nThe average score is:%.1f"</span>,result);</span><br><span class="line">}    </span><br></pre></td></tr></table></figure></div></p>
-<p>这时候程序就正常了.</p>
-]]></content>
-      <tags>
-        <tag>C</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>结构体的深拷贝与浅拷贝</title>
-    <url>/2022/11/22/struct-copy/</url>
-    <content><![CDATA[<p>浅拷贝:将结构体变量内存空间内容复制一份放到另一个相同类型的结构体变量内存空间中.<br>
-比如我们有<br>
-<div class="highlight-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">stu</span>{</span><br><span class="line">    <span class="type">int</span> num;</span><br><span class="line">}a,b;</span><br></pre></td></tr></table></figure></div><br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/struct-copy/1.jpg" alt="浅拷贝"></p>
-<p>这是结构体间的默认赋值方式,一般来说不会出现问题,但是如果结构体里有指针成员,这种方式会带来多次释放堆区空间的问题和一定的风险.</p>
-<p>如果说stu里有一个指针成员：<br>
-<div class="highlight-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">stu</span>{</span><br><span class="line">    <span class="type">int</span> num;</span><br><span class="line">    <span class="type">char</span> *name;</span><br><span class="line">}a,b;</span><br></pre></td></tr></table></figure></div><br>
-这时候给a初值,并令b=a<br>
-<div class="highlight-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="code"><pre><span class="line">a.num = <span class="number">100</span>;</span><br><span class="line">a.name = <span class="keyword">new</span> <span class="type">char</span>[<span class="number">32</span>];</span><br><span class="line"><span class="built_in">strcpy</span>(a.name,<span class="string">"bob"</span>);</span><br><span class="line"></span><br><span class="line">b=a;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">cout &lt;&lt; a.name &lt;&lt; <span class="string">"  "</span> &lt;&lt; b.name &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> [] a.name;</span><br><span class="line"></span><br><span class="line">cout &lt;&lt; b.name &lt;&lt; endl;</span><br></pre></td></tr></table></figure></div><br>
-Result:<br>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">bob bob</span><br></pre></td></tr></table></figure></div><br>
-很明显第二个cout里的b.name没有输出.</p>
-<p>由于是浅拷贝,所以a变量内存空间里的值会原封不动的拷贝一份给到b,那么就有b.name
-== a.name这么一个关系<br>
-两个指针同时指向了同一个地址<br>
-看起来像这样:<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/struct-copy/2.jpg" alt="指向同一地址"></p>
-<p>如果我们释放a.name所指向的空间时程序不会出错,但是当我们不调整b.name指针指向,释放b.name指向的空间时程序就会出错,造成了重复释放.</p>
-<p>即使,没有释放b.name所指向的空间,也有不小风险,同时也是指针的经典风险.<br>
-因为我们已经释放了a.name所指向的空间,那么我们给某个变量c划分空间时,系统可能会给c分配了b.name所指向的空间,那么我们对b.name操作时,实际上更改的,是c的内容.读b.name所指向的空间时,读出的是c的值.</p>
-<p><em>用浅拷贝时结构体内没有指针的话是没有问题的,有指针时,根本问题就是拷贝后,两个结构体成员指针同时指向了同一个地址.</em></p>
-<p>那么要解决的话,只需要给b.name单独划一块空间,让b.name指向这块空间,并且把a.name指针所指向的内容拷贝到新划分的空间,这样就不会有两个结构体成员指针同时指向了同一个地址了,也就是--深拷贝.<br>
-RT:<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/struct-copy/3.jpg" alt="深拷贝"></p>
-<p>代码实现:<br>
-<div class="highlight-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>{</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">stu</span>{</span><br><span class="line">        <span class="type">int</span> num;</span><br><span class="line">        <span class="type">char</span> *name;</span><br><span class="line">    }a,b;</span><br><span class="line"></span><br><span class="line">    a.num = <span class="number">100</span>;</span><br><span class="line">    a.name = <span class="keyword">new</span> <span class="type">char</span>[<span class="number">32</span>];</span><br><span class="line">    <span class="built_in">strcpy</span>(a.name,<span class="string">"bob"</span>);</span><br><span class="line"></span><br><span class="line">    b=a;</span><br><span class="line">    b.name = <span class="keyword">new</span> <span class="type">char</span>[<span class="number">32</span>];  <span class="comment">//划分新空间,并调整b.name指针指向</span></span><br><span class="line">    <span class="built_in">strcpy</span>(b.name,a.name);</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; a.name &lt;&lt; <span class="string">"  "</span> &lt;&lt; b.name &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">delete</span> [] a.name;</span><br><span class="line">    <span class="keyword">delete</span> [] b.name;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div><br>
-Result:<br>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">bob  bob</span><br></pre></td></tr></table></figure></div></p>
-<p>😃</p>
-]]></content>
-      <tags>
-        <tag>C/C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Vm环境下Kali没网</title>
-    <url>/2021/06/27/vm-network/</url>
-    <content><![CDATA[<h1 id="解决方法">解决方法</h1>
-<h2 id="x01-重置虚拟机网络配置">0x01 重置虚拟机网络配置</h2>
-<pre><code>这个不是这篇文章的侧重点所以可以看: https://jingyan.baidu.com/article/3c343ff7e366820d3679637f.html</code></pre>
-<h2 id="x02-修改ip配置">0x02 修改IP配置</h2>
-<h3 id="静态配置">静态配置</h3>
-<p>配置文件位于 /etc/network/interfaces</p>
-<p>sudo vim /etc/network/interfaces<br>
-加入以下语句：</p>
-<p>auto eth0<br>
-iface eth0 inet static<br>
-address xxx.xxx.xxx.xxx #IP地址<br>
-netmask xxx.xxx.xxx.xxx #子网掩码<br>
-gateway xxx.xxx.xxx.xxx #网关</p>
-<h3 id="动态配置">动态配置</h3>
-<p>配置文件位于 /etc/network/interfaces<br>
-sudo vim /etc/network/interfaces<br>
-加入以下语句：<br>
-auto eth0<br>
-iface eth0 inet dhcp</p>
-<p>推荐动态配置,能少输一点</p>
-<h2 id="x03-修改网卡的管理信息">0x03 修改网卡的管理信息</h2>
-<p>目标文件位于:/etc/NetworkManager/NetworkManager.conf<br>
-sudo vim /etc/NetworkManager/NetworkManager.conf<br>
-把最后一行的managed=false改为managed=true即可</p>
-<h2 id="x04-重启网卡">0x04 重启网卡</h2>
-<p>sudo /etc/init.d/networking restart</p>
-<h1 id="enjoy.">Enjoy.</h1>
-]]></content>
-      <categories>
-        <category>Fix Error</category>
-      </categories>
-      <tags>
-        <tag>Kali</tag>
       </tags>
   </entry>
 </search>
