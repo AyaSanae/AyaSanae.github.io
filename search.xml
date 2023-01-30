@@ -1978,6 +1978,158 @@ It+6和弦也可以等和弦转换成不完全的V7,但由于重复音问题,较
 如下图的第160-161小节,有个简短的向ab小调的离调(小那波里和弦!),由于过于简短而很难被认为是转调.第162小节听上去与第160小节的和弦--ab的V7是相同的,但在这里他是G大调的Ger+6.<br>
 极少见的小那波里和弦出现在了一个和声模进:G7-c-Eb-ab之中.<br>
 <img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/odhxzd.png" alt="等和弦转调的其他例子"></p>
+<h2 id="和声词汇扩展">和声词汇扩展</h2>
+<h3 id="六度代替音属和弦">六度代替音属和弦</h3>
+<p>我们已经熟悉了附加音和弦的概念,例如带有附加六度音的三和弦.这种和弦不是印象主义之前西方音乐和声词汇的标准形式,却很早被认知了.<br>
+比如下图第一个和弦是带有附加六度音的IV和弦.我们可能会将其标记为ii56,但是却不能解释未解决的七音,不管我们怎么分析,这都是一个变格终止.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/lddt.png" alt="六度代替音属和弦"><br>
+虽然带有附加六度音的三和弦并不是大多数调性音乐的特征,但含有六度代替音的原位属和弦却不少见,特别是在19世纪的音乐中.<br>
+这种情况是,根音上方的六度音代替了并不出现的五度音.<br>
+下图的三种终止具有相似的效果.<br>
+a是一个PAC,b形成了一个用于修饰V和弦五音的规避音.c中A4音代替了五音的位置--这是一个六度代替音.我们会发现这个和弦与iii6和弦含有相同音级,但其功能明显是属和弦.将c的终止分析为iii6-I明显是错误的.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/lddt1.png" alt="六度代替音属和弦"></p>
+<p>下图是一个含有五级六度音代替和弦的范例.注意E5这个音,本该是V和弦五音的音,刚好出现在F#5之前.五级六度音代替和弦通常采用这种方式做准备.<br>
+这导致某些理论家将其分析为带有非标准规避音的V和弦,两种认识都是可以接受的.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/lddt2.png" alt="六度代替音属和弦"></p>
+<p>下图是一个小调的例子,再次注意六度音的预备.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/lddt3.png" alt="六度代替音属和弦"><br>
+六度代替音可以出现在原位三和弦之中,如前面的例子所示,也可以与原位V7和弦相结合,如下图a.和弦的七音总是放在六度代替音下方,如下图a.而不放在上方,如图b.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/lddt4.png" alt="六度代替音属和弦"></p>
+<p>下图是一个应用六度代替音与原位V7结合的例子.如果在爵士乐中,也许会倾向于将其标记为V13.我们并不认为这是一个真正的十三和弦,因为它缺了太多的和弦构成音(5,9,11音都没有)<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/lddt5.png" alt="六度代替音属和弦"><br>
+当我们解决一个六度代替音的V或V7时,六度音应下行跳进到主音,即3到1,而且六度音不能作为先现音.</p>
+<h3 id="升高五音属和弦">升高五音属和弦</h3>
+<p>如果把V或V7的五音升高半音,我们将得到一个增三和弦(V+)或一个增小七和弦(V+7).<br>
+这个变化在大调是很有用的,因为升高的五音成了一个主和弦三音的导音.但如果主三和弦是小三和弦,这个导音的效果就不可能存在存在,因此增属和弦不可能解决于小三和弦.<br>
+下图是上方观点的演示,记住V+7中的"+"仅指下方的三和弦,而不包括七音.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/sgwyd.png" alt="升高五音属和弦"><br>
+请注意V+7中可能包含一个增六度音程,这主要取决于声部的排列(如上图a的中高音部与次中音部).注意不要将变化的属和弦,无论是转位还是原位,与常规增六和弦混淆.</p>
+<p>在大多数实际应用中,增属和弦前面都是用他的自然和弦形式,也就是说,#2也可以被分析为半音经过音,下图的C#5就是一个半音经过音,但同时它也构成了一个由四个八分音符时值组成的V+7.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/sgwyd1.png" alt="升高五音属和弦"></p>
+<p>大调的V+和V+7等音与小调的V六度音替代和V7六度音替代.<br>
+如下图,但二者的解决方式是完全不一样的,V+升高的五音半音向上进行到3,如下图a.而V六度音替代的六度代替音向下跳进到1,如下图b.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/sgwyd2.png" alt="升高五音属和弦"></p>
+<p>下图开始与C#大调的V和弦,而且这个和弦最终解决到I,但被等音记为Db.例子的第二小节,E4音的出现好像构成了一个V7六度替代音,但如果弹奏这个例子,我们会听到这个E4其实是重升D4,<br>
+所以和弦应为G#+7.<br>
+简缩谱通过将整个例子都记在Db大调上,从而简化这个谱例.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/sgwyd3.png" alt="升高五音属和弦"></p>
+<p>副属和弦也可以以增和弦的形式出现.最常用的是V+/IV和V+7/IV,如下图.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/sgwyd4.png" alt="升高五音属和弦"></p>
+<p>记住不要将V+和V+7与增六和弦混淆.下图中,V+24/IV的两个外声部构成一个增六度(还原G-E#),所以凭感觉他好像是某种增六和弦,但事实上,图中的分析更为合适.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/sgwyd5.png" alt="升高五音属和弦"></p>
+<h3 id="九和弦十一和弦和十三和弦">九和弦,十一和弦和十三和弦</h3>
+<p>下图是和弦演示:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/jtte.png" alt="九和弦,十一和弦和十三和弦"></p>
+<p>要特别说明的是,只有三和弦和七和弦才是18和19世纪音乐中最基本的和弦材料.<br>
+在印象音乐之前,真正的十一和十三和弦几乎没有被用过.九和弦尽管贯穿了整个调性音乐时期,但和弦的九音往往被分析为和弦外音,并且在和弦解决前就消失了.<br>
+处理九音最常见的办法就是级进下行构成该和弦的根音重复,如下图,其中小九度音Fb5级进下行到V7根音Eb5.Vb9中的降号表示根音上方的小九度音,而不是真正降低某音.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/je.png" alt="九和弦"></p>
+<p>九和弦应用的另一种情况,如下图,从和弦的九音以分解和弦的方式下行到和弦的七音或其他音<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/je1.png" alt="九和弦"><br>
+当然也可以找到始终保持九和弦结构直到解决的例子,此时和弦的九音级进下行解决,正如解决和弦的七音一样.如下图.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/je2.png" alt="九和弦"><br>
+上面所举的例子都是属九和弦.是最常用的九和弦,但偶尔也可以见到其他音级上的九和弦.下图就包含了一个iv9.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/je3.png" alt="九和弦"></p>
+<p>九和弦在分析时使用的标记并不标准.最简单的是用罗马数字表示三和弦类型再加上9或b9标记.<br>
+九和弦的转位并不像三和七和弦那样普遍.另一方面,九和弦的数字低音记法也过于繁琐.<br>
+如果不那么严谨,可以将七和弦转位的数字放在括号之中如:V9(56).这种方法无法标记九和弦的第四转位,但九和弦的第四转位极少用.<br>
+下图的2和4小节就应标记为V9(34)和弦.作者在第6小节打断了期待中的V9(34)和弦的属和声音响,而代之以ii和弦(它含有V9和弦五个音中的三个)<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/je4.png" alt="九和弦"><br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/je5.png" alt="九和弦"></p>
+<h3 id="共同音减七和弦">共同音减七和弦</h3>
+<p>在调性音乐中,大多数减七和弦都是作为主和弦或其他和弦的导七和弦出现的.虽然减七和弦还因为具有等和弦功能转换的可能性,有时应用等和弦转调中,但也同样是以其解决和弦来决定其功能趋向.<br>
+然而还有一种不同常规形式的减七和弦用法.这种方法是,减七和弦进行到一个大三和弦或属七和弦,这个和弦的根音与减七和弦的某个和弦音是同一个音.<br>
+下图中,A#°7的七音G5被保留而成为下一个和弦的根音.显然这个减七和弦不是G6或G56的导七和弦.我们把这种减七和弦的用法叫做共同音减七和弦(标记为ct°7).<br>
+请特别记住,两和弦的共同音一定是要解决的大三和弦或属七和弦的根音.ct°7和弦可以用任何一种方式来构成,唯一的要求是其中一个音必须与其所修饰的那个和弦的根音为共同音.下图是比较常见的和弦构成--即共同音是该和弦的七音.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/ct.png" alt="共同音减七和弦"></p>
+<p>ct°7主要起到是一种装饰和弦的作用,所以我们总是将这个标记放在括号中表示它是一个很弱的和声功能.一个ct°7可以用来装饰任何三和弦或属七和弦,但最常见的是进行到大调的I或大调的V(7)(小调的例子极为少见).<br>
+大多数情况下ct°7都表现出明显的非基础性功能的特色,常常作为邻音和弦,如下图的a和b.或经过和弦,如下图的c.请注意所有声部都是平滑进行.<br>
+因为ct°7没有理论上的根音,所有在标记时也没有必要标出转位.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/ct1.png" alt="共同音减七和弦"></p>
+<p>下图是一个ct°7-I的进行,插入在持续音IV46及其解决和弦I之间.伴奏部分的简缩谱显示出,这里唯一重要的和声事件就是主和弦的呈现.V34只是在弱位由一些邻音组成,而IV46和ct°7则结合起来在内声部构成了一个二重的邻音类型.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/ct2.png" alt="共同音减七和弦"></p>
+<p>ct°7通常是完全的,不完全的ct°7有时可以见到,如下图的ct°7和弦省略了一个A.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/ct3.png" alt="共同音减七和弦"></p>
+<p>下图的ct°7用来装饰一个属和弦.虽然有ct°7在这里有明显的装饰性,但它们的独特风味在这段音乐以及后面的圆舞曲中同样具有重要作用.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/ct4.png" alt="共同音减七和弦"></p>
+<p>下图是一个ct°7装饰V的例子,这是苏萨的著名进行曲中,8小节的引子的基础其实就是一个长的属和声.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/ct5.png" alt="共同音减七和弦"><br>
+在记谱上,用以装饰I的ct°7通常被记写成#ii°7,用以装饰V的ct°7通常会被记成#vi°7.</p>
+<p>在下图中,作者将装饰I的ct°7写成#iv°7,以明确显示出旋律声部F-Ab-F的分解和弦进行(代替F-G#-F进行).<br>
+下图开始主题的一个特点是广泛地用了调式交替,而Ab对这一技术的体现显然比G#更清楚.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/ct6.png" alt="共同音减七和弦"></p>
+<p>字母标记有时也用ct°7和弦.如果发现一个减七和弦是非正规解决,而他的某个和弦音与其前面或后面(更长见)和弦根音为同一个音,这个减七和弦就是ct°7和弦.<br>
+在下图中Edim7就与其后的Bb和弦根音共用了同一个音.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/ct7.png" alt="共同音减七和弦"></p>
+<p>用来装饰主和弦的ct°7很容易与vii°7/V相混淆,因为他们互为等和弦,并且常常用相同的记谱方法,这一现象在上上图表现的很清楚,其中ct°7被记成了vii°34/V(B°7).<br>
+记住下面的的区别,就不会在判断上有困难.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/ct8.png" alt="共同音减七和弦"></p>
+<p>下图中,作者将第15小节的第二拍和弦记写为D#°7,即I的ct°,但是它却解决到I46-V9,所以实际分析应该为vii°7/V.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/ct9.png" alt="共同音减七和弦"></p>
+<p>与用来装饰常见的I和V和弦一样,共同音减七和弦有时也用来装饰副属和弦.<br>
+下图第65-66小节所引片段的高潮点上时一个A°7和弦,他可以是第67小节非常短暂出现的I6和弦的ct°7,或是该小节占主要和声地位的V7/ii的ct°7.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/ct10.png" alt="共同音减七和弦"><br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/ct11.png" alt="共同音减七和弦"></p>
+<p>在下图中,ct°7按等和弦关系成了那波里导和弦的一个部分.当我们在第12小节听到这个减七和弦时,我们也许会将其听成vii°7/vi,并且期望其后面是vi和弦,从而形成前面的V7和弦的阻碍解决.其实这个和弦的功能是跟着他后面的V7/N的ct°7.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/ct12.png" alt="共同音减七和弦"></p>
+<h3 id="和音">和音</h3>
+<p>有时候,用传统和弦标记(如V，ii等等)来标记一个装饰性和弦是没有实际意义的,所以我们用和音(simultaneity)这个词将其与传统的和弦(chord)加以区分.<br>
+这种现象最常见的例子是起经过作用的减七和弦音响.</p>
+<p>仔细分析下图的5-8小节.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/sim.png" alt="和音"><br>
+这里的基础和声是B大调的I-V7-I,但第6-7小节包含了一个以半音向下滑进的减七和弦系列,在下列用箭头表示:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/sim1.png" alt="和音"><br>
+这一系列的减七和弦最好被理解为和音--传统的和弦使用非传统的方法.这里半音下行的音响既不是vii°7也不是ct°7,而是作为连接V7和Vb9的经过和弦。<br>
+虽然这些减七和弦也可以被认为是五度圈模进,但我们听到的却不是这样的效果,所以不用罗马数字来分析他们.</p>
+<p>下图更复杂一些,这段音乐是在g小调,而且完全是由传统音响组成.和弦外音,如果有的话,非常难确认.<br>
+乐谱下标记出了每一个音响的根音,已经可能的两种情况.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/sim2.png" alt="和音"><br>
+这个例子中有两个音响在g小调的环境中是没有一样的,他们是第2小节的Bbm和第四小节的Cb4上的It+6.<br>
+如果我们将他们看做是充当经过功能的音响结合,那么这个乐句的和声面貌就比较清晰了,下面是分析结果:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/sim3.png" alt="和音"></p>
+<h3 id="色彩性和弦连续">色彩性和弦连续</h3>
+<p>基础和声进行被修饰的另一种方法是通过使用意外的根音进行到达非本调的和弦.<br>
+下图是一个由C大调长达的I-V7-I结束终止组成的,其中到达V7的过程,戏剧性地被意外和弦的色彩性连续所充斥.<br>
+这些和弦并没有暗示出任何离调或体现出任何调的传统功能.在分析中,我们只需要标出根音和音响类型就可以了.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/scc.png" alt="色彩性和弦连续"><br>
+色彩性和弦连续常常涉及变化中音关系,如上例中C到A和Eb到F#的进行.<br>
+或者如下图,第3-4小节的一个更具有"语汇"性的色彩性连续,这一进行可以被分析为V-I-(bIII)-V,放在括号中的bIII表现出其色彩性特征.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/sim1.png" alt="色彩性和弦连续"><br>
+比变化中音关系更进一步的是二重变化中音关系.这是指两个和弦分别为不同的调式结构(大和弦/小和弦),根音为大三度或小三度关系,两和弦间没有共同音.如C与ab,c与A等.</p>
+<p>下图中的Ab大三和弦和e小三和弦是二重变化中音关系,因为bF与E等音等于大三度关系,而且两个和弦没有共同音,听者可能猜不到这些和弦将导向一个f#小调的正格终止.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/scc1.png" alt="色彩性和弦连续"></p>
+<h2 id="世纪晚晚期的调性和声">19世纪晚晚期的调性和声</h2>
+<h3 id="对位法">对位法</h3>
+<h3 id="属和声处理">属和声处理</h3>
+<p>毫无疑问,传统调性系统得以建立的唯一结构"城堡",最适宜的表现形式是V-I进行.<br>
+那么一旦这种传统关系被破坏,即使表面上的协和还存在,其结果也必将表现出音乐将脱离历史轨迹.</p>
+<p>勃拉姆斯的第四交响曲第四乐章,通过连续变奏的方式来明确其结构。<br>
+下图是该曲的基础主主题以及最初呈示时的和声配置:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/shscl.png" alt="属和声处理"><br>
+特别值得注意的是,勃拉姆斯在整个过程中通过灵巧的方法避免了任何清晰的属和声应用(注意V7/V-i6的阻碍进行),直到倒数第二个和弦,法国增六和弦解决到一个大主和弦(按照逻辑一个是V/iv,由此构建了第二刺主题的呈示).</p>
+<p>在下图中我们可以看到一个大小七和弦的链条,其中每一个和弦都暗示了属功能,却被强行以阻碍方式解决.勃拉姆斯通过音域的移位以及在每一小节交替使用弦乐和木管乐等方式,增强这一简短片段的暧昧氛围.正是这种方法,造成了这段音乐显著的平行运动和几乎无调性的效果.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/shscl1.png" alt="属和声处理"></p>
+<p>下面这段音乐中,V7和弦不以和声功能为进行逻辑,而采用色彩性平行进行.并在最后简单但令人满意地到达了Eb大调.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/shscl2.png" alt="属和声处理"></p>
+<p>下图基础是Bb大调,音乐中没有涉及真正的和声运动,但却通过了一系列半音阶上行的和声配置给V到I的进行带来了新的活力趣味.如下谱所示,虽然和弦根音的上行运动是严格的平行进行,但大小七和弦的阻碍解决序列却构成了一个紧张的和声动力性模型.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/shscl3.png" alt="属和声处理"></p>
+<h3 id="模进">模进</h3>
+<p>前几个例子展示的模进技术,在许多后浪漫主义作曲家的作品中扮演了相当重要的角色,特别实在转调的过程之中.<br>
+下图的作者是里姆斯基-科萨科夫,他不但极大地影响了其后的俄罗斯作曲家,而且极大地影响了管弦乐配器技术.这个例子显示出,模进运动已经将非传统的关系合法化了.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/hmj.png" alt="模进"><br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/hmj1.png" alt="模进"><br>
+这段音乐时从作品刚刚开始后进入的,建立在E大调.该选段的开始时C#大三和弦,体现为V/ii.模进从选段的第4小节开始,通过一些列相互为全音关系的离调,从C#到A,最后导向B和弦上的半终止.有意思的是,每一个模进音组的第二个和弦多少有一点增六和弦的因素.这个和弦接着修饰了模进音组的第三个和弦(该和弦给紧跟其后调域的V7)而且这两个和弦还共用同一个三全音.平滑的模进运动表现出连续离调(C#-Eb-F-G-A)的一系列和弦与整体上E大调调性之间构成了微妙的关系.<br>
+前面柴科夫斯基的例子是以上行的半音阶配置的一些列被阻碍解决的属七和弦为特色.<br>
+传统上,一个色彩性模进的和弦连续常常用于为非功能性的低音线配置和声,被称作欧姆尼巴士,它同样充满了变化音的和弦连续.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/onmbus.png" alt="欧姆尼巴士"><br>
+虽然这段音乐也可以在原位V7和V56之间分析出向c小调离调的其他和弦(Ger+6-ii46-Ger+6),但这种通常以很快的速度演奏的音乐片段,还是更倾向于被分析为在低音部和高音部中带有半音经过音的V7和弦.欧姆尼巴士还可以为下行的低音线配和声.如下图<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/omnbus.png" alt="欧姆尼巴士"><br>
+我们注意到,上图各个时段只有一个声部与低音部形成反向,而且这个声部实在高音部,中音部,次中音部交替出现的.还要注意,图中的每三个和弦中的第一个为小三和弦,而他们爷刚好互为变化中音关系.从转调的角度看,这个模进的组合快速并自然地从一个调转到远关系调,并且保持了最平滑的声部进行.<br>
+这种构思可以在下图找到,他发生在一个导向C大调第二主题的过渡段.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/bhzyzd.png" alt="欧姆尼巴士转调"><br>
+下图是另外的例子,其中欧姆尼巴士被用来构成从G大调导Db大调的转调.这段音乐开始于Eb大调,并且以原位主和弦开始.<br>
+加入的C#音构成了一个德国增六和弦的音响,由此导向了第12小节的G大调(I46).在其后的小节中,我们发现低音部是B音而高音部是D音.当这两个声部逐步向外扩展欧姆尼巴士带我们在第16小节到达一个Db和弦,明确地表示出Db是新的主音.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/musicnote/omnbuszd.png" alt="欧姆尼巴士转调"></p>
 ]]></content>
       <tags>
         <tag>Music</tag>
