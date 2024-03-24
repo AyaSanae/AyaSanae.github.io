@@ -1,19 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>内核单独编译某个驱动</title>
-    <url>/2020/06/15/build-1/</url>
-    <content><![CDATA[<p>以qcacld-3.0为例子<br>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">make M=drivers/staging/qcacld-3.0</span><br></pre></td></tr></table></figure></div></p>
-]]></content>
-      <categories>
-        <category>Kernel</category>
-      </categories>
-      <tags>
-        <tag>Android Kernel</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>使用Ccache来加速内核的编译</title>
     <url>/2020/06/20/ccache/</url>
     <content><![CDATA[<p>编译一个Android内核,我需要8min+,太久了,无法忍受.<br>
@@ -52,6 +39,19 @@ ccache只有在第二次编译或以上的效果才会体现出来</p>
       </categories>
       <tags>
         <tag>偷懒</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>内核单独编译某个驱动</title>
+    <url>/2020/06/15/build-1/</url>
+    <content><![CDATA[<p>以qcacld-3.0为例子<br>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">make M=drivers/staging/qcacld-3.0</span><br></pre></td></tr></table></figure></div></p>
+]]></content>
+      <categories>
+        <category>Kernel</category>
+      </categories>
+      <tags>
+        <tag>Android Kernel</tag>
       </tags>
   </entry>
   <entry>
@@ -98,185 +98,6 @@ ccache只有在第二次编译或以上的效果才会体现出来</p>
       </tags>
   </entry>
   <entry>
-    <title>个人音乐笔记--编曲</title>
-    <url>/2022/12/27/emusicnote/</url>
-    <content><![CDATA[<p>教程地址:【【你还不会编曲吗？】B站乐球网最全从零开始的完整的编曲教程『301P更新完毕』】
-https://www.bilibili.com/video/BV14x411s7KZ/?p=31&amp;share_source=copy_web&amp;vd_source=b1eb0a54199f8d418f15da4b5ca411bd</p>
-<p>#和声篇</p>
-<h2 id="如何让和弦弹出来更好听">如何让和弦弹出来更好听</h2>
-<p>      对于大和弦来说,根音的左边就是七音,根音的右边就是九音.如果乐谱上标记录的是C那么不仅仅可以演奏135还可以1235或者1357.也就是说在演奏和弦的时候加上根音的左边音就变成了七和弦,加上右边音就变成了九和弦,加入时,低音不能被改变,比如说1357不能变成7135<br>
-      如果要演奏大和弦时加入根音左边的音,新加入的音与根音的音程是小二度,比如135,1左边的音是7,一个半音关系,所以可以变成1357.同理如果要加入根音右边的音,那么音程关系就是大二度,也就是一个全音,比如135,1右边的是2,所以可以有1235.但是对于大和弦来说,加入根音左边的音是比较危险的,加入右边的音会比较安全.因为九音是非常好听的.<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/pM.png" alt="大和弦"><br>
-同理,D大和弦2 #4 6 可以是2 #4 6 #1或者2 3 #4 6.<br>
-那么小和弦的规则是加入根音左右两边全音关系的音,同理,根音左边为该和弦七音右边为九音,通常左边的更为安全<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/pam.png" alt="小和弦"><br>
-属七和弦的规则可以加入根音左右两边全音关系的音以及可以加入五音右边全音关系的音,也就是该和弦的十三音.同理,根音左边为该和弦七音右边为九音.<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/p7.png" alt="属七和弦"></p>
-<h2 id="就近解决">就近解决</h2>
-<p>原则1:所有声部最好不要同向进行<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/SD.png" alt="所有声部同向"><br>
-可以用上面提到的和弦演奏技巧修正成这样<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/SDf1.png" alt="修正"><br>
-原则2:最好不要跳进,超过三度即为跳进,三度以内为就近解决.<br>
-看上面的修正,2解决到6是四度出现了跳进<br>
-原则3:最好保持共同音,如果没有共同音就进行到离共同音最近的音.<br>
-下图是最终修正,没有违背三条原则.<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/SDf2.png" alt="最终修正"></p>
-<h2 id="属和弦的多种排列法">属和弦的多种排列法</h2>
-<p>一个大调,有两个大七和弦比如C大调里有C大七和F大七和弦,在F大调中也有F大七和弦,所以这些和弦的指向性都不是很明显,比如看到F大七和弦的时候,可能是F大调也可能是C大调,具体判断还要结合前后和弦来判断,其他和弦同理,指向性也不是很强,不稳定所以改变和弦音的时候要注意.比如C大调大七和弦1357加上九音十一音十三音就变成1357247如果降低十三音就变成了属七和弦,这导致了和弦的属性变化,当然改变和弦音也可能导致调性变化.<br>
-而属和弦在一个大调中只有一个,指向性很强,单看见属和弦就可以确定是什么调,所以属和弦的稳定性和指向性都强,改动不会轻易造成属性和调性变化.<br>
-此外属和弦在演奏时,用C大调举例,5724613这是一个完整的属和弦加入了九十一十三音,可以演奏5461,也可以是546#15等等,都可以,这不会改变这个和弦所在位置的作用.但是十一音不能降半音,因为1降半音是7跟前面重复,同理十三音不能升半音.<br>
-属和弦的七音不适合作为冠音(就是和弦最上面的音)<br>
-一般来说G7sus4和弦会解决到原本的和弦上也就是G7即G7sus4-&gt;G7,但是当G7sus4的演奏时间比较短也可以不解决到G7上.属和弦直接演奏原始和弦也是不好听的.</p>
-<h2 id="和弦第一转位的运用">和弦第一转位的运用</h2>
-<p>法一:原位和弦进行到转位和弦,低音下行半音或者全音<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/t1.png" alt="法一"><br>
-法2:转位和弦进行到原位和弦,低音上行半音<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/t2.png" alt="法2"><br>
-转位E7转位后恰好低音恰好与Am低音上行<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/t21.png" alt="法2"></p>
-<h2 id="经过和弦">经过和弦</h2>
-<p><img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/pass1.png" alt="长时间持续"><br>
-可以看到Dm的持续时间比较长,会比较没有新鲜感,这时候就可以用经过和弦的技巧.</p>
-<p>法1:如果两个和弦的低音上行而且大于大二度的时候,就可以在这两个和弦低音之间加入该调内音阶的音上行.并以新加入的低音构建和弦.<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/pass2.png" alt="上行"></p>
-<p>如果两个和弦低音的距离小于是大二度呢?<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/pass3.png" alt="上行大二度"></p>
-<p>法2:如果两个和弦低音上行,并且相距一个大二度,就可以在这中间加入一个半减七和弦作为经过和弦.<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/pass4.png" alt="上行大二度"><br>
-因为4和5中间只有#4,所以以#4构建半减七和弦.</p>
-<p>以上方法貌似低音下行也可以用.</p>
-<p>(题外话)一般来说,在C大调里看见7作为低音,一般不是724而是725也就是G/B.</p>
-<p>法3:如果两个相同性质的和弦(比如两个都是小和弦)低音是下行,并且距离一个大二度,就可以演奏平行和声或者演奏属和弦.<br>
-下图是平行和声法<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/pass5.png" alt="平行和声"><br>
-如果要属和弦法就把bEm换成bE7就好了.</p>
-<h2 id="进行">Ⅱ-Ⅴ-Ⅰ进行</h2>
-<p>一个调中的一级,二级,五级所构成的进行是二五一进行,二五一也可以拆开用,比如:Ⅱ-&gt;Ⅴ,Ⅴ-&gt;Ⅰ.251进行还可以用于离调或者转调<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/251.png" alt="251进行"><br>
-旋律小调的五级是Gm7失去了属七和弦原本具有的向一级和弦倾向的倾向性,所以251的小调通常用的是和声小调.<br>
-251其中一种用法:<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/251e.png" alt="251用法之一"><br>
-如果我们把Dm当成1级那么前面就应该是5级属七和弦,那么Dm和声小调上的五级是A7.同理二级也一样,那么我们就可以改成:<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/251e2.png" alt="251用法之一"></p>
-<h2 id="重属和弦">重属和弦</h2>
-<p>我们知道属和弦是以该调内的主音往下纯四度所对应的音来构建的,比如C往下纯四度是G,G可以构建属和弦.<br>
-那么在属音往下纯四度的音构建的和弦就是重属和弦比如G往下纯四度是D.用D构建大小七和弦也就是2
-#4 6 1<br>
-重属和弦可以解决到下属和弦</p>
-<h2 id="转调">转调</h2>
-<p>要转调可以用目标调的五级和弦来转,只需要在引入目标调前演奏目标调的五级就可以了,同时可以用251进行来使得更自然.</p>
-<h2 id="马里奥终止法">马里奥终止法</h2>
-<p>属和弦后面接上三个各自距离一个全音的大和弦.而且接的第一个和弦要有旋律音.<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/stop.png" alt="马里奥终止法"></p>
-<h2 id="小和弦终止法">小和弦终止法</h2>
-<p>法一:在属和弦后面接上有旋律音的小和弦再解决到主和弦上.<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/sstop.png" alt="小和弦终止法"><br>
-法二:在属和弦后面接上有旋律音的小和弦,然后找到比这个和弦还要低一个全音的和弦,做第一转位然后解决到比转为后的和弦的低音高半音的和弦上.<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/sstop1.png" alt="小和弦终止法"></p>
-<h2 id="五声音阶的运用">五声音阶的运用</h2>
-<p>1.在曲子结束时,如果是大和弦,那么可以在此大和弦上演奏五声音阶.<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/fivescale.png" alt="五声音阶的运用"><br>
-2.双音技巧:在演奏的那个音往下隔一个音同时奏,听起来会中国风,比如演奏3的时候可以1
-3同时演奏,但是双音技巧在曲子所占的份额较小.<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/fivescale1.png" alt="五声调式双音技巧"></p>
-<h2 id="两个相邻和弦的技巧">两个相邻和弦的技巧</h2>
-<p>如果两个和弦相邻,并且相隔一个全音,那么可以在中间加入一个减七和弦.<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/hs.png" alt="和弦相邻技巧"></p>
-<h2 id="三全音替代">三全音替代</h2>
-<p>三全音替代用于属和弦中<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/tr.png" alt="三全音替代"><br>
-属和弦根音往后三个全音可以替代掉当前属和弦.</p>
-<h2 id="全音下行移调">全音下行移调</h2>
-<p>在当前调总体降全音可以很自然的移调到低一个全音的调<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/cs.png" alt="全音下行移调"><br>
-下面是例子:<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/cse.png" alt="全音下行移调例子"></p>
-<h2 id="半音下行移调">半音下行移调</h2>
-<p>同上<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/cs2.png" alt="半音下行移调"><br>
-下面是例子:<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/cs2e.png" alt="半音下行移调例"></p>
-<h2 id="三度移调">三度移调</h2>
-<p>三度移调上下行都可以,同上<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/tcs.png" alt="半音下行移调例"></p>
-<h2 id="五度圈转调">五度圈转调</h2>
-<p>如图<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/fcs.png" alt="五度圈转调"><br>
-下面是例子<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/fcse.png" alt="五度圈转调例子"></p>
-<h1 id="编曲篇">编曲篇</h1>
-<h2 id="钢琴分解和声伴奏织体">钢琴分解和声伴奏织体</h2>
-<p><img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/zt1.png" alt="伴奏织体"><br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/zt2.png" alt="伴奏织体"></p>
-<h2 id="钢琴终止处的伴奏织体">钢琴终止处的伴奏织体</h2>
-<p><img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/zt3.png" alt="伴奏织体"></p>
-<h2 id="钢琴半分解伴奏织体">钢琴半分解伴奏织体</h2>
-<p>既有柱式和弦又有分解和弦二者合在一起<br>
-如果只有两拍那就可以只演奏前两拍<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/zt4.png" alt="伴奏织体"></p>
-<h2 id="吉他分解伴奏织体">吉他分解伴奏织体</h2>
-<p><img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/zt5.png" alt="伴奏织体"></p>
-<h2 id="提高吉他档次">提高吉他档次</h2>
-<p>写完吉他后,复制一轨,放左声道另外原来的放右声道(左右没顺序),然后右声道的减25毫秒,就能有立体感.</p>
-<h2 id="吉他半分解伴奏织体">吉他半分解伴奏织体</h2>
-<p><img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/zt6.png" alt="伴奏织体"></p>
-<h2 id="鼓的基本形态和编写">鼓的基本形态和编写</h2>
-<p>低鼓军骨和镲是构成鼓节奏的最基本元素.<br>
-鼓的基本形态:<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/gu.png" alt="鼓的基本形态"></p>
-<h2 id="让鼓进入更自然">让鼓进入更自然</h2>
-<p>在鼓进来可以加个前戏,比如:<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/gu2.png" alt="让鼓进入更自然"><br>
-还有<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/gu3.png" alt="让鼓进入更自然"><br>
-或者<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/gu4.png" alt="让鼓进入更自然"></p>
-<h2 id="贝斯的基础编写">贝斯的基础编写</h2>
-<p>直接走和弦低音</p>
-<h2 id="贝斯基础节奏编写">贝斯基础节奏编写</h2>
-<p>很多时候贝斯的节奏是跟着鼓的<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/bass.png" alt="贝斯的节奏"><br>
-让贝斯的每个音头都对着低鼓.</p>
-<h2 id="贝斯运用五音">贝斯运用五音</h2>
-<p>相当于加花,运用该技巧被加花的音符时值不能太长,再被加花的音符上演奏和弦五音<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/bass1.png" alt="贝斯运用五音"><br>
-蓝色为加花音符</p>
-<h2 id="让贝斯进入更自然">让贝斯进入更自然</h2>
-<p>在贝斯进入前加个滑弦技巧<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/bass2.png" alt="贝斯进入更自然"><br>
-也可以配合鼓的进入来滑.</p>
-<h2 id="钢琴0xxx伴奏织体">钢琴0xxx伴奏织体</h2>
-<p><img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/zt7.png" alt="伴奏织体"><br>
-四四拍时,在和弦进入之前加四个十六分音符,空打打打.其他 拍号同理.</p>
-<h2 id="钢琴万能节奏">钢琴万能节奏</h2>
-<p><img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/zt8.png" alt="伴奏织体"><br>
-也可以提前十六分音符运用<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/zt9.png" alt="伴奏织体"><br>
-第二种万能节奏<br>
-在每个和弦上连续演奏6个十六分音符,尽量让这些音听起来有流动的旋律感<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/zt10.png" alt="伴奏织体"><br>
-然后适当加入一些和弦音让声部更饱满<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/zt11.png" alt="伴奏织体"></p>
-<h2 id="贝斯的编写">贝斯的编写</h2>
-<p>只要前后两个音都是根音且相差一个全音的情况下可以加入一个经过音.<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/bass3.png" alt="经过音"><br>
-在一些空白的地方可以加入拍弦或者闷弦<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/bass4.png" alt="闷弦"><br>
-在根音进行到根音之间还可以来一个上滑或者下滑<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/bass5.png" alt="闷弦"><br>
-为了能让贝斯结束更自然可以在做一个下滑音动作<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/bass6.png" alt="结束"></p>
-<h2 id="钢琴半终止演奏技巧">钢琴半终止演奏技巧</h2>
-<p><img lazyload="" src="/images/loading.svg" data-src="/assets/emusicnote/zt12.png" alt="伴奏织体"></p>
-<h2 id="属和弦弹法">属和弦弹法</h2>
-<p>不弹原位弹挂四,也就是右手演奏一个比根音低一个全音的大三和弦,比如说5572可以演奏成5461听起来就会比较流行,也可以在属和弦中加入九音和十三音会变成54673听起来就比较爵.</p>
-]]></content>
-      <tags>
-        <tag>Music</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>解决Git合并报-refusing to merge unrelated histories</title>
     <url>/2020/04/07/git-error/</url>
     <content><![CDATA[<h2 id="原因">原因</h2>
@@ -285,22 +106,6 @@ to merge unrelated histories</p>
 <h2 id="解决方法">解决方法</h2>
 <p>加上--allow-unrelated-histories选项,将两个不相干仓库强行合并</p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">git pull origin master --allow-unrelated-histories</span><br></pre></td></tr></table></figure></div>
-]]></content>
-      <categories>
-        <category>Fix Error</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>解决git clone 完成后提示 error:RPC failed;curl 56 GnuTLS recv error (-9)</title>
-    <url>/2021/02/10/git-error3/</url>
-    <content><![CDATA[<p>错误提示:<br>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">remote: Enumerating objects: 9817, done.</span><br><span class="line">error: RPC failed; curl 56 GnuTLS recv error (-9): A TLS packet with unexpected length was received.</span><br><span class="line">fatal: The remote end hung up unexpectedly</span><br><span class="line">fatal: early EOF</span><br><span class="line">fatal: index-pack failed</span><br></pre></td></tr></table></figure></div></p>
-<p>解决方法:<br>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">apt-get install gnutls-bin</span><br><span class="line">git config --global http.sslVerify false</span><br><span class="line">git config --global http.postBuffer 1048576000</span><br></pre></td></tr></table></figure></div></p>
-<p>转自:https://blog.csdn.net/tmaccs/article/details/101289284</p>
 ]]></content>
       <categories>
         <category>Fix Error</category>
@@ -330,33 +135,19 @@ to merge unrelated histories</p>
       </tags>
   </entry>
   <entry>
-    <title>精简Android内核模块</title>
-    <url>/2020/08/01/kernel-driver-mod-reduce/</url>
-    <content><![CDATA[<h2 id="原理">原理:</h2>
-<pre><code>    去除编译时产生的多余符号.
-    至于为什么会产生多余符号,暂不深究.</code></pre>
-<h2 id="做法">做法:</h2>
-<pre><code>    !: 文件一旦strip后就不能恢复原样了,被strip后的文件不包含调试信息
-    使用arm-linux-strip工具,这里用arm的交叉编译工具链做演示,当然你也可以使用strip</code></pre>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">arm-linux-strip kernel_name.ko</span><br></pre></td></tr></table></figure></div>
-<pre><code>    不保留debug的体积会小点.
-    以上,即可. 相当于给内核模块脱衣 A.A
-    *不影响使用,体积减少很多*
-    经测试,200多m的qcacld-3.0被削到12m.</code></pre>
-<h2 id="拓展">拓展:</h2>
-<pre><code>    strip不仅仅可以精简内核模块，具体如下:</code></pre>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># include &lt;stdio.h&gt;</span><br><span class="line">    int main(){</span><br><span class="line">    printf("Hello World");</span><br><span class="line">    return 0;</span><br><span class="line">}       </span><br></pre></td></tr></table></figure></div>
-<pre><code>    C语言的Hello World在我的GCC版本编译下大小如下:</code></pre>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">ubuntu@VM-0-2-ubuntu:~/test$ ls -l</span><br><span class="line">total 16</span><br><span class="line">-rwxrwxr-x 1 ubuntu ubuntu 8312 Aug  1 19:36 a.out</span><br><span class="line">-rw-rw-r-- 1 ubuntu ubuntu   69 Aug  1 19:36 hello_world.c</span><br><span class="line">ubuntu@VM-0-2-ubuntu:~/test$ </span><br></pre></td></tr></table></figure></div>
-<pre><code>    精简后:</code></pre>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">ubuntu@VM-0-2-ubuntu:~/test$ ls -l</span><br><span class="line">total 16</span><br><span class="line">-rwxrwxr-x 1 ubuntu ubuntu 8312 Aug  1 19:38 a.out</span><br><span class="line">-rw-rw-r-- 1 ubuntu ubuntu   69 Aug  1 19:36 hello_world.c</span><br><span class="line">ubuntu@VM-0-2-ubuntu:~/test$ strip a.out </span><br><span class="line">ubuntu@VM-0-2-ubuntu:~/test$ ls -l</span><br><span class="line">total 12</span><br><span class="line">-rwxrwxr-x 1 ubuntu ubuntu 6128 Aug  1 19:39 a.out</span><br><span class="line">-rw-rw-r-- 1 ubuntu ubuntu   69 Aug  1 19:36 hello_world.c</span><br><span class="line">ubuntu@VM-0-2-ubuntu:~/test$ ./a.out </span><br><span class="line">Hello Worldubuntu@VM-0-2-ubuntu:~/test$ </span><br><span class="line">ubuntu@VM-0-2-ubuntu:~/test$ </span><br></pre></td></tr></table></figure></div>
-<pre><code>大小由8312字节减到6128字节，且不影响使用.</code></pre>
+    <title>解决git clone 完成后提示 error:RPC failed;curl 56 GnuTLS recv error (-9)</title>
+    <url>/2021/02/10/git-error3/</url>
+    <content><![CDATA[<p>错误提示:<br>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">remote: Enumerating objects: 9817, done.</span><br><span class="line">error: RPC failed; curl 56 GnuTLS recv error (-9): A TLS packet with unexpected length was received.</span><br><span class="line">fatal: The remote end hung up unexpectedly</span><br><span class="line">fatal: early EOF</span><br><span class="line">fatal: index-pack failed</span><br></pre></td></tr></table></figure></div></p>
+<p>解决方法:<br>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">apt-get install gnutls-bin</span><br><span class="line">git config --global http.sslVerify false</span><br><span class="line">git config --global http.postBuffer 1048576000</span><br></pre></td></tr></table></figure></div></p>
+<p>转自:https://blog.csdn.net/tmaccs/article/details/101289284</p>
 ]]></content>
       <categories>
-        <category>Kernel</category>
+        <category>Fix Error</category>
       </categories>
       <tags>
-        <tag>优化</tag>
+        <tag>Git</tag>
       </tags>
   </entry>
   <entry>
@@ -396,6 +187,114 @@ Live安装镜像写到启动盘里<br>
       </tags>
   </entry>
   <entry>
+    <title>Java笔记</title>
+    <url>/2024/03/23/javanote/</url>
+    <content><![CDATA[<h2 id="collection">Collection</h2>
+<pre class="mermaid">  graph TD;
+      Collection--&gt;List;
+      Collection--&gt;Set;
+      List--&gt;ArrayList;
+      List--&gt;LinkList;
+      Set--&gt;HashSet;
+      Set--&gt;TreeSet;
+      HashSet--&gt;LinkHashSet;</pre>
+<p>List系列集合:添加的元素是有序,可重复,有索引的.<br>
+Set系列集合:添加的元素是无序,不可重复,没索引的.</p>
+<p>Collection是单列集合的祖宗接口,它的功能在所有单列集合都可以继承使用.</p>
+<h3 id="collection常用方法">Collection常用方法:</h3>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">add</span><span class="params">(E e)</span>;                <span class="comment">//把给定的对象添加到当前集合中</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">clear</span><span class="params">()</span>;                    <span class="comment">//清空集合中所有的元素</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">remove</span><span class="params">(E e)</span>;             <span class="comment">//把给定的对象从当前集合中删除</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">contains</span><span class="params">(Object obj)</span>;    <span class="comment">//判断集合中是否包含给定的对象</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isEmpty</span><span class="params">()</span>;               <span class="comment">//判断当前集合是否为空</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">size</span><span class="params">()</span>;                      <span class="comment">//返回集合中的元素个数/集合长度</span></span><br></pre></td></tr></table></figure></div>
+<p>add();方法对于List集合来说会永远返回true,而对于Set系列集合来说会检查是否有重复有的话则返回false.<br>
+Collection里的remove();方法只能通过对象的形式删除而不能通过下标,因为是共性的.要是删除的对象不存在则会返回false.</p>
+
+  <div class="note-large red">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>contains()</p>
+
+    </div>
+    <div class="notel-content">
+      <p>该方法的在底层依赖equals();方法--依赖地址值判断,所以如果集合里面装的如果是自定义类型,<br>
+那就要在对应的javabean中重写equals();<br>
+如果没有在对应的javabean里重写equals();则会默认调用Object里的equals();</p>
+
+    </div>
+  </div>
+<h3 id="collection的遍历方式">Collection的遍历方式</h3>
+<h4 id="迭代器遍历">迭代器遍历</h4>
+<p>迭代器在Java类中是Iterator,迭代器是集合的专用遍历方式.<br>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">Iterator&lt;E&gt; <span class="title function_">iterator</span><span class="params">()</span> 返回迭代器对象,默认指向当前集合<span class="number">0</span>索引.</span><br></pre></td></tr></table></figure></div></p>
+Iterator常用方法:<br>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">boolean</span> <span class="title function_">hasNext</span><span class="params">()</span>    判断当前位置是否有元素,如果有则返回<span class="literal">true</span>,否则返回<span class="literal">false</span>.</span><br><span class="line">E <span class="title function_">next</span><span class="params">()</span>             获取当前位置的元素,并将迭代器对象移向下一个位置.</span><br></pre></td></tr></table></figure></div><br>
+具体用法就是:<br>
+
+<pre class="mermaid">  graph TD;
+  创建迭代器对象--&gt;调用迭代器中的hasNext方法--&gt;调用迭代器中的next方法;</pre>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">Iterator&lt;String&gt; it = coll.Iterator();  <span class="comment">//迭代器就像一个箭头,创建出来后指向0索引</span></span><br><span class="line"><span class="keyword">while</span>(it.hasNext()){        </span><br><span class="line">  <span class="type">String</span> <span class="variable">tmp</span> <span class="operator">=</span> it.next();               <span class="comment">//next会获取出元素并且移动指针</span></span><br><span class="line">  System.out.println(tmp);</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+  <div class="note-large red">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>Iterator注意事项</p>
+
+    </div>
+    <div class="notel-content">
+      <p>如果当前位置没有元素还要强行获取就会报NoSuchElementExpection<br>
+迭代器遍历完毕指针不会复位<br>
+循环中next()方法只能调用一次,多次调用会导致指针位置多次被移动,所以应该一个hasNext和一个next方法配套<br>
+迭代器遍历时,不能用集合的进行元素的增加或删除,只能使用迭代器的方法来进行,不然会报并发修改异常</p>
+
+    </div>
+  </div>
+<h4 id="增强for遍历">增强for遍历</h4>
+<p>增强for的底层就是迭代器,为了简化迭代器代码书写的.<br>
+JDK5以后出现,内部原理就是一个Iterator迭代器.<br>
+只有单列集合和数组可以使用增强for.<br>
+格式：<br>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(元素的数据类型 变量名: 数组或单列集合){</span><br><span class="line"></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(String tmp: list){        <span class="comment">//这里的tmp只是个第三方变量,用来存储next获取出来的值</span></span><br><span class="line">  System.out.println(tmp);</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></table></figure></div></p>
+<h4 id="lambda表达式遍历">lambda表达式遍历</h4>
+<p>在谈到lambda表达式前,要先提一下匿名内部类.<br>
+调用的一个方法的时候,如果方法的形参是一个接口,那么我们要传递这个接口的实现对象,如果实现类只需要用一次,<br>
+那么可以使用匿名内部类的方法<br>
+先来看这个方法:<br>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title function_">forEach</span><span class="params">(Consumer&lt;? <span class="built_in">super</span> T&gt; action)</span>; <span class="comment">//forEach底层通过循环来遍历集合</span></span><br><span class="line">                                                  <span class="comment">//Consumer是一个函数式接口--有且仅有一个抽象方法的接口</span></span><br><span class="line">                                                  <span class="comment">//遍历的结果作为形参放入action.accept方法中</span></span><br><span class="line"><span class="comment">//forEach的匿名内部类用法:</span></span><br><span class="line">coll.forEach(<span class="keyword">new</span> <span class="title class_">Consumer</span>&lt;String&gt;(){</span><br><span class="line">      <span class="meta">@Override</span></span><br><span class="line">      <span class="comment">//这里的s一次表示集合中的每一个数据</span></span><br><span class="line">      <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">accept</span><span class="params">(String s)</span>{</span><br><span class="line">        System.out.println(s);</span><br><span class="line">      }</span><br><span class="line">});</span><br></pre></td></tr></table></figure></div><br>
+这看起来很繁琐,我们可以通过lambda表达式来简化.</p>
+
+  <div class="note p-4 mb-4 rounded-small red lambda表达式">
+    <p>lambda表达式只可以简化函数式接口的匿名内部类写法.Lambda就是函数式接口的实例.</p>
+
+  </div>
+
+  <div class="note-large red">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>lambda表达式写法:</p>
+
+    </div>
+    <div class="notel-content">
+      <p>核心:可简化,可省略.<br>
+格式:()-&gt;{}<br>
+1.参数类型可以省略不写.<br>
+2.如果只有一个参数,参数类型可以省略,同时()也可以省略.<br>
+3.如果lambda表达式的方法体只有一行,大括号,分号,return可以同时省略,要同时省略.</p>
+
+    </div>
+  </div>
+<p>利用lambda表达式简化后的forEach:<br>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">coll.forEach((s)-&gt;{System.out.println(s);})</span><br></pre></td></tr></table></figure></div></p>
+<h4 id="三种通用的遍历方式">三种通用的遍历方式</h4>
+<p>迭代器:在遍历过程中如果要删除元素,可以使用迭代器.<br>
+增强for,lambda表达式:如果只是遍历可以使用增强for或者lambda表达式.</p>
+<h2 id="list系列">List系列</h2>
+<p>Collection的方法List集合都继承了<br>
+List集合因为有索引所以多了很多索引操作方法.</p>
+<h3 id="list系列集合独有方法">List系列集合独有方法</h3>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> index,E element)</span>;      <span class="comment">//在此集合指定位置插入元素,原来索引的元素会依次往后移</span></span><br><span class="line">E <span class="title function_">remove</span><span class="params">(<span class="type">int</span> index)</span>;                <span class="comment">//删除指定位置元素并返回被删除的元素</span></span><br><span class="line">E <span class="title function_">set</span><span class="params">(<span class="type">int</span> index,E element)</span>;         <span class="comment">//修改指定索引元素,返回被修改的元素</span></span><br><span class="line">E <span class="title function_">get</span><span class="params">(<span class="type">int</span> index)</span>;                   <span class="comment">//获取指定索引元素</span></span><br></pre></td></tr></table></figure></div>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>合并或更新Wlan驱动</title>
     <url>/2020/06/21/merge/</url>
     <content><![CDATA[<h2 id="首次合并">首次合并</h2>
@@ -415,6 +314,267 @@ https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/qca-w
       </categories>
       <tags>
         <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>精简Android内核模块</title>
+    <url>/2020/08/01/kernel-driver-mod-reduce/</url>
+    <content><![CDATA[<h2 id="原理">原理:</h2>
+<pre><code>    去除编译时产生的多余符号.
+    至于为什么会产生多余符号,暂不深究.</code></pre>
+<h2 id="做法">做法:</h2>
+<pre><code>    !: 文件一旦strip后就不能恢复原样了,被strip后的文件不包含调试信息
+    使用arm-linux-strip工具,这里用arm的交叉编译工具链做演示,当然你也可以使用strip</code></pre>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">arm-linux-strip kernel_name.ko</span><br></pre></td></tr></table></figure></div>
+<pre><code>    不保留debug的体积会小点.
+    以上,即可. 相当于给内核模块脱衣 A.A
+    *不影响使用,体积减少很多*
+    经测试,200多m的qcacld-3.0被削到12m.</code></pre>
+<h2 id="拓展">拓展:</h2>
+<pre><code>    strip不仅仅可以精简内核模块，具体如下:</code></pre>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># include &lt;stdio.h&gt;</span><br><span class="line">    int main(){</span><br><span class="line">    printf("Hello World");</span><br><span class="line">    return 0;</span><br><span class="line">}       </span><br></pre></td></tr></table></figure></div>
+<pre><code>    C语言的Hello World在我的GCC版本编译下大小如下:</code></pre>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">ubuntu@VM-0-2-ubuntu:~/test$ ls -l</span><br><span class="line">total 16</span><br><span class="line">-rwxrwxr-x 1 ubuntu ubuntu 8312 Aug  1 19:36 a.out</span><br><span class="line">-rw-rw-r-- 1 ubuntu ubuntu   69 Aug  1 19:36 hello_world.c</span><br><span class="line">ubuntu@VM-0-2-ubuntu:~/test$ </span><br></pre></td></tr></table></figure></div>
+<pre><code>    精简后:</code></pre>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">ubuntu@VM-0-2-ubuntu:~/test$ ls -l</span><br><span class="line">total 16</span><br><span class="line">-rwxrwxr-x 1 ubuntu ubuntu 8312 Aug  1 19:38 a.out</span><br><span class="line">-rw-rw-r-- 1 ubuntu ubuntu   69 Aug  1 19:36 hello_world.c</span><br><span class="line">ubuntu@VM-0-2-ubuntu:~/test$ strip a.out </span><br><span class="line">ubuntu@VM-0-2-ubuntu:~/test$ ls -l</span><br><span class="line">total 12</span><br><span class="line">-rwxrwxr-x 1 ubuntu ubuntu 6128 Aug  1 19:39 a.out</span><br><span class="line">-rw-rw-r-- 1 ubuntu ubuntu   69 Aug  1 19:36 hello_world.c</span><br><span class="line">ubuntu@VM-0-2-ubuntu:~/test$ ./a.out </span><br><span class="line">Hello Worldubuntu@VM-0-2-ubuntu:~/test$ </span><br><span class="line">ubuntu@VM-0-2-ubuntu:~/test$ </span><br></pre></td></tr></table></figure></div>
+<pre><code>大小由8312字节减到6128字节，且不影响使用.</code></pre>
+]]></content>
+      <categories>
+        <category>Kernel</category>
+      </categories>
+      <tags>
+        <tag>优化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>提取Android手机内核</title>
+    <url>/2020/04/07/pick-up-kernel/</url>
+    <content><![CDATA[<h2 id="找到内核位置">1.找到内核位置</h2>
+<p>手机进入recovery模式,连接电脑,开adb<br>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">adb shell</span><br><span class="line">cat /etc/recovery.fstab</span><br></pre></td></tr></table></figure></div><br>
+得到内核的位置<br>
+以下是我报告</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># mount point	fstype		device			[device2]</span><br><span class="line"></span><br><span class="line">/modem         emmc     /dev/block/platform/msm_sdcc.1/by-name/modem    flags=backup=1</span><br><span class="line">/sbl1          emmc     /dev/block/platform/msm_sdcc.1/by-name/sbl1   flags=backup=1</span><br><span class="line">#OPPO 2014-02-18 hewei delete for without sbl2 and sbl3</span><br><span class="line">#/sbl2          emmc     /dev/block/platform/msm_sdcc.1/by-name/sbl2</span><br><span class="line">#/sbl3          emmc     /dev/block/platform/msm_sdcc.1/by-name/sbl3</span><br><span class="line">/rpm           emmc     /dev/block/platform/msm_sdcc.1/by-name/rpm   flags=backup=1</span><br><span class="line">/tz            emmc     /dev/block/platform/msm_sdcc.1/by-name/tz   flags=backup=1</span><br><span class="line">/modem_st1     emmc     /dev/block/platform/msm_sdcc.1/by-name/modemst1   flags=backup=1</span><br><span class="line">/modem_st2     emmc     /dev/block/platform/msm_sdcc.1/by-name/modemst2   flags=backup=1</span><br><span class="line">/static_nv_bk  emmc     /dev/block/platform/msm_sdcc.1/by-name/oppostanvbk   flags=backup=1</span><br><span class="line">/oppodycnvbk   emmc     /dev/block/platform/msm_sdcc.1/by-name/oppodycnvbk   flags=backup=1</span><br><span class="line">/aboot         emmc     /dev/block/platform/msm_sdcc.1/by-name/aboot   flags=backup=1</span><br><span class="line">/boot		   emmc		/dev/block/platform/msm_sdcc.1/by-name/boot</span><br><span class="line">/system		   ext4		/dev/block/platform/msm_sdcc.1/by-name/system</span><br><span class="line">/system_image      emmc		/dev/block/platform/msm_sdcc.1/by-name/system</span><br><span class="line">/data		   ext4		/dev/block/platform/msm_sdcc.1/by-name/userdata</span><br><span class="line">/cache		   ext4		/dev/block/platform/msm_sdcc.1/by-name/cache</span><br><span class="line">/misc		   emmc		/dev/block/platform/msm_sdcc.1/by-name/misc</span><br><span class="line">/recovery	   emmc		/dev/block/platform/msm_sdcc.1/by-name/recovery    flags=backup=1</span><br><span class="line">#OPPO 2014-01-14 hewei Add for logo volume, reserve4 volume and DRIVER.ISO</span><br><span class="line">/logo          emmc       /dev/block/platform/msm_sdcc.1/by-name/LOGO  flags=backup=1</span><br><span class="line">/reserve4      emmc     /dev/block/platform/msm_sdcc.1/by-name/reserve4  flags=backup=1</span><br><span class="line">#/driver      emmc     /dev/block/platform/msm_sdcc.1/by-name/DRIVER</span><br><span class="line"></span><br><span class="line">#OPPO 2014-01-26 hewei modify for 13077  mount  T-card and sdcard</span><br><span class="line">/external_sd		vfat		/dev/block/mmcblk1p1	/dev/block/mmcblk1    flags=display="Micro SDcard";storage;wipeingui;removable;backup=0</span><br><span class="line">/usbdisk        vfat        /dev/block/sda1 /dev/block/sda                 flags=fsflags=utf8;display="OTG-U盘(usbdisk)";storage;removable</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<p>可以看到boot分区对应的路径是/dev/block/platform/msm_sdcc.1/by-name/boot</p>
+<h2 id="提取内核">2.提取内核</h2>
+<p>使用dd工具<br>
+<code>dd if=boot分区的路径 of=输出路径.img</code><br>
+我的:<br>
+<code>dd if=/dev/block/platform/msm_sdcc.1/by-name/boot of=/sdcard/kernel.img</code></p>
+<p>sdcard里的kernel.img就是我提取的内核了</p>
+]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android Kernel</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>指针的常用用法</title>
+    <url>/2022/11/17/pointer/</url>
+    <content><![CDATA[<h1 id="xfe-指针基础">0xFE 指针基础</h1>
+<h2 id="x01-计算机存储机制">0x01 计算机存储机制</h2>
+<p>虽然学的时候可能已经学过了,但多少还是写点.<br>
+假如我们有<br>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">0x1024EF</span>;</span><br><span class="line"><span class="type">char</span> b[] = {<span class="number">0xEF</span>,<span class="number">0x24</span>,<span class="number">0x10</span>};</span><br></pre></td></tr></table></figure></div><br>
+0x6950开始的这段是a存储在内存中的数据，int占四个字节，所以占用了0x6950~0x6953的空间</p>
+<p>从EF低位开始存储称之为小端存储</p>
+<p>0x7950开始的这段是b数组存储在内存中的数据,char占1个字节,又因为数组是连续存储,所以0x7950~0x7952是b数组的存储位置.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">地址</th>
+<th style="text-align: center;">内存</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">...</td>
+<td style="text-align: center;">...</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">...</td>
+<td style="text-align: center;">...</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0x6950</td>
+<td style="text-align: center;">EF</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0x6951</td>
+<td style="text-align: center;">24</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0x6952</td>
+<td style="text-align: center;">10</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0x6953</td>
+<td style="text-align: center;">00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">...</td>
+<td style="text-align: center;">...</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">...</td>
+<td style="text-align: center;">...</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0x7950</td>
+<td style="text-align: center;">EF</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0x7951</td>
+<td style="text-align: center;">24</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0x7952</td>
+<td style="text-align: center;">10</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">...</td>
+<td style="text-align: center;">...</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">...</td>
+<td style="text-align: center;">...</td>
+</tr>
+</tbody>
+</table>
+<p>我们可以看到每个字节的内存空间都对应着一段地址,相当于门牌号<br>
+<strong><em>指针本身是一个变量,但是它一般存储着其他变量或数组,函数的地址</em></strong>.所以我们可以用指针操作数据的地址，实现数据的间接访问.</p>
+<h4 id="直接访问不香">直接访问不香???</h4>
+<h2 id="x02-指针定义">0x02 指针定义</h2>
+<p>定义:<br>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> *p,a;   <span class="comment">//只有p是指针</span></span><br><span class="line"><span class="type">int</span>* b,c;   <span class="comment">//a,b都是指针</span></span><br><span class="line"><span class="type">int</span>* d = <span class="number">0</span>; <span class="comment">//等价于int* d = NULL; 是空指针</span></span><br></pre></td></tr></table></figure></div><br>
+用完了的指针不用,一般会给NULL,防止乱指.<br>
+比如说<br>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> ptr_p;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> p=<span class="number">1</span>;...){</span><br><span class="line">    ...</span><br><span class="line">    ptr_p=&amp;p</span><br><span class="line">    ...</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div><br>
+p变量在for循环结束后会被销毁,但是我们ptr_p还指向了p的地址,如果后续再有变量被分到了这个地址,操作指针时就会改变这个新变量.</p>
+<p>同级指针之间才能相互赋值，跨级赋值将会导致编译器报错或警告</p>
+<p>无论是什么类型的指针，其本身占用的大小与操作系统的位数有关<br>
+比如64位系统指针占用8字节,32位占用4字节,16位占用2字节</p>
+<h4 id="为什么">为什么?</h4>
+<p>我们知道一个字节是8位,一位能表达2个数值,0 或 1也就是2^1.<br>
+那么8字节能表示2^64个数值<br>
+用64位操作系统举例:<br>
+64位cpu的寻址范围是2<sup>64位也就是说可以有2</sup>64个地址,那我们要用一个指针,存2^64内的任一地址,那么我们指针占用的空间就要大于等于64位<br>
+也就是8个字节.而64位系统指针占用的空间就是8字节.</p>
+<h2 id="x03-指针基本操作">0x03 指针基本操作</h2>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> p =<span class="number">1</span>,b;</span><br><span class="line"><span class="type">int</span>* ptr_p;</span><br><span class="line"></span><br><span class="line">ptr_p=&amp;p;   <span class="comment">//'&amp;p'取p地址</span></span><br><span class="line">b = *ptr_p; <span class="comment">//'*p'取p内容</span></span><br><span class="line">ptr_p++     <span class="comment">//指针向下移动一个数据宽度</span></span><br><span class="line">ptr_p--     <span class="comment">//指针向上移动一个数据宽度</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<h2 id="x04-数组与指针">0x04 数组与指针</h2>
+<p>事实上数组是指针的一种表达形式.<br>
+比如我们有:<br>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">char</span> p[<span class="number">20</span>]={<span class="number">0x23</span>,<span class="number">0x98</span>};</span><br><span class="line"></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%x,%x"</span>,p[<span class="number">0</span>],p[<span class="number">1</span>]);</span><br></pre></td></tr></table></figure></div><br>
+等效于<br>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">char</span>* p = <span class="built_in">malloc</span>(<span class="number">20</span>);   <span class="comment">//定义指针并申请内存</span></span><br><span class="line">*p = <span class="number">0x23</span>;              <span class="comment">//初始化数组</span></span><br><span class="line">*(p+<span class="number">1</span>) = <span class="number">0x98</span>; </span><br><span class="line"></span><br><span class="line"><span class="comment">//printf("%x,%x",p[0],p[1]); 此种方法也可以输出,p[0]等效于*p</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%x,%x"</span>,*p,*(p+<span class="number">1</span>));</span><br></pre></td></tr></table></figure></div></p>
+<p>数名是一个指向数组首地址的指针,这里后面会用更清晰的运用,此处暂不细说.<br>
+我们来看<em>(p+1),p+1是指针向下移动一个数据宽度,移动后会指向下一个值的地址然后我们用</em>号取出.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">指针</th>
+<th style="text-align: center;">地址</th>
+<th style="text-align: center;">内存</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">...</td>
+<td style="text-align: center;">...</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">...</td>
+<td style="text-align: center;">...</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">p--&gt;</td>
+<td style="text-align: center;">0x6950</td>
+<td style="text-align: center;">23</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">(p+1)--&gt;</td>
+<td style="text-align: center;">0x6951</td>
+<td style="text-align: center;">98</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">...</td>
+<td style="text-align: center;">...</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">...</td>
+<td style="text-align: center;">...</td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+<p>P.S. char型的数据宽度是一个字节.</p>
+<h1 id="xff-指针应用">0xFF 指针应用</h1>
+<h2 id="x10-传参">0x10 传参</h2>
+<h3 id="x11-使用指针传递大容量的参数">0x11 使用指针传递大容量的参数</h3>
+<p>我们先来看下一般的传参过程<br>
+如果我们有void test(int a[]);<br>
+那么当我们传入a[]时,程序会在内存中开辟一个新的空间,把a[]的数据复制一份放到这个新的空间中,称为值传递,就像:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/pointer/1.jpg" alt="数据复制"><br>
+这样做的好处是能隔离数据,比如说<br>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> a[]={<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>};</span><br><span class="line">test(a);</span><br></pre></td></tr></table></figure></div><br>
+这样子无论test怎么操作a都不会对函数外的a数组造成任何改变,因为函数内的a[]的是独立的一块内存</p>
+<p>而这恰好又是缺点,因为要开辟一段新的内存空间而且还有进行数据复制,这就造成了内存和算力消耗.</p>
+<p>如果数据量小还好,数据量一大,函数外的数组占的空间本来就大,传参又开辟一块空间,而且要数据复制.<br>
+这样子看来直接访问好像不那么香了.</p>
+<p>如果我们用指针呢?<br>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">test</span><span class="params">(<span class="type">int</span> *a)</span>;</span><br></pre></td></tr></table></figure></div><br>
+传参时,函数只会开辟一块内存用来放指针,指针存着a[]的地址,这样函数访问a[]时,<br>
+将会顺着指针里的地址,找到函数外的a[],直接操作a数值这样子就避免了数据复制,称为指针传递,能节省很多内存空间和算力就像:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/pointer/2.jpg" alt="指针参数"></p>
+<p>但是呢,这也是缺点,函数对a[]的修改会直接影响到函数外的a[]没有达到隔离的效果,但是还是有解决方法<br>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">test</span><span class="params">(<span class="type">const</span> <span class="type">int</span>* a)</span>;</span><br></pre></td></tr></table></figure></div><br>
+这样定义成常量的话test就无法更改a数组的值</p>
+<h3 id="其实这种指针用法非常常见接下来例举几个常见函数">其实这种指针用法非常常见,接下来例举几个常见函数</h3>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">char</span> *<span class="title function_">strcpy</span><span class="params">(<span class="type">char</span>* dest, <span class="type">const</span> <span class="type">char</span> *src)</span>;  <span class="comment">//字符串拷贝</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">strcmp</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *s1,<span class="type">const</span> <span class="type">char</span> *s2)</span>;  <span class="comment">//字符串比较</span></span><br><span class="line"><span class="type">size_t</span> <span class="title function_">strlen</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *<span class="built_in">string</span>)</span>;          <span class="comment">//字符串长度计算</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<p>这些都用到了指针作为参数,<strong>避免了数据复制节省了空间大大提升了速度,加入const还能保证安全性</strong></p>
+<h2 id="x12-指针传递输出参数">0x12 指针传递输出参数</h2>
+<p>前面有提到如果用指针传参不加const的话,会导致函数可能修改函数外传入的值.<br>
+我们可以利用这个特性,达到用指针来传递输出参数<br>
+我们知道一个函数有一个返回值,但是我们用指针可以达到多个输出参数的效果如:<br>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**********************</span></span><br><span class="line"><span class="comment">功能:找到int型数组中的最大值并计数</span></span><br><span class="line"><span class="comment">参数:</span></span><br><span class="line"><span class="comment">    const int* Data:目标数组首地址</span></span><br><span class="line"><span class="comment">    int *Max:用于存放最大值的地址</span></span><br><span class="line"><span class="comment">    int *MaxNum:用于存放最大值个数的地址</span></span><br><span class="line"><span class="comment">    int count:搜索宽度</span></span><br><span class="line"><span class="comment">***********************/</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">FindMax</span><span class="params">(<span class="type">const</span> <span class="type">int</span>* Data,<span class="type">int</span> *Max,<span class="type">int</span> *MaxNum,<span class="type">int</span> count)</span>{</span><br><span class="line">    *(Max) = Data[<span class="number">0</span>];</span><br><span class="line">    *(MaxNum) = <span class="number">1</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;=count; i++){</span><br><span class="line">        <span class="keyword">if</span>(*(Max) &lt; Data[i])</span><br><span class="line">            *(Max) = Data[i];</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(*(Max) == Data[i])</span><br><span class="line">                (*MaxNum)++; </span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">{</span><br><span class="line">    <span class="type">int</span> Data[]={<span class="number">8</span>,<span class="number">9</span>,<span class="number">10</span>,<span class="number">10</span>,<span class="number">9</span>,<span class="number">8</span>};</span><br><span class="line">    <span class="type">int</span> Max,MaxNum;</span><br><span class="line">    </span><br><span class="line">    FindMax(Data,&amp;Max,&amp;MaxNum,<span class="number">6</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d,%d"</span>,Max,MaxNum);</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span>(<span class="number">0</span>);</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div><br>
+从上面的FindMax()可以看出这个函数有两个输出参数Max,MaxNum,就是因为函数通过指针对函数外的变量进行修改而达成的</p>
+<h2 id="x20传递返回值">0x20传递返回值</h2>
+<p>分装函数时常常会用到指针来返回句柄,用指针将模块内的公有部分返回,让主函数持有模块的“句柄”(相当于现实中的"把手")<br>
+便于程序对指定对象的操作.<br>
+比如说<br>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/************************</span></span><br><span class="line"><span class="comment">这是一个分装的模块里的一部分(假设)</span></span><br><span class="line"><span class="comment">************************/</span></span><br><span class="line"><span class="type">int</span> Time[]={<span class="number">19</span>,<span class="number">00</span>,<span class="number">00</span>};</span><br><span class="line"></span><br><span class="line"><span class="type">int</span>* <span class="title function_">GetTime</span><span class="params">()</span>{</span><br><span class="line">    <span class="keyword">return</span> Time;</span><br><span class="line">}</span><br><span class="line"><span class="comment">/*-------------------*/</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>{</span><br><span class="line">    <span class="type">int</span> *p = GetTime(); <span class="comment">//获取句柄</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//这样便可以对模块里的Time进行操作</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></div><br>
+如果我们不用句柄的方式来访问模块里的数据,将模块里的数据放出模块外来访问的话,很明显<br>
+这不利于分装,所以分装模块时常常会采取指针来传递返回值.</p>
+<!--
+## 0x30 直接访问物理地址下的数据
+### 0x31 访问硬件指定内存下的数据，如设备ID
+这里用51单片机举例
+-->
+<h3 id="x32-将复杂格式的数据转换为字节方便通信与存储">0x32
+将复杂格式的数据转换为字节，方便通信与存储</h3>
+<p>如果我们有一个float型变量a=12.345,我们想把它作为信息发送出去,我们可以利用指针特性来完成这件事.</p>
+<p>浮点型的数据存储方式比较特殊,这里且不展开讨论.<br>
+我们知道float占4个字节内存空间,看起来是这样的:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/pointer/3.jpg" alt="float存储"></p>
+<p>我们知道,char型变量占一个字节,char型指针能指向一个字节的空间,那么我们用char型指针指向a的地址,<br>
+再以数组的方式用循环遍历一次就可以实现数一字节一字节的发送了.我们用char数组接收,最后用一个float指针指向char数组的首地址.相当于是将数据先拆成好几份,送到目的地再重组,如图:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/pointer/4.jpg" alt="指针发送数据"><br>
+然后用*d就可以将c[]里的数据解码成float型了，相当于读取了c[]前四字节.<br>
+代码简易实现:<br>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">char</span> ReciveData[<span class="number">20</span>];        <span class="comment">//用于接收数据的数组</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//发送模块</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">SendData</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *data,<span class="type">int</span> count)</span>{</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i&lt; count; i++){      </span><br><span class="line">        ReciveData[i] = data[i];       <span class="comment">//发到ReciveData</span></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>{</span><br><span class="line">    <span class="type">float</span> a=<span class="number">12.345</span>;</span><br><span class="line">    <span class="type">char</span> *p=(<span class="type">char</span> *)&amp;a; <span class="comment">//char型指针指向a的地址</span></span><br><span class="line"></span><br><span class="line">    SendData(p,<span class="number">4</span>);  <span class="comment">//a数据将被拆成4份(因为float占四字节,char指针一次能指向一字节)发往ReciveData[],一个一个字节的发</span></span><br><span class="line"></span><br><span class="line">    <span class="type">float</span> *d = (<span class="type">float</span>*)ReciveData;     <span class="comment">//解码</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"a=%f     *d=%f"</span>,a,*d);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div><br>
+输出结果:<br>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">a=12.345000     *d=12.345000</span><br></pre></td></tr></table></figure></div></p>
+<p>之所以用char * 来当指针是因为内存最小单位是字节,而char
+*恰好能指向一个字节的空间,相当于单位操作,更灵活;</p>
+]]></content>
+      <tags>
+        <tag>C/C++</tag>
       </tags>
   </entry>
   <entry>
@@ -1769,237 +1929,6 @@ a是一个PAC,b形成了一个用于修饰V和弦五音的规避音.c中A4音代
 ]]></content>
       <tags>
         <tag>Music</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>提取Android手机内核</title>
-    <url>/2020/04/07/pick-up-kernel/</url>
-    <content><![CDATA[<h2 id="找到内核位置">1.找到内核位置</h2>
-<p>手机进入recovery模式,连接电脑,开adb<br>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">adb shell</span><br><span class="line">cat /etc/recovery.fstab</span><br></pre></td></tr></table></figure></div><br>
-得到内核的位置<br>
-以下是我报告</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># mount point	fstype		device			[device2]</span><br><span class="line"></span><br><span class="line">/modem         emmc     /dev/block/platform/msm_sdcc.1/by-name/modem    flags=backup=1</span><br><span class="line">/sbl1          emmc     /dev/block/platform/msm_sdcc.1/by-name/sbl1   flags=backup=1</span><br><span class="line">#OPPO 2014-02-18 hewei delete for without sbl2 and sbl3</span><br><span class="line">#/sbl2          emmc     /dev/block/platform/msm_sdcc.1/by-name/sbl2</span><br><span class="line">#/sbl3          emmc     /dev/block/platform/msm_sdcc.1/by-name/sbl3</span><br><span class="line">/rpm           emmc     /dev/block/platform/msm_sdcc.1/by-name/rpm   flags=backup=1</span><br><span class="line">/tz            emmc     /dev/block/platform/msm_sdcc.1/by-name/tz   flags=backup=1</span><br><span class="line">/modem_st1     emmc     /dev/block/platform/msm_sdcc.1/by-name/modemst1   flags=backup=1</span><br><span class="line">/modem_st2     emmc     /dev/block/platform/msm_sdcc.1/by-name/modemst2   flags=backup=1</span><br><span class="line">/static_nv_bk  emmc     /dev/block/platform/msm_sdcc.1/by-name/oppostanvbk   flags=backup=1</span><br><span class="line">/oppodycnvbk   emmc     /dev/block/platform/msm_sdcc.1/by-name/oppodycnvbk   flags=backup=1</span><br><span class="line">/aboot         emmc     /dev/block/platform/msm_sdcc.1/by-name/aboot   flags=backup=1</span><br><span class="line">/boot		   emmc		/dev/block/platform/msm_sdcc.1/by-name/boot</span><br><span class="line">/system		   ext4		/dev/block/platform/msm_sdcc.1/by-name/system</span><br><span class="line">/system_image      emmc		/dev/block/platform/msm_sdcc.1/by-name/system</span><br><span class="line">/data		   ext4		/dev/block/platform/msm_sdcc.1/by-name/userdata</span><br><span class="line">/cache		   ext4		/dev/block/platform/msm_sdcc.1/by-name/cache</span><br><span class="line">/misc		   emmc		/dev/block/platform/msm_sdcc.1/by-name/misc</span><br><span class="line">/recovery	   emmc		/dev/block/platform/msm_sdcc.1/by-name/recovery    flags=backup=1</span><br><span class="line">#OPPO 2014-01-14 hewei Add for logo volume, reserve4 volume and DRIVER.ISO</span><br><span class="line">/logo          emmc       /dev/block/platform/msm_sdcc.1/by-name/LOGO  flags=backup=1</span><br><span class="line">/reserve4      emmc     /dev/block/platform/msm_sdcc.1/by-name/reserve4  flags=backup=1</span><br><span class="line">#/driver      emmc     /dev/block/platform/msm_sdcc.1/by-name/DRIVER</span><br><span class="line"></span><br><span class="line">#OPPO 2014-01-26 hewei modify for 13077  mount  T-card and sdcard</span><br><span class="line">/external_sd		vfat		/dev/block/mmcblk1p1	/dev/block/mmcblk1    flags=display="Micro SDcard";storage;wipeingui;removable;backup=0</span><br><span class="line">/usbdisk        vfat        /dev/block/sda1 /dev/block/sda                 flags=fsflags=utf8;display="OTG-U盘(usbdisk)";storage;removable</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
-<p>可以看到boot分区对应的路径是/dev/block/platform/msm_sdcc.1/by-name/boot</p>
-<h2 id="提取内核">2.提取内核</h2>
-<p>使用dd工具<br>
-<code>dd if=boot分区的路径 of=输出路径.img</code><br>
-我的:<br>
-<code>dd if=/dev/block/platform/msm_sdcc.1/by-name/boot of=/sdcard/kernel.img</code></p>
-<p>sdcard里的kernel.img就是我提取的内核了</p>
-]]></content>
-      <categories>
-        <category>Android</category>
-      </categories>
-      <tags>
-        <tag>Android Kernel</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>指针的常用用法</title>
-    <url>/2022/11/17/pointer/</url>
-    <content><![CDATA[<h1 id="xfe-指针基础">0xFE 指针基础</h1>
-<h2 id="x01-计算机存储机制">0x01 计算机存储机制</h2>
-<p>虽然学的时候可能已经学过了,但多少还是写点.<br>
-假如我们有<br>
-<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">0x1024EF</span>;</span><br><span class="line"><span class="type">char</span> b[] = {<span class="number">0xEF</span>,<span class="number">0x24</span>,<span class="number">0x10</span>};</span><br></pre></td></tr></table></figure></div><br>
-0x6950开始的这段是a存储在内存中的数据，int占四个字节，所以占用了0x6950~0x6953的空间</p>
-<p>从EF低位开始存储称之为小端存储</p>
-<p>0x7950开始的这段是b数组存储在内存中的数据,char占1个字节,又因为数组是连续存储,所以0x7950~0x7952是b数组的存储位置.</p>
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: center;">地址</th>
-<th style="text-align: center;">内存</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">...</td>
-<td style="text-align: center;">...</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">...</td>
-<td style="text-align: center;">...</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">0x6950</td>
-<td style="text-align: center;">EF</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">0x6951</td>
-<td style="text-align: center;">24</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">0x6952</td>
-<td style="text-align: center;">10</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">0x6953</td>
-<td style="text-align: center;">00</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">...</td>
-<td style="text-align: center;">...</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">...</td>
-<td style="text-align: center;">...</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">0x7950</td>
-<td style="text-align: center;">EF</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">0x7951</td>
-<td style="text-align: center;">24</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">0x7952</td>
-<td style="text-align: center;">10</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">...</td>
-<td style="text-align: center;">...</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">...</td>
-<td style="text-align: center;">...</td>
-</tr>
-</tbody>
-</table>
-<p>我们可以看到每个字节的内存空间都对应着一段地址,相当于门牌号<br>
-<strong><em>指针本身是一个变量,但是它一般存储着其他变量或数组,函数的地址</em></strong>.所以我们可以用指针操作数据的地址，实现数据的间接访问.</p>
-<h4 id="直接访问不香">直接访问不香???</h4>
-<h2 id="x02-指针定义">0x02 指针定义</h2>
-<p>定义:<br>
-<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> *p,a;   <span class="comment">//只有p是指针</span></span><br><span class="line"><span class="type">int</span>* b,c;   <span class="comment">//a,b都是指针</span></span><br><span class="line"><span class="type">int</span>* d = <span class="number">0</span>; <span class="comment">//等价于int* d = NULL; 是空指针</span></span><br></pre></td></tr></table></figure></div><br>
-用完了的指针不用,一般会给NULL,防止乱指.<br>
-比如说<br>
-<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> ptr_p;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> p=<span class="number">1</span>;...){</span><br><span class="line">    ...</span><br><span class="line">    ptr_p=&amp;p</span><br><span class="line">    ...</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div><br>
-p变量在for循环结束后会被销毁,但是我们ptr_p还指向了p的地址,如果后续再有变量被分到了这个地址,操作指针时就会改变这个新变量.</p>
-<p>同级指针之间才能相互赋值，跨级赋值将会导致编译器报错或警告</p>
-<p>无论是什么类型的指针，其本身占用的大小与操作系统的位数有关<br>
-比如64位系统指针占用8字节,32位占用4字节,16位占用2字节</p>
-<h4 id="为什么">为什么?</h4>
-<p>我们知道一个字节是8位,一位能表达2个数值,0 或 1也就是2^1.<br>
-那么8字节能表示2^64个数值<br>
-用64位操作系统举例:<br>
-64位cpu的寻址范围是2<sup>64位也就是说可以有2</sup>64个地址,那我们要用一个指针,存2^64内的任一地址,那么我们指针占用的空间就要大于等于64位<br>
-也就是8个字节.而64位系统指针占用的空间就是8字节.</p>
-<h2 id="x03-指针基本操作">0x03 指针基本操作</h2>
-<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> p =<span class="number">1</span>,b;</span><br><span class="line"><span class="type">int</span>* ptr_p;</span><br><span class="line"></span><br><span class="line">ptr_p=&amp;p;   <span class="comment">//'&amp;p'取p地址</span></span><br><span class="line">b = *ptr_p; <span class="comment">//'*p'取p内容</span></span><br><span class="line">ptr_p++     <span class="comment">//指针向下移动一个数据宽度</span></span><br><span class="line">ptr_p--     <span class="comment">//指针向上移动一个数据宽度</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
-<h2 id="x04-数组与指针">0x04 数组与指针</h2>
-<p>事实上数组是指针的一种表达形式.<br>
-比如我们有:<br>
-<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">char</span> p[<span class="number">20</span>]={<span class="number">0x23</span>,<span class="number">0x98</span>};</span><br><span class="line"></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%x,%x"</span>,p[<span class="number">0</span>],p[<span class="number">1</span>]);</span><br></pre></td></tr></table></figure></div><br>
-等效于<br>
-<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">char</span>* p = <span class="built_in">malloc</span>(<span class="number">20</span>);   <span class="comment">//定义指针并申请内存</span></span><br><span class="line">*p = <span class="number">0x23</span>;              <span class="comment">//初始化数组</span></span><br><span class="line">*(p+<span class="number">1</span>) = <span class="number">0x98</span>; </span><br><span class="line"></span><br><span class="line"><span class="comment">//printf("%x,%x",p[0],p[1]); 此种方法也可以输出,p[0]等效于*p</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%x,%x"</span>,*p,*(p+<span class="number">1</span>));</span><br></pre></td></tr></table></figure></div></p>
-<p>数名是一个指向数组首地址的指针,这里后面会用更清晰的运用,此处暂不细说.<br>
-我们来看<em>(p+1),p+1是指针向下移动一个数据宽度,移动后会指向下一个值的地址然后我们用</em>号取出.</p>
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: center;">指针</th>
-<th style="text-align: center;">地址</th>
-<th style="text-align: center;">内存</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">...</td>
-<td style="text-align: center;">...</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">...</td>
-<td style="text-align: center;">...</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">p--&gt;</td>
-<td style="text-align: center;">0x6950</td>
-<td style="text-align: center;">23</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">(p+1)--&gt;</td>
-<td style="text-align: center;">0x6951</td>
-<td style="text-align: center;">98</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">...</td>
-<td style="text-align: center;">...</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">...</td>
-<td style="text-align: center;">...</td>
-<td style="text-align: center;"></td>
-</tr>
-</tbody>
-</table>
-<p>P.S. char型的数据宽度是一个字节.</p>
-<h1 id="xff-指针应用">0xFF 指针应用</h1>
-<h2 id="x10-传参">0x10 传参</h2>
-<h3 id="x11-使用指针传递大容量的参数">0x11 使用指针传递大容量的参数</h3>
-<p>我们先来看下一般的传参过程<br>
-如果我们有void test(int a[]);<br>
-那么当我们传入a[]时,程序会在内存中开辟一个新的空间,把a[]的数据复制一份放到这个新的空间中,称为值传递,就像:<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/pointer/1.jpg" alt="数据复制"><br>
-这样做的好处是能隔离数据,比如说<br>
-<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> a[]={<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>};</span><br><span class="line">test(a);</span><br></pre></td></tr></table></figure></div><br>
-这样子无论test怎么操作a都不会对函数外的a数组造成任何改变,因为函数内的a[]的是独立的一块内存</p>
-<p>而这恰好又是缺点,因为要开辟一段新的内存空间而且还有进行数据复制,这就造成了内存和算力消耗.</p>
-<p>如果数据量小还好,数据量一大,函数外的数组占的空间本来就大,传参又开辟一块空间,而且要数据复制.<br>
-这样子看来直接访问好像不那么香了.</p>
-<p>如果我们用指针呢?<br>
-<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">test</span><span class="params">(<span class="type">int</span> *a)</span>;</span><br></pre></td></tr></table></figure></div><br>
-传参时,函数只会开辟一块内存用来放指针,指针存着a[]的地址,这样函数访问a[]时,<br>
-将会顺着指针里的地址,找到函数外的a[],直接操作a数值这样子就避免了数据复制,称为指针传递,能节省很多内存空间和算力就像:<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/pointer/2.jpg" alt="指针参数"></p>
-<p>但是呢,这也是缺点,函数对a[]的修改会直接影响到函数外的a[]没有达到隔离的效果,但是还是有解决方法<br>
-<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">test</span><span class="params">(<span class="type">const</span> <span class="type">int</span>* a)</span>;</span><br></pre></td></tr></table></figure></div><br>
-这样定义成常量的话test就无法更改a数组的值</p>
-<h3 id="其实这种指针用法非常常见接下来例举几个常见函数">其实这种指针用法非常常见,接下来例举几个常见函数</h3>
-<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">char</span> *<span class="title function_">strcpy</span><span class="params">(<span class="type">char</span>* dest, <span class="type">const</span> <span class="type">char</span> *src)</span>;  <span class="comment">//字符串拷贝</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">strcmp</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *s1,<span class="type">const</span> <span class="type">char</span> *s2)</span>;  <span class="comment">//字符串比较</span></span><br><span class="line"><span class="type">size_t</span> <span class="title function_">strlen</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *<span class="built_in">string</span>)</span>;          <span class="comment">//字符串长度计算</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
-<p>这些都用到了指针作为参数,<strong>避免了数据复制节省了空间大大提升了速度,加入const还能保证安全性</strong></p>
-<h2 id="x12-指针传递输出参数">0x12 指针传递输出参数</h2>
-<p>前面有提到如果用指针传参不加const的话,会导致函数可能修改函数外传入的值.<br>
-我们可以利用这个特性,达到用指针来传递输出参数<br>
-我们知道一个函数有一个返回值,但是我们用指针可以达到多个输出参数的效果如:<br>
-<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**********************</span></span><br><span class="line"><span class="comment">功能:找到int型数组中的最大值并计数</span></span><br><span class="line"><span class="comment">参数:</span></span><br><span class="line"><span class="comment">    const int* Data:目标数组首地址</span></span><br><span class="line"><span class="comment">    int *Max:用于存放最大值的地址</span></span><br><span class="line"><span class="comment">    int *MaxNum:用于存放最大值个数的地址</span></span><br><span class="line"><span class="comment">    int count:搜索宽度</span></span><br><span class="line"><span class="comment">***********************/</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">FindMax</span><span class="params">(<span class="type">const</span> <span class="type">int</span>* Data,<span class="type">int</span> *Max,<span class="type">int</span> *MaxNum,<span class="type">int</span> count)</span>{</span><br><span class="line">    *(Max) = Data[<span class="number">0</span>];</span><br><span class="line">    *(MaxNum) = <span class="number">1</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;=count; i++){</span><br><span class="line">        <span class="keyword">if</span>(*(Max) &lt; Data[i])</span><br><span class="line">            *(Max) = Data[i];</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(*(Max) == Data[i])</span><br><span class="line">                (*MaxNum)++; </span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">{</span><br><span class="line">    <span class="type">int</span> Data[]={<span class="number">8</span>,<span class="number">9</span>,<span class="number">10</span>,<span class="number">10</span>,<span class="number">9</span>,<span class="number">8</span>};</span><br><span class="line">    <span class="type">int</span> Max,MaxNum;</span><br><span class="line">    </span><br><span class="line">    FindMax(Data,&amp;Max,&amp;MaxNum,<span class="number">6</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d,%d"</span>,Max,MaxNum);</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span>(<span class="number">0</span>);</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div><br>
-从上面的FindMax()可以看出这个函数有两个输出参数Max,MaxNum,就是因为函数通过指针对函数外的变量进行修改而达成的</p>
-<h2 id="x20传递返回值">0x20传递返回值</h2>
-<p>分装函数时常常会用到指针来返回句柄,用指针将模块内的公有部分返回,让主函数持有模块的“句柄”(相当于现实中的"把手")<br>
-便于程序对指定对象的操作.<br>
-比如说<br>
-<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/************************</span></span><br><span class="line"><span class="comment">这是一个分装的模块里的一部分(假设)</span></span><br><span class="line"><span class="comment">************************/</span></span><br><span class="line"><span class="type">int</span> Time[]={<span class="number">19</span>,<span class="number">00</span>,<span class="number">00</span>};</span><br><span class="line"></span><br><span class="line"><span class="type">int</span>* <span class="title function_">GetTime</span><span class="params">()</span>{</span><br><span class="line">    <span class="keyword">return</span> Time;</span><br><span class="line">}</span><br><span class="line"><span class="comment">/*-------------------*/</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>{</span><br><span class="line">    <span class="type">int</span> *p = GetTime(); <span class="comment">//获取句柄</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//这样便可以对模块里的Time进行操作</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></div><br>
-如果我们不用句柄的方式来访问模块里的数据,将模块里的数据放出模块外来访问的话,很明显<br>
-这不利于分装,所以分装模块时常常会采取指针来传递返回值.</p>
-<!--
-## 0x30 直接访问物理地址下的数据
-### 0x31 访问硬件指定内存下的数据，如设备ID
-这里用51单片机举例
--->
-<h3 id="x32-将复杂格式的数据转换为字节方便通信与存储">0x32
-将复杂格式的数据转换为字节，方便通信与存储</h3>
-<p>如果我们有一个float型变量a=12.345,我们想把它作为信息发送出去,我们可以利用指针特性来完成这件事.</p>
-<p>浮点型的数据存储方式比较特殊,这里且不展开讨论.<br>
-我们知道float占4个字节内存空间,看起来是这样的:<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/pointer/3.jpg" alt="float存储"></p>
-<p>我们知道,char型变量占一个字节,char型指针能指向一个字节的空间,那么我们用char型指针指向a的地址,<br>
-再以数组的方式用循环遍历一次就可以实现数一字节一字节的发送了.我们用char数组接收,最后用一个float指针指向char数组的首地址.相当于是将数据先拆成好几份,送到目的地再重组,如图:<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/pointer/4.jpg" alt="指针发送数据"><br>
-然后用*d就可以将c[]里的数据解码成float型了，相当于读取了c[]前四字节.<br>
-代码简易实现:<br>
-<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">char</span> ReciveData[<span class="number">20</span>];        <span class="comment">//用于接收数据的数组</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//发送模块</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">SendData</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *data,<span class="type">int</span> count)</span>{</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i&lt; count; i++){      </span><br><span class="line">        ReciveData[i] = data[i];       <span class="comment">//发到ReciveData</span></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>{</span><br><span class="line">    <span class="type">float</span> a=<span class="number">12.345</span>;</span><br><span class="line">    <span class="type">char</span> *p=(<span class="type">char</span> *)&amp;a; <span class="comment">//char型指针指向a的地址</span></span><br><span class="line"></span><br><span class="line">    SendData(p,<span class="number">4</span>);  <span class="comment">//a数据将被拆成4份(因为float占四字节,char指针一次能指向一字节)发往ReciveData[],一个一个字节的发</span></span><br><span class="line"></span><br><span class="line">    <span class="type">float</span> *d = (<span class="type">float</span>*)ReciveData;     <span class="comment">//解码</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"a=%f     *d=%f"</span>,a,*d);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div><br>
-输出结果:<br>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">a=12.345000     *d=12.345000</span><br></pre></td></tr></table></figure></div></p>
-<p>之所以用char * 来当指针是因为内存最小单位是字节,而char
-*恰好能指向一个字节的空间,相当于单位操作,更灵活;</p>
-]]></content>
-      <tags>
-        <tag>C/C++</tag>
       </tags>
   </entry>
   <entry>
