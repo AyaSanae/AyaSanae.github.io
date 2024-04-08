@@ -323,6 +323,76 @@ List集合因为有索引所以多了很多索引操作方法.</p>
   </div>
 <p>ArrayList添加元素过程:<br>
 <div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">ArrayList&lt;String&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">list.add(<span class="string">"aaa"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//ArrayList内部:</span></span><br><span class="line"><span class="keyword">private</span> <span class="type">int</span> size;                                                       <span class="comment">//集合长度</span></span><br><span class="line"><span class="keyword">transient</span> Object[] elementData;                                         <span class="comment">//集合底层数组名</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">DEFAULT_CAPACITY</span> <span class="operator">=</span> <span class="number">10</span>;                         <span class="comment">//默认容量</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">SOFT_MAX_ARRAY_LENGTH</span> <span class="operator">=</span> Integer.MAX_VALUE - <span class="number">8</span>;  <span class="comment">//用于防止OutOfMemoryError</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = {};   <span class="comment">//空参构造创建的空数组</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">ArrayList</span><span class="params">()</span>{</span><br><span class="line">  <span class="built_in">this</span>.elementData = DEFAULTCAPACITY_EMPTY_ELEMENTDATA;                 <span class="comment">//空参构造</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">add</span><span class="params">(E e)</span>{</span><br><span class="line">  modCount++;</span><br><span class="line">  add(e,elementData,size);    <span class="comment">//e参数表示当前要添加的元素           </span></span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">add</span><span class="params">(E e,Object[] elementData.<span class="type">int</span> s)</span>{</span><br><span class="line">  <span class="keyword">if</span>(s == elementData)</span><br><span class="line">    elementData = grow();     <span class="comment">//grow表示数组扩容</span></span><br><span class="line">  elementData[s] = e;</span><br><span class="line">  size = s + <span class="number">1</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> Object[] grow(){</span><br><span class="line">  <span class="keyword">return</span> grow(size + <span class="number">1</span>);     <span class="comment">//集合长度+1(现有元素个数)                                       </span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> Object[] grow(<span class="type">int</span> minCapacity){</span><br><span class="line">  <span class="type">int</span> <span class="variable">oldCapacity</span> <span class="operator">=</span> elementData.length;                                   <span class="comment">//记录原来的容量</span></span><br><span class="line">  <span class="keyword">if</span>(oldCapacity &gt; <span class="number">0</span> || elementData != DEFAULTCAPACITY_EMPTY_ELEMENDATA){</span><br><span class="line">    <span class="type">int</span> <span class="variable">newCapacity</span> <span class="operator">=</span> ArraysSupport.newLength(oldCapacity,                <span class="comment">//原来的容量</span></span><br><span class="line">                                              minCapacity - old Capacity, <span class="comment">//理论至少要新增的容量</span></span><br><span class="line">                                              oldCapacity &gt;&gt; <span class="number">1</span>);          <span class="comment">//默认新增容量,右移一位即除以2</span></span><br><span class="line">    <span class="type">return</span> <span class="variable">elementData</span> <span class="operator">=</span> Arrays.copyOf(elementData,newCapacity);          <span class="comment">//新建数组并将老数组数据复制到新数组</span></span><br><span class="line">    }<span class="keyword">else</span>{</span><br><span class="line">      <span class="comment">//第一次添加数据会执行到else这里</span></span><br><span class="line">      <span class="type">return</span> <span class="variable">elementData</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Object</span>[Math.max(DEFAULT_CAPACITY,minCapacity)];   </span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">//这里的形参对应oldCapacity，minCapacity - old Capacity，oldCapacity &gt;&gt; 1</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">*这里传了理论新增和默认新增是因为默认新增的可能不够,默认是扩容到原来的1.5倍但是一次添加超过了原来的1.5倍元素则要依据理论新增来扩容</span></span><br><span class="line"><span class="comment">*所以就出现了Math.max(minGrowth,prefGrowth)用这种方式来判断</span></span><br><span class="line"><span class="comment">*如果理论需要大于默认扩容,那就以理论值来扩容</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">newLength</span><span class="params">(<span class="type">int</span> oldLength,<span class="type">int</span> minGrowth,<span class="type">int</span> prefGrowth)</span>{         </span><br><span class="line">  <span class="type">int</span> <span class="variable">prefLength</span> <span class="operator">=</span> oldLength + Math.max(minGrowth,prefGrowth);   <span class="comment">//计算扩容量  </span></span><br><span class="line">  <span class="keyword">if</span>(<span class="number">0</span> &lt; prefLength &amp;&amp; prefLength &lt;= SOFT_MAX_ARRAY_LENGTH){     <span class="comment">//判断请求新增容量会不会导致OutOfMemoryError               </span></span><br><span class="line">    <span class="keyword">return</span> prefLength;</span><br><span class="line">  }<span class="keyword">else</span>{</span><br><span class="line">    <span class="keyword">return</span> hugeLength(oldLength,minGrowth);                      <span class="comment">//如果会导致OutOfMemoryError则走hugeLength();</span></span><br><span class="line">  }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">//如果扩容后确实超过了int整形所能存储的最大值，就会抛出OutOfMemoryError异常.</span></span><br><span class="line"><span class="comment">//否则,就与SOFT_MAX_ARRAY_LENGTH的值进行比较,从而返回最合适的结果进行扩容。</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">hugeLength</span><span class="params">(<span class="type">int</span> oldLength, <span class="type">int</span> minGrowth)</span> {</span><br><span class="line">    <span class="type">int</span> <span class="variable">minLength</span> <span class="operator">=</span> oldLength + minGrowth;</span><br><span class="line">    <span class="keyword">if</span> (minLength &lt; <span class="number">0</span>) {                                         <span class="comment">// overflow</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">OutOfMemoryError</span>(</span><br><span class="line">            <span class="string">"Required array length "</span> + oldLength + <span class="string">" + "</span> + minGrowth + <span class="string">" is too large"</span>);</span><br><span class="line">    } <span class="keyword">else</span> <span class="keyword">if</span> (minLength &lt;= SOFT_MAX_ARRAY_LENGTH) {</span><br><span class="line">        <span class="keyword">return</span> SOFT_MAX_ARRAY_LENGTH;</span><br><span class="line">    } <span class="keyword">else</span> {</span><br><span class="line">        <span class="keyword">return</span> minLength;</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></table></figure></div></p>
+<h2 id="泛型">泛型</h2>
+<p>泛型是JDK5中引入的特性,可以在编译阶段约束操作的数据类型,并进行检查<br>
+泛型的格式:&lt;数据类型&gt;</p>
+<h3 id="为什么要有泛型">为什么要有泛型?</h3>
+<p>那就要先提到没有泛型的时候,集合如何存储数据<br>
+如果我们没有给集合指定类型,默认认为所有数据类型都是Object类型,此时可以往集合里<br>
+添加任意的数据类型.<br>
+这样就回带来一个坏处:我们获取数据的时候无法使用他的特有行为--多态弊端.</p>
+<p>这时候如果有泛型的话就可以把类型进行统一.而且我们获取数据的时候也可以不强转,非常<br>
+方便.</p>
+<p>所有泛型有统一数据类型,避免强制类型转换可能会出现的异常的好处.</p>
+
+  <div class="note p-4 mb-4 rounded-small red">
+    <p>Java中的泛型是伪泛型.</p>
+
+  </div>
+<p>Java源文件:<br>
+ArrayList<string> list = new ArrayList&lt;&gt;();<br>
+Class文件:<br>
+ArrayList list = new ArrayList();</string></p>
+<p>以上过程叫做泛型的擦除.</p>
+<h3 id="泛型的细节">泛型的细节</h3>
+
+  <div class="note p-4 mb-4 rounded-small red">
+    <p>泛型只支持引用数据类型</p>
+
+  </div>
+
+  <div class="note p-4 mb-4 rounded-small red">
+    <p>指定泛型的具体类型后,传递数据时可以传入该类型或其子类类型</p>
+
+  </div>
+
+  <div class="note p-4 mb-4 rounded-small red">
+    <p>如果不写泛型默认类型是Object</p>
+
+  </div>
+<h3 id="泛型的定义">泛型的定义</h3>
+<h4 id="类后面--泛型类">类后面--泛型类</h4>
+<p>使用场景:当一个类里,某个变量的数据类型不确定时,就可以定义带泛型的类<br>
+格式:<br>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">修饰符 class 类名&lt;类型&gt;{</span></span><br><span class="line"><span class="comment">  创建该类对象时,E就确定类型</span></span><br><span class="line"><span class="comment">}</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ArrayList</span>&lt;E&gt;{</span><br><span class="line">  <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">add</span><span class="params">(E e)</span>{</span><br><span class="line">  modCount++;</span><br><span class="line">  add(e,elementData,size);          </span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">}</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div></p>
+<h4 id="方法上--泛型方法">方法上--泛型方法</h4>
+<p>使用场景:方法中形参类型不确定时<br>
+方案1:使用类名后面的定义的泛型--如上面的例子<br>
+方案2:在方法上申明自己的泛型</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">修饰符 &lt;类型&gt;返回值类型 方法名(类型 变量名){</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">}</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> &lt;T&gt; <span class="keyword">void</span> <span class="title function_">show</span><span class="params">(T t)</span>{</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+<h4 id="接口后面--泛型接口">接口后面--泛型接口</h4>
+<p>方式1:实现类给出具体类型<br>
+方式2:实现类延续泛型,创建对象时再确定</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">修饰符 interface 接口名&lt;类型&gt;{</span></span><br><span class="line"><span class="comment">}</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">List</span>&lt;E&gt;{</span><br><span class="line"></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用:</span></span><br><span class="line"><span class="comment">//方案1:</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">myArrayList</span> <span class="keyword">implements</span> <span class="title class_">List</span>&lt;String&gt;{</span><br><span class="line"></span><br><span class="line">}</span><br><span class="line"><span class="comment">//方案2:</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">myArrayList</span> <span class="keyword">implements</span> <span class="title class_">List</span>&lt;E&gt;{</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+<h3 id="泛型的通配符">泛型的通配符</h3>
+<p>先来看一段需求:定义一个方法,方法形参是集合,但集合中的数据类型不确定.<br>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//我们可以写出这样的方法:</span></span><br><span class="line"><span class="comment">//此时泛型写的是什么数据那就只能传写的数据类型</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;E&gt; <span class="keyword">void</span> <span class="title function_">method</span><span class="params">(ArrayList&lt;E&gt; list)</span>{</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div><br>
+但是此时有点小问题,他可以是任意的,E可以是任意数据类型(除了基本数据类型),<br>
+如果我们想把E限定在一定的范围内要怎么做?</p>
+<p>此时可以使用泛型通配符:<br>
+?表示不确定的类型<br>
+他可以进行类型限定<br>
+? extends E:表示可以传递E或E的所有子类类型<br>
+? super E:表示可以传递E或E的所有父类类型</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//此时E只能传Student类型或其子类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;E&gt; <span class="keyword">void</span> <span class="title function_">method</span><span class="params">(ArrayList&lt;? extends Student&gt; list)</span>{</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+<h4 id="泛型通配符应用场景">泛型通配符应用场景</h4>
+
+  <div class="note p-4 mb-4 rounded-small red">
+    <p>关键点:可以限定泛型范围</p>
+
+  </div>
+<p>1.如果我们在定义类,方法,接口的时候,如果类型不确定,就可以定义泛型类,泛型方法,泛型接口.<br>
+2.如果类型不确定,但是能知道以后只能传递某个继承体系中的,就可以使用泛型通配符.</p>
 ]]></content>
       <categories>
         <category>编程</category>
