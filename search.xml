@@ -115,22 +115,6 @@ to merge unrelated histories</p>
       </tags>
   </entry>
   <entry>
-    <title>解决git clone 完成后提示 error:RPC failed;curl 56 GnuTLS recv error (-9)</title>
-    <url>/2021/02/10/git-error3/</url>
-    <content><![CDATA[<p>错误提示:<br>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">remote: Enumerating objects: 9817, done.</span><br><span class="line">error: RPC failed; curl 56 GnuTLS recv error (-9): A TLS packet with unexpected length was received.</span><br><span class="line">fatal: The remote end hung up unexpectedly</span><br><span class="line">fatal: early EOF</span><br><span class="line">fatal: index-pack failed</span><br></pre></td></tr></table></figure></div></p>
-<p>解决方法:<br>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">apt-get install gnutls-bin</span><br><span class="line">git config --global http.sslVerify false</span><br><span class="line">git config --global http.postBuffer 1048576000</span><br></pre></td></tr></table></figure></div></p>
-<p>转自:https://blog.csdn.net/tmaccs/article/details/101289284</p>
-]]></content>
-      <categories>
-        <category>Fix Error</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>解决Git push报shallow update not allowed</title>
     <url>/2020/04/07/git-error2/</url>
     <content><![CDATA[<h2 id="原因">原因</h2>
@@ -151,39 +135,19 @@ to merge unrelated histories</p>
       </tags>
   </entry>
   <entry>
-    <title>解决Windows10更新或重装后kali引导丢失</title>
-    <url>/2020/05/04/kali-boot/</url>
-    <content><![CDATA[<h2 id="正文">正文:</h2>
-<p>本文使用Grub来修复引导<br>
-你需要准备一个Kali Live,这里我用我的u盘,将kali
-Live安装镜像写到启动盘里<br>
-过程就不演示了</p>
-<p>开机BIOS引导启动盘,进入Kali Live<br>
-打开终端<br>
-<code>sudo fdisk -l</code><br>
-查找装有Kali的硬盘<br>
-以下是我的报告<br>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Disk /dev/sdc: 111.81 GiB, 120034123776 bytes, 234441648 sectors</span><br><span class="line">Disk model: RUIREN TECH SSD </span><br><span class="line">Units: sectors of 1 * 512 = 512 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line">Disklabel type: dos</span><br><span class="line">Disk identifier: 0x3e308e49</span><br><span class="line"></span><br><span class="line">Device     Boot     Start       End   Sectors   Size Id Type</span><br><span class="line">/dev/sdc1            2048 221976575 221974528 105.9G 83 Linux</span><br><span class="line">/dev/sdc2       221978622 234440703  12462082     6G  5 Extended</span><br><span class="line">/dev/sdc5       221978624 234440703  12462080     6G 82 Linux swap / Solaris</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Disk /dev/sda: 465.78 GiB, 500107862016 bytes, 976773168 sectors</span><br><span class="line">Disk model: TOSHIBA MK5061GS</span><br><span class="line">Units: sectors of 1 * 512 = 512 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line">Disklabel type: dos</span><br><span class="line">Disk identifier: 0xf8aef8ae</span><br><span class="line"></span><br><span class="line">Device     Boot     Start       End   Sectors   Size Id Type</span><br><span class="line">/dev/sda1              63 419441084 419441022   200G  7 HPFS/NTFS/exFAT</span><br><span class="line">/dev/sda2       419441085 976768940 557327856 265.8G  7 HPFS/NTFS/exFAT</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Disk /dev/sdb: 111.81 GiB, 120034123776 bytes, 234441648 sectors</span><br><span class="line">Disk model: INTEL SSDSC2BW12</span><br><span class="line">Units: sectors of 1 * 512 = 512 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line">Disklabel type: dos</span><br><span class="line">Disk identifier: 0xfb4efb4e</span><br><span class="line"></span><br><span class="line">Device     Boot Start       End   Sectors   Size Id Type</span><br><span class="line">/dev/sdb1  *       63 234437070 234437008 111.8G  7 HPFS/NTFS/exFAT</span><br></pre></td></tr></table></figure></div><br>
-我的kali装在了/dev/sdc硬盘里的第一分区也就是/dev/sdc1(tip:可根据分区类型和大小来判断)<br>
-### 挂载必要的目录<br>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo mount /dev/sdc1 /mnt/           (这里的/dev/sdc1换成你Kali所在的分区)</span><br><span class="line">sudo mount —bind /sys /mnt/sys</span><br><span class="line">sudo mount —bind /proc /mnt/proc</span><br><span class="line">sudo mount –bind /dev /mnt/dev</span><br></pre></td></tr></table></figure></div></p>
-<h3 id="使用chroot引导kali">使用chroot引导Kali</h3>
-<p><code>sudo chroot /mnt</code><br>
-这时候会进入已经安装在硬盘的Kali</p>
-<h3 id="安装grub引导">安装Grub引导</h3>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo grub-install /dev/sda    (tip:这里的/dev/sda是Grub的安装路径我将它装到带有windows的硬盘上)</span><br><span class="line">sudo grub-mkconfig -o /boot/grub/grub.cfg</span><br></pre></td></tr></table></figure></div>
-<h3 id="收工">收工</h3>
-<p><code>exit</code><br>
-<code>sudo reboot</code><br>
-拔出u盘,静等Grub的引导出现~</p>
-<h2 id="原理">原理</h2>
-<p>挂载必要的目录,然后用chroot来引导进入装在硬盘上的Kali,重装Grub就可以解决了</p>
+    <title>解决git clone 完成后提示 error:RPC failed;curl 56 GnuTLS recv error (-9)</title>
+    <url>/2021/02/10/git-error3/</url>
+    <content><![CDATA[<p>错误提示:<br>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">remote: Enumerating objects: 9817, done.</span><br><span class="line">error: RPC failed; curl 56 GnuTLS recv error (-9): A TLS packet with unexpected length was received.</span><br><span class="line">fatal: The remote end hung up unexpectedly</span><br><span class="line">fatal: early EOF</span><br><span class="line">fatal: index-pack failed</span><br></pre></td></tr></table></figure></div></p>
+<p>解决方法:<br>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">apt-get install gnutls-bin</span><br><span class="line">git config --global http.sslVerify false</span><br><span class="line">git config --global http.postBuffer 1048576000</span><br></pre></td></tr></table></figure></div></p>
+<p>转自:https://blog.csdn.net/tmaccs/article/details/101289284</p>
 ]]></content>
       <categories>
         <category>Fix Error</category>
       </categories>
       <tags>
-        <tag>Kali</tag>
+        <tag>Git</tag>
       </tags>
   </entry>
   <entry>
@@ -585,6 +549,42 @@ a的ascii码小于b,所以按升序排序.</p>
       </tags>
   </entry>
   <entry>
+    <title>解决Windows10更新或重装后kali引导丢失</title>
+    <url>/2020/05/04/kali-boot/</url>
+    <content><![CDATA[<h2 id="正文">正文:</h2>
+<p>本文使用Grub来修复引导<br>
+你需要准备一个Kali Live,这里我用我的u盘,将kali
+Live安装镜像写到启动盘里<br>
+过程就不演示了</p>
+<p>开机BIOS引导启动盘,进入Kali Live<br>
+打开终端<br>
+<code>sudo fdisk -l</code><br>
+查找装有Kali的硬盘<br>
+以下是我的报告<br>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Disk /dev/sdc: 111.81 GiB, 120034123776 bytes, 234441648 sectors</span><br><span class="line">Disk model: RUIREN TECH SSD </span><br><span class="line">Units: sectors of 1 * 512 = 512 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line">Disklabel type: dos</span><br><span class="line">Disk identifier: 0x3e308e49</span><br><span class="line"></span><br><span class="line">Device     Boot     Start       End   Sectors   Size Id Type</span><br><span class="line">/dev/sdc1            2048 221976575 221974528 105.9G 83 Linux</span><br><span class="line">/dev/sdc2       221978622 234440703  12462082     6G  5 Extended</span><br><span class="line">/dev/sdc5       221978624 234440703  12462080     6G 82 Linux swap / Solaris</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Disk /dev/sda: 465.78 GiB, 500107862016 bytes, 976773168 sectors</span><br><span class="line">Disk model: TOSHIBA MK5061GS</span><br><span class="line">Units: sectors of 1 * 512 = 512 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line">Disklabel type: dos</span><br><span class="line">Disk identifier: 0xf8aef8ae</span><br><span class="line"></span><br><span class="line">Device     Boot     Start       End   Sectors   Size Id Type</span><br><span class="line">/dev/sda1              63 419441084 419441022   200G  7 HPFS/NTFS/exFAT</span><br><span class="line">/dev/sda2       419441085 976768940 557327856 265.8G  7 HPFS/NTFS/exFAT</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Disk /dev/sdb: 111.81 GiB, 120034123776 bytes, 234441648 sectors</span><br><span class="line">Disk model: INTEL SSDSC2BW12</span><br><span class="line">Units: sectors of 1 * 512 = 512 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line">Disklabel type: dos</span><br><span class="line">Disk identifier: 0xfb4efb4e</span><br><span class="line"></span><br><span class="line">Device     Boot Start       End   Sectors   Size Id Type</span><br><span class="line">/dev/sdb1  *       63 234437070 234437008 111.8G  7 HPFS/NTFS/exFAT</span><br></pre></td></tr></table></figure></div><br>
+我的kali装在了/dev/sdc硬盘里的第一分区也就是/dev/sdc1(tip:可根据分区类型和大小来判断)<br>
+### 挂载必要的目录<br>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo mount /dev/sdc1 /mnt/           (这里的/dev/sdc1换成你Kali所在的分区)</span><br><span class="line">sudo mount —bind /sys /mnt/sys</span><br><span class="line">sudo mount —bind /proc /mnt/proc</span><br><span class="line">sudo mount –bind /dev /mnt/dev</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="使用chroot引导kali">使用chroot引导Kali</h3>
+<p><code>sudo chroot /mnt</code><br>
+这时候会进入已经安装在硬盘的Kali</p>
+<h3 id="安装grub引导">安装Grub引导</h3>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo grub-install /dev/sda    (tip:这里的/dev/sda是Grub的安装路径我将它装到带有windows的硬盘上)</span><br><span class="line">sudo grub-mkconfig -o /boot/grub/grub.cfg</span><br></pre></td></tr></table></figure></div>
+<h3 id="收工">收工</h3>
+<p><code>exit</code><br>
+<code>sudo reboot</code><br>
+拔出u盘,静等Grub的引导出现~</p>
+<h2 id="原理">原理</h2>
+<p>挂载必要的目录,然后用chroot来引导进入装在硬盘上的Kali,重装Grub就可以解决了</p>
+]]></content>
+      <categories>
+        <category>Fix Error</category>
+      </categories>
+      <tags>
+        <tag>Kali</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>精简Android内核模块</title>
     <url>/2020/08/01/kernel-driver-mod-reduce/</url>
     <content><![CDATA[<h2 id="原理">原理:</h2>
@@ -865,6 +865,39 @@ p变量在for循环结束后会被销毁,但是我们ptr_p还指向了p的地址
 ]]></content>
       <tags>
         <tag>C/C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>解决存储器目录损坏且无法读取</title>
+    <url>/2021/11/27/read/</url>
+    <content><![CDATA[<p>鉴于Windows对分区结构容错率低下，那就很可能会在读存储器时报:<br>
+文件或目录损坏且无法读取<br>
+# 0x01<br>
+工具: Chkdsk,脑子<br>
+损坏分区: E:<br>
+Grammar:<br>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Chkdsk [volume:][[Path] FileName] [/f] [/v] [/r] [/x] [/c] [/l[:size]]</span><br><span class="line">对应意义:</span><br><span class="line">volume 指定驱动器(后面跟一个冒号)、装入点、或卷名。</span><br><span class="line">filename 仅用于 FAT/FAT32: 指定要检查是否有碎片的文件。</span><br><span class="line">/F 修复磁盘上的错误。</span><br><span class="line">/V 在 FAT/FAT32 上: 显示磁盘上每个文件的完整路径和名称。在 NTFS 上: 如果有清除消息，将其显示。</span><br><span class="line">/R 查找不正确的扇区并恢复可读信息(隐含 /F)。</span><br><span class="line">/L:size 仅用于 NTFS: 将日志文件大小改成指定的 KB 数。如果没有指定大小，则显示当前的大小。</span><br><span class="line">/X 如果必要，强制卷先卸下。卷的所有打开的句柄就会无效(隐含 /F)。</span><br><span class="line">/I 仅用于 NTFS: 对索引项进行强度较小的检查。</span><br><span class="line">/C 仅用于 NTFS: 跳过文件夹结构的循环检查。</span><br><span class="line">/I 和 /C 命令行开关跳过卷的某些检查，减少运行 Chkdsk 所需的时间。</span><br></pre></td></tr></table></figure></div></p>
+<h1 id="x02">0x02</h1>
+<p>打开CMD<br>
+执行:<br>
+&gt; Chkdsk e:</p>
+<p>//
+e的意思是我的是e盘挂了,插上损坏的盘,在资源管理器就可以看见盘符了</p>
+<p>可以看到报告上写了是分区索引出问题</p>
+<h1 id="x03">0x03</h1>
+<p>执行:<br>
+&gt; Chkdsk e: /F</p>
+<p>// 在前面的Grammar中就已经可以看到F是Fix的意思</p>
+<p>到此,损坏的分区可以得到修复,你应该可以在资源管理器再次看到已经正常的磁盘</p>
+<h1 id="x04">0x04</h1>
+<p>数据无价,谨慎操作.</p>
+<p>Enjoy.😃</p>
+]]></content>
+      <categories>
+        <category>Fix Error</category>
+      </categories>
+      <tags>
+        <tag>Windows</tag>
       </tags>
   </entry>
   <entry>
@@ -2219,39 +2252,6 @@ a是一个PAC,b形成了一个用于修饰V和弦五音的规避音.c中A4音代
 ]]></content>
       <tags>
         <tag>Music</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>解决存储器目录损坏且无法读取</title>
-    <url>/2021/11/27/read/</url>
-    <content><![CDATA[<p>鉴于Windows对分区结构容错率低下，那就很可能会在读存储器时报:<br>
-文件或目录损坏且无法读取<br>
-# 0x01<br>
-工具: Chkdsk,脑子<br>
-损坏分区: E:<br>
-Grammar:<br>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Chkdsk [volume:][[Path] FileName] [/f] [/v] [/r] [/x] [/c] [/l[:size]]</span><br><span class="line">对应意义:</span><br><span class="line">volume 指定驱动器(后面跟一个冒号)、装入点、或卷名。</span><br><span class="line">filename 仅用于 FAT/FAT32: 指定要检查是否有碎片的文件。</span><br><span class="line">/F 修复磁盘上的错误。</span><br><span class="line">/V 在 FAT/FAT32 上: 显示磁盘上每个文件的完整路径和名称。在 NTFS 上: 如果有清除消息，将其显示。</span><br><span class="line">/R 查找不正确的扇区并恢复可读信息(隐含 /F)。</span><br><span class="line">/L:size 仅用于 NTFS: 将日志文件大小改成指定的 KB 数。如果没有指定大小，则显示当前的大小。</span><br><span class="line">/X 如果必要，强制卷先卸下。卷的所有打开的句柄就会无效(隐含 /F)。</span><br><span class="line">/I 仅用于 NTFS: 对索引项进行强度较小的检查。</span><br><span class="line">/C 仅用于 NTFS: 跳过文件夹结构的循环检查。</span><br><span class="line">/I 和 /C 命令行开关跳过卷的某些检查，减少运行 Chkdsk 所需的时间。</span><br></pre></td></tr></table></figure></div></p>
-<h1 id="x02">0x02</h1>
-<p>打开CMD<br>
-执行:<br>
-&gt; Chkdsk e:</p>
-<p>//
-e的意思是我的是e盘挂了,插上损坏的盘,在资源管理器就可以看见盘符了</p>
-<p>可以看到报告上写了是分区索引出问题</p>
-<h1 id="x03">0x03</h1>
-<p>执行:<br>
-&gt; Chkdsk e: /F</p>
-<p>// 在前面的Grammar中就已经可以看到F是Fix的意思</p>
-<p>到此,损坏的分区可以得到修复,你应该可以在资源管理器再次看到已经正常的磁盘</p>
-<h1 id="x04">0x04</h1>
-<p>数据无价,谨慎操作.</p>
-<p>Enjoy.😃</p>
-]]></content>
-      <categories>
-        <category>Fix Error</category>
-      </categories>
-      <tags>
-        <tag>Windows</tag>
       </tags>
   </entry>
   <entry>
