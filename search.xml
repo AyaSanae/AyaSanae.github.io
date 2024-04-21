@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>内核单独编译某个驱动</title>
+    <url>/2020/06/15/build-1/</url>
+    <content><![CDATA[<p>以qcacld-3.0为例子<br>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">make M=drivers/staging/qcacld-3.0</span><br></pre></td></tr></table></figure></div></p>
+]]></content>
+      <categories>
+        <category>Kernel</category>
+      </categories>
+      <tags>
+        <tag>Android Kernel</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>使用Ccache来加速内核的编译</title>
     <url>/2020/06/20/ccache/</url>
     <content><![CDATA[<p>编译一个Android内核,我需要8min+,太久了,无法忍受.<br>
@@ -39,19 +52,6 @@ ccache只有在第二次编译或以上的效果才会体现出来</p>
       </categories>
       <tags>
         <tag>偷懒</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>内核单独编译某个驱动</title>
-    <url>/2020/06/15/build-1/</url>
-    <content><![CDATA[<p>以qcacld-3.0为例子<br>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">make M=drivers/staging/qcacld-3.0</span><br></pre></td></tr></table></figure></div></p>
-]]></content>
-      <categories>
-        <category>Kernel</category>
-      </categories>
-      <tags>
-        <tag>Android Kernel</tag>
       </tags>
   </entry>
   <entry>
@@ -115,6 +115,22 @@ to merge unrelated histories</p>
       </tags>
   </entry>
   <entry>
+    <title>解决git clone 完成后提示 error:RPC failed;curl 56 GnuTLS recv error (-9)</title>
+    <url>/2021/02/10/git-error3/</url>
+    <content><![CDATA[<p>错误提示:<br>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">remote: Enumerating objects: 9817, done.</span><br><span class="line">error: RPC failed; curl 56 GnuTLS recv error (-9): A TLS packet with unexpected length was received.</span><br><span class="line">fatal: The remote end hung up unexpectedly</span><br><span class="line">fatal: early EOF</span><br><span class="line">fatal: index-pack failed</span><br></pre></td></tr></table></figure></div></p>
+<p>解决方法:<br>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">apt-get install gnutls-bin</span><br><span class="line">git config --global http.sslVerify false</span><br><span class="line">git config --global http.postBuffer 1048576000</span><br></pre></td></tr></table></figure></div></p>
+<p>转自:https://blog.csdn.net/tmaccs/article/details/101289284</p>
+]]></content>
+      <categories>
+        <category>Fix Error</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>解决Git push报shallow update not allowed</title>
     <url>/2020/04/07/git-error2/</url>
     <content><![CDATA[<h2 id="原因">原因</h2>
@@ -126,22 +142,6 @@ to merge unrelated histories</p>
 <p>如果不想丢失之前的提交就可以使用<br>
 <code>git filter-branch -- --all</code><br>
 去掉克隆的提交的 grafted 标记就可以重新推送了.</p>
-]]></content>
-      <categories>
-        <category>Fix Error</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>解决git clone 完成后提示 error:RPC failed;curl 56 GnuTLS recv error (-9)</title>
-    <url>/2021/02/10/git-error3/</url>
-    <content><![CDATA[<p>错误提示:<br>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">remote: Enumerating objects: 9817, done.</span><br><span class="line">error: RPC failed; curl 56 GnuTLS recv error (-9): A TLS packet with unexpected length was received.</span><br><span class="line">fatal: The remote end hung up unexpectedly</span><br><span class="line">fatal: early EOF</span><br><span class="line">fatal: index-pack failed</span><br></pre></td></tr></table></figure></div></p>
-<p>解决方法:<br>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">apt-get install gnutls-bin</span><br><span class="line">git config --global http.sslVerify false</span><br><span class="line">git config --global http.postBuffer 1048576000</span><br></pre></td></tr></table></figure></div></p>
-<p>转自:https://blog.csdn.net/tmaccs/article/details/101289284</p>
 ]]></content>
       <categories>
         <category>Fix Error</category>
