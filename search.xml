@@ -661,246 +661,6 @@ https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/qca-w
       </tags>
   </entry>
   <entry>
-    <title>指针的常用用法</title>
-    <url>/2022/11/17/pointer/</url>
-    <content><![CDATA[<h1 id="xfe-指针基础">0xFE 指针基础</h1>
-<h2 id="x01-计算机存储机制">0x01 计算机存储机制</h2>
-<p>虽然学的时候可能已经学过了,但多少还是写点.<br>
-假如我们有<br>
-<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">0x1024EF</span>;</span><br><span class="line"><span class="type">char</span> b[] = {<span class="number">0xEF</span>,<span class="number">0x24</span>,<span class="number">0x10</span>};</span><br></pre></td></tr></table></figure></div><br>
-0x6950开始的这段是a存储在内存中的数据，int占四个字节，所以占用了0x6950~0x6953的空间</p>
-<p>从EF低位开始存储称之为小端存储</p>
-<p>0x7950开始的这段是b数组存储在内存中的数据,char占1个字节,又因为数组是连续存储,所以0x7950~0x7952是b数组的存储位置.</p>
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: center;">地址</th>
-<th style="text-align: center;">内存</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">...</td>
-<td style="text-align: center;">...</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">...</td>
-<td style="text-align: center;">...</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">0x6950</td>
-<td style="text-align: center;">EF</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">0x6951</td>
-<td style="text-align: center;">24</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">0x6952</td>
-<td style="text-align: center;">10</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">0x6953</td>
-<td style="text-align: center;">00</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">...</td>
-<td style="text-align: center;">...</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">...</td>
-<td style="text-align: center;">...</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">0x7950</td>
-<td style="text-align: center;">EF</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">0x7951</td>
-<td style="text-align: center;">24</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">0x7952</td>
-<td style="text-align: center;">10</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">...</td>
-<td style="text-align: center;">...</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">...</td>
-<td style="text-align: center;">...</td>
-</tr>
-</tbody>
-</table>
-<p>我们可以看到每个字节的内存空间都对应着一段地址,相当于门牌号<br>
-<strong><em>指针本身是一个变量,但是它一般存储着其他变量或数组,函数的地址</em></strong>.所以我们可以用指针操作数据的地址，实现数据的间接访问.</p>
-<h4 id="直接访问不香">直接访问不香???</h4>
-<h2 id="x02-指针定义">0x02 指针定义</h2>
-<p>定义:<br>
-<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> *p,a;   <span class="comment">//只有p是指针</span></span><br><span class="line"><span class="type">int</span>* b,c;   <span class="comment">//a,b都是指针</span></span><br><span class="line"><span class="type">int</span>* d = <span class="number">0</span>; <span class="comment">//等价于int* d = NULL; 是空指针</span></span><br></pre></td></tr></table></figure></div><br>
-用完了的指针不用,一般会给NULL,防止乱指.<br>
-比如说<br>
-<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> ptr_p;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> p=<span class="number">1</span>;...){</span><br><span class="line">    ...</span><br><span class="line">    ptr_p=&amp;p</span><br><span class="line">    ...</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div><br>
-p变量在for循环结束后会被销毁,但是我们ptr_p还指向了p的地址,如果后续再有变量被分到了这个地址,操作指针时就会改变这个新变量.</p>
-<p>同级指针之间才能相互赋值，跨级赋值将会导致编译器报错或警告</p>
-<p>无论是什么类型的指针，其本身占用的大小与操作系统的位数有关<br>
-比如64位系统指针占用8字节,32位占用4字节,16位占用2字节</p>
-<h4 id="为什么">为什么?</h4>
-<p>我们知道一个字节是8位,一位能表达2个数值,0 或 1也就是2^1.<br>
-那么8字节能表示2^64个数值<br>
-用64位操作系统举例:<br>
-64位cpu的寻址范围是2<sup>64位也就是说可以有2</sup>64个地址,那我们要用一个指针,存2^64内的任一地址,那么我们指针占用的空间就要大于等于64位<br>
-也就是8个字节.而64位系统指针占用的空间就是8字节.</p>
-<h2 id="x03-指针基本操作">0x03 指针基本操作</h2>
-<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> p =<span class="number">1</span>,b;</span><br><span class="line"><span class="type">int</span>* ptr_p;</span><br><span class="line"></span><br><span class="line">ptr_p=&amp;p;   <span class="comment">//'&amp;p'取p地址</span></span><br><span class="line">b = *ptr_p; <span class="comment">//'*p'取p内容</span></span><br><span class="line">ptr_p++     <span class="comment">//指针向下移动一个数据宽度</span></span><br><span class="line">ptr_p--     <span class="comment">//指针向上移动一个数据宽度</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
-<h2 id="x04-数组与指针">0x04 数组与指针</h2>
-<p>事实上数组是指针的一种表达形式.<br>
-比如我们有:<br>
-<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">char</span> p[<span class="number">20</span>]={<span class="number">0x23</span>,<span class="number">0x98</span>};</span><br><span class="line"></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%x,%x"</span>,p[<span class="number">0</span>],p[<span class="number">1</span>]);</span><br></pre></td></tr></table></figure></div><br>
-等效于<br>
-<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">char</span>* p = <span class="built_in">malloc</span>(<span class="number">20</span>);   <span class="comment">//定义指针并申请内存</span></span><br><span class="line">*p = <span class="number">0x23</span>;              <span class="comment">//初始化数组</span></span><br><span class="line">*(p+<span class="number">1</span>) = <span class="number">0x98</span>; </span><br><span class="line"></span><br><span class="line"><span class="comment">//printf("%x,%x",p[0],p[1]); 此种方法也可以输出,p[0]等效于*p</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%x,%x"</span>,*p,*(p+<span class="number">1</span>));</span><br></pre></td></tr></table></figure></div></p>
-<p>数名是一个指向数组首地址的指针,这里后面会用更清晰的运用,此处暂不细说.<br>
-我们来看<em>(p+1),p+1是指针向下移动一个数据宽度,移动后会指向下一个值的地址然后我们用</em>号取出.</p>
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: center;">指针</th>
-<th style="text-align: center;">地址</th>
-<th style="text-align: center;">内存</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">...</td>
-<td style="text-align: center;">...</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">...</td>
-<td style="text-align: center;">...</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">p--&gt;</td>
-<td style="text-align: center;">0x6950</td>
-<td style="text-align: center;">23</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">(p+1)--&gt;</td>
-<td style="text-align: center;">0x6951</td>
-<td style="text-align: center;">98</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">...</td>
-<td style="text-align: center;">...</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">...</td>
-<td style="text-align: center;">...</td>
-<td style="text-align: center;"></td>
-</tr>
-</tbody>
-</table>
-<p>P.S. char型的数据宽度是一个字节.</p>
-<h1 id="xff-指针应用">0xFF 指针应用</h1>
-<h2 id="x10-传参">0x10 传参</h2>
-<h3 id="x11-使用指针传递大容量的参数">0x11 使用指针传递大容量的参数</h3>
-<p>我们先来看下一般的传参过程<br>
-如果我们有void test(int a[]);<br>
-那么当我们传入a[]时,程序会在内存中开辟一个新的空间,把a[]的数据复制一份放到这个新的空间中,称为值传递,就像:<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/pointer/1.jpg" alt="数据复制"><br>
-这样做的好处是能隔离数据,比如说<br>
-<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> a[]={<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>};</span><br><span class="line">test(a);</span><br></pre></td></tr></table></figure></div><br>
-这样子无论test怎么操作a都不会对函数外的a数组造成任何改变,因为函数内的a[]的是独立的一块内存</p>
-<p>而这恰好又是缺点,因为要开辟一段新的内存空间而且还有进行数据复制,这就造成了内存和算力消耗.</p>
-<p>如果数据量小还好,数据量一大,函数外的数组占的空间本来就大,传参又开辟一块空间,而且要数据复制.<br>
-这样子看来直接访问好像不那么香了.</p>
-<p>如果我们用指针呢?<br>
-<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">test</span><span class="params">(<span class="type">int</span> *a)</span>;</span><br></pre></td></tr></table></figure></div><br>
-传参时,函数只会开辟一块内存用来放指针,指针存着a[]的地址,这样函数访问a[]时,<br>
-将会顺着指针里的地址,找到函数外的a[],直接操作a数值这样子就避免了数据复制,称为指针传递,能节省很多内存空间和算力就像:<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/pointer/2.jpg" alt="指针参数"></p>
-<p>但是呢,这也是缺点,函数对a[]的修改会直接影响到函数外的a[]没有达到隔离的效果,但是还是有解决方法<br>
-<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">test</span><span class="params">(<span class="type">const</span> <span class="type">int</span>* a)</span>;</span><br></pre></td></tr></table></figure></div><br>
-这样定义成常量的话test就无法更改a数组的值</p>
-<h3 id="其实这种指针用法非常常见接下来例举几个常见函数">其实这种指针用法非常常见,接下来例举几个常见函数</h3>
-<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">char</span> *<span class="title function_">strcpy</span><span class="params">(<span class="type">char</span>* dest, <span class="type">const</span> <span class="type">char</span> *src)</span>;  <span class="comment">//字符串拷贝</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">strcmp</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *s1,<span class="type">const</span> <span class="type">char</span> *s2)</span>;  <span class="comment">//字符串比较</span></span><br><span class="line"><span class="type">size_t</span> <span class="title function_">strlen</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *<span class="built_in">string</span>)</span>;          <span class="comment">//字符串长度计算</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
-<p>这些都用到了指针作为参数,<strong>避免了数据复制节省了空间大大提升了速度,加入const还能保证安全性</strong></p>
-<h2 id="x12-指针传递输出参数">0x12 指针传递输出参数</h2>
-<p>前面有提到如果用指针传参不加const的话,会导致函数可能修改函数外传入的值.<br>
-我们可以利用这个特性,达到用指针来传递输出参数<br>
-我们知道一个函数有一个返回值,但是我们用指针可以达到多个输出参数的效果如:<br>
-<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**********************</span></span><br><span class="line"><span class="comment">功能:找到int型数组中的最大值并计数</span></span><br><span class="line"><span class="comment">参数:</span></span><br><span class="line"><span class="comment">    const int* Data:目标数组首地址</span></span><br><span class="line"><span class="comment">    int *Max:用于存放最大值的地址</span></span><br><span class="line"><span class="comment">    int *MaxNum:用于存放最大值个数的地址</span></span><br><span class="line"><span class="comment">    int count:搜索宽度</span></span><br><span class="line"><span class="comment">***********************/</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">FindMax</span><span class="params">(<span class="type">const</span> <span class="type">int</span>* Data,<span class="type">int</span> *Max,<span class="type">int</span> *MaxNum,<span class="type">int</span> count)</span>{</span><br><span class="line">    *(Max) = Data[<span class="number">0</span>];</span><br><span class="line">    *(MaxNum) = <span class="number">1</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;=count; i++){</span><br><span class="line">        <span class="keyword">if</span>(*(Max) &lt; Data[i])</span><br><span class="line">            *(Max) = Data[i];</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(*(Max) == Data[i])</span><br><span class="line">                (*MaxNum)++; </span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">{</span><br><span class="line">    <span class="type">int</span> Data[]={<span class="number">8</span>,<span class="number">9</span>,<span class="number">10</span>,<span class="number">10</span>,<span class="number">9</span>,<span class="number">8</span>};</span><br><span class="line">    <span class="type">int</span> Max,MaxNum;</span><br><span class="line">    </span><br><span class="line">    FindMax(Data,&amp;Max,&amp;MaxNum,<span class="number">6</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d,%d"</span>,Max,MaxNum);</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span>(<span class="number">0</span>);</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div><br>
-从上面的FindMax()可以看出这个函数有两个输出参数Max,MaxNum,就是因为函数通过指针对函数外的变量进行修改而达成的</p>
-<h2 id="x20传递返回值">0x20传递返回值</h2>
-<p>分装函数时常常会用到指针来返回句柄,用指针将模块内的公有部分返回,让主函数持有模块的“句柄”(相当于现实中的"把手")<br>
-便于程序对指定对象的操作.<br>
-比如说<br>
-<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/************************</span></span><br><span class="line"><span class="comment">这是一个分装的模块里的一部分(假设)</span></span><br><span class="line"><span class="comment">************************/</span></span><br><span class="line"><span class="type">int</span> Time[]={<span class="number">19</span>,<span class="number">00</span>,<span class="number">00</span>};</span><br><span class="line"></span><br><span class="line"><span class="type">int</span>* <span class="title function_">GetTime</span><span class="params">()</span>{</span><br><span class="line">    <span class="keyword">return</span> Time;</span><br><span class="line">}</span><br><span class="line"><span class="comment">/*-------------------*/</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>{</span><br><span class="line">    <span class="type">int</span> *p = GetTime(); <span class="comment">//获取句柄</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//这样便可以对模块里的Time进行操作</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></div><br>
-如果我们不用句柄的方式来访问模块里的数据,将模块里的数据放出模块外来访问的话,很明显<br>
-这不利于分装,所以分装模块时常常会采取指针来传递返回值.</p>
-<!--
-## 0x30 直接访问物理地址下的数据
-### 0x31 访问硬件指定内存下的数据，如设备ID
-这里用51单片机举例
--->
-<h3 id="x32-将复杂格式的数据转换为字节方便通信与存储">0x32
-将复杂格式的数据转换为字节，方便通信与存储</h3>
-<p>如果我们有一个float型变量a=12.345,我们想把它作为信息发送出去,我们可以利用指针特性来完成这件事.</p>
-<p>浮点型的数据存储方式比较特殊,这里且不展开讨论.<br>
-我们知道float占4个字节内存空间,看起来是这样的:<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/pointer/3.jpg" alt="float存储"></p>
-<p>我们知道,char型变量占一个字节,char型指针能指向一个字节的空间,那么我们用char型指针指向a的地址,<br>
-再以数组的方式用循环遍历一次就可以实现数一字节一字节的发送了.我们用char数组接收,最后用一个float指针指向char数组的首地址.相当于是将数据先拆成好几份,送到目的地再重组,如图:<br>
-<img lazyload="" src="/images/loading.svg" data-src="/assets/pointer/4.jpg" alt="指针发送数据"><br>
-然后用*d就可以将c[]里的数据解码成float型了，相当于读取了c[]前四字节.<br>
-代码简易实现:<br>
-<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">char</span> ReciveData[<span class="number">20</span>];        <span class="comment">//用于接收数据的数组</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//发送模块</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">SendData</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *data,<span class="type">int</span> count)</span>{</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i&lt; count; i++){      </span><br><span class="line">        ReciveData[i] = data[i];       <span class="comment">//发到ReciveData</span></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>{</span><br><span class="line">    <span class="type">float</span> a=<span class="number">12.345</span>;</span><br><span class="line">    <span class="type">char</span> *p=(<span class="type">char</span> *)&amp;a; <span class="comment">//char型指针指向a的地址</span></span><br><span class="line"></span><br><span class="line">    SendData(p,<span class="number">4</span>);  <span class="comment">//a数据将被拆成4份(因为float占四字节,char指针一次能指向一字节)发往ReciveData[],一个一个字节的发</span></span><br><span class="line"></span><br><span class="line">    <span class="type">float</span> *d = (<span class="type">float</span>*)ReciveData;     <span class="comment">//解码</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"a=%f     *d=%f"</span>,a,*d);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div><br>
-输出结果:<br>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">a=12.345000     *d=12.345000</span><br></pre></td></tr></table></figure></div></p>
-<p>之所以用char * 来当指针是因为内存最小单位是字节,而char
-*恰好能指向一个字节的空间,相当于单位操作,更灵活;</p>
-]]></content>
-      <tags>
-        <tag>C/C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>解决存储器目录损坏且无法读取</title>
-    <url>/2021/11/27/read/</url>
-    <content><![CDATA[<p>鉴于Windows对分区结构容错率低下，那就很可能会在读存储器时报:<br>
-文件或目录损坏且无法读取<br>
-# 0x01<br>
-工具: Chkdsk,脑子<br>
-损坏分区: E:<br>
-Grammar:<br>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Chkdsk [volume:][[Path] FileName] [/f] [/v] [/r] [/x] [/c] [/l[:size]]</span><br><span class="line">对应意义:</span><br><span class="line">volume 指定驱动器(后面跟一个冒号)、装入点、或卷名。</span><br><span class="line">filename 仅用于 FAT/FAT32: 指定要检查是否有碎片的文件。</span><br><span class="line">/F 修复磁盘上的错误。</span><br><span class="line">/V 在 FAT/FAT32 上: 显示磁盘上每个文件的完整路径和名称。在 NTFS 上: 如果有清除消息，将其显示。</span><br><span class="line">/R 查找不正确的扇区并恢复可读信息(隐含 /F)。</span><br><span class="line">/L:size 仅用于 NTFS: 将日志文件大小改成指定的 KB 数。如果没有指定大小，则显示当前的大小。</span><br><span class="line">/X 如果必要，强制卷先卸下。卷的所有打开的句柄就会无效(隐含 /F)。</span><br><span class="line">/I 仅用于 NTFS: 对索引项进行强度较小的检查。</span><br><span class="line">/C 仅用于 NTFS: 跳过文件夹结构的循环检查。</span><br><span class="line">/I 和 /C 命令行开关跳过卷的某些检查，减少运行 Chkdsk 所需的时间。</span><br></pre></td></tr></table></figure></div></p>
-<h1 id="x02">0x02</h1>
-<p>打开CMD<br>
-执行:<br>
-&gt; Chkdsk e:</p>
-<p>//
-e的意思是我的是e盘挂了,插上损坏的盘,在资源管理器就可以看见盘符了</p>
-<p>可以看到报告上写了是分区索引出问题</p>
-<h1 id="x03">0x03</h1>
-<p>执行:<br>
-&gt; Chkdsk e: /F</p>
-<p>// 在前面的Grammar中就已经可以看到F是Fix的意思</p>
-<p>到此,损坏的分区可以得到修复,你应该可以在资源管理器再次看到已经正常的磁盘</p>
-<h1 id="x04">0x04</h1>
-<p>数据无价,谨慎操作.</p>
-<p>Enjoy.😃</p>
-]]></content>
-      <categories>
-        <category>Fix Error</category>
-      </categories>
-      <tags>
-        <tag>Windows</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>个人音乐笔记</title>
     <url>/2022/12/26/musicnote/</url>
     <content><![CDATA[<h1 id="音高元素">音高元素</h1>
@@ -2252,6 +2012,246 @@ a是一个PAC,b形成了一个用于修饰V和弦五音的规避音.c中A4音代
 ]]></content>
       <tags>
         <tag>Music</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>解决存储器目录损坏且无法读取</title>
+    <url>/2021/11/27/read/</url>
+    <content><![CDATA[<p>鉴于Windows对分区结构容错率低下，那就很可能会在读存储器时报:<br>
+文件或目录损坏且无法读取<br>
+# 0x01<br>
+工具: Chkdsk,脑子<br>
+损坏分区: E:<br>
+Grammar:<br>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Chkdsk [volume:][[Path] FileName] [/f] [/v] [/r] [/x] [/c] [/l[:size]]</span><br><span class="line">对应意义:</span><br><span class="line">volume 指定驱动器(后面跟一个冒号)、装入点、或卷名。</span><br><span class="line">filename 仅用于 FAT/FAT32: 指定要检查是否有碎片的文件。</span><br><span class="line">/F 修复磁盘上的错误。</span><br><span class="line">/V 在 FAT/FAT32 上: 显示磁盘上每个文件的完整路径和名称。在 NTFS 上: 如果有清除消息，将其显示。</span><br><span class="line">/R 查找不正确的扇区并恢复可读信息(隐含 /F)。</span><br><span class="line">/L:size 仅用于 NTFS: 将日志文件大小改成指定的 KB 数。如果没有指定大小，则显示当前的大小。</span><br><span class="line">/X 如果必要，强制卷先卸下。卷的所有打开的句柄就会无效(隐含 /F)。</span><br><span class="line">/I 仅用于 NTFS: 对索引项进行强度较小的检查。</span><br><span class="line">/C 仅用于 NTFS: 跳过文件夹结构的循环检查。</span><br><span class="line">/I 和 /C 命令行开关跳过卷的某些检查，减少运行 Chkdsk 所需的时间。</span><br></pre></td></tr></table></figure></div></p>
+<h1 id="x02">0x02</h1>
+<p>打开CMD<br>
+执行:<br>
+&gt; Chkdsk e:</p>
+<p>//
+e的意思是我的是e盘挂了,插上损坏的盘,在资源管理器就可以看见盘符了</p>
+<p>可以看到报告上写了是分区索引出问题</p>
+<h1 id="x03">0x03</h1>
+<p>执行:<br>
+&gt; Chkdsk e: /F</p>
+<p>// 在前面的Grammar中就已经可以看到F是Fix的意思</p>
+<p>到此,损坏的分区可以得到修复,你应该可以在资源管理器再次看到已经正常的磁盘</p>
+<h1 id="x04">0x04</h1>
+<p>数据无价,谨慎操作.</p>
+<p>Enjoy.😃</p>
+]]></content>
+      <categories>
+        <category>Fix Error</category>
+      </categories>
+      <tags>
+        <tag>Windows</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>指针的常用用法</title>
+    <url>/2022/11/17/pointer/</url>
+    <content><![CDATA[<h1 id="xfe-指针基础">0xFE 指针基础</h1>
+<h2 id="x01-计算机存储机制">0x01 计算机存储机制</h2>
+<p>虽然学的时候可能已经学过了,但多少还是写点.<br>
+假如我们有<br>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">0x1024EF</span>;</span><br><span class="line"><span class="type">char</span> b[] = {<span class="number">0xEF</span>,<span class="number">0x24</span>,<span class="number">0x10</span>};</span><br></pre></td></tr></table></figure></div><br>
+0x6950开始的这段是a存储在内存中的数据，int占四个字节，所以占用了0x6950~0x6953的空间</p>
+<p>从EF低位开始存储称之为小端存储</p>
+<p>0x7950开始的这段是b数组存储在内存中的数据,char占1个字节,又因为数组是连续存储,所以0x7950~0x7952是b数组的存储位置.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">地址</th>
+<th style="text-align: center;">内存</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">...</td>
+<td style="text-align: center;">...</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">...</td>
+<td style="text-align: center;">...</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0x6950</td>
+<td style="text-align: center;">EF</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0x6951</td>
+<td style="text-align: center;">24</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0x6952</td>
+<td style="text-align: center;">10</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0x6953</td>
+<td style="text-align: center;">00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">...</td>
+<td style="text-align: center;">...</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">...</td>
+<td style="text-align: center;">...</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0x7950</td>
+<td style="text-align: center;">EF</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0x7951</td>
+<td style="text-align: center;">24</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0x7952</td>
+<td style="text-align: center;">10</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">...</td>
+<td style="text-align: center;">...</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">...</td>
+<td style="text-align: center;">...</td>
+</tr>
+</tbody>
+</table>
+<p>我们可以看到每个字节的内存空间都对应着一段地址,相当于门牌号<br>
+<strong><em>指针本身是一个变量,但是它一般存储着其他变量或数组,函数的地址</em></strong>.所以我们可以用指针操作数据的地址，实现数据的间接访问.</p>
+<h4 id="直接访问不香">直接访问不香???</h4>
+<h2 id="x02-指针定义">0x02 指针定义</h2>
+<p>定义:<br>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> *p,a;   <span class="comment">//只有p是指针</span></span><br><span class="line"><span class="type">int</span>* b,c;   <span class="comment">//a,b都是指针</span></span><br><span class="line"><span class="type">int</span>* d = <span class="number">0</span>; <span class="comment">//等价于int* d = NULL; 是空指针</span></span><br></pre></td></tr></table></figure></div><br>
+用完了的指针不用,一般会给NULL,防止乱指.<br>
+比如说<br>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> ptr_p;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> p=<span class="number">1</span>;...){</span><br><span class="line">    ...</span><br><span class="line">    ptr_p=&amp;p</span><br><span class="line">    ...</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div><br>
+p变量在for循环结束后会被销毁,但是我们ptr_p还指向了p的地址,如果后续再有变量被分到了这个地址,操作指针时就会改变这个新变量.</p>
+<p>同级指针之间才能相互赋值，跨级赋值将会导致编译器报错或警告</p>
+<p>无论是什么类型的指针，其本身占用的大小与操作系统的位数有关<br>
+比如64位系统指针占用8字节,32位占用4字节,16位占用2字节</p>
+<h4 id="为什么">为什么?</h4>
+<p>我们知道一个字节是8位,一位能表达2个数值,0 或 1也就是2^1.<br>
+那么8字节能表示2^64个数值<br>
+用64位操作系统举例:<br>
+64位cpu的寻址范围是2<sup>64位也就是说可以有2</sup>64个地址,那我们要用一个指针,存2^64内的任一地址,那么我们指针占用的空间就要大于等于64位<br>
+也就是8个字节.而64位系统指针占用的空间就是8字节.</p>
+<h2 id="x03-指针基本操作">0x03 指针基本操作</h2>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> p =<span class="number">1</span>,b;</span><br><span class="line"><span class="type">int</span>* ptr_p;</span><br><span class="line"></span><br><span class="line">ptr_p=&amp;p;   <span class="comment">//'&amp;p'取p地址</span></span><br><span class="line">b = *ptr_p; <span class="comment">//'*p'取p内容</span></span><br><span class="line">ptr_p++     <span class="comment">//指针向下移动一个数据宽度</span></span><br><span class="line">ptr_p--     <span class="comment">//指针向上移动一个数据宽度</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<h2 id="x04-数组与指针">0x04 数组与指针</h2>
+<p>事实上数组是指针的一种表达形式.<br>
+比如我们有:<br>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">char</span> p[<span class="number">20</span>]={<span class="number">0x23</span>,<span class="number">0x98</span>};</span><br><span class="line"></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%x,%x"</span>,p[<span class="number">0</span>],p[<span class="number">1</span>]);</span><br></pre></td></tr></table></figure></div><br>
+等效于<br>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">char</span>* p = <span class="built_in">malloc</span>(<span class="number">20</span>);   <span class="comment">//定义指针并申请内存</span></span><br><span class="line">*p = <span class="number">0x23</span>;              <span class="comment">//初始化数组</span></span><br><span class="line">*(p+<span class="number">1</span>) = <span class="number">0x98</span>; </span><br><span class="line"></span><br><span class="line"><span class="comment">//printf("%x,%x",p[0],p[1]); 此种方法也可以输出,p[0]等效于*p</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%x,%x"</span>,*p,*(p+<span class="number">1</span>));</span><br></pre></td></tr></table></figure></div></p>
+<p>数名是一个指向数组首地址的指针,这里后面会用更清晰的运用,此处暂不细说.<br>
+我们来看<em>(p+1),p+1是指针向下移动一个数据宽度,移动后会指向下一个值的地址然后我们用</em>号取出.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">指针</th>
+<th style="text-align: center;">地址</th>
+<th style="text-align: center;">内存</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">...</td>
+<td style="text-align: center;">...</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">...</td>
+<td style="text-align: center;">...</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">p--&gt;</td>
+<td style="text-align: center;">0x6950</td>
+<td style="text-align: center;">23</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">(p+1)--&gt;</td>
+<td style="text-align: center;">0x6951</td>
+<td style="text-align: center;">98</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">...</td>
+<td style="text-align: center;">...</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">...</td>
+<td style="text-align: center;">...</td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+<p>P.S. char型的数据宽度是一个字节.</p>
+<h1 id="xff-指针应用">0xFF 指针应用</h1>
+<h2 id="x10-传参">0x10 传参</h2>
+<h3 id="x11-使用指针传递大容量的参数">0x11 使用指针传递大容量的参数</h3>
+<p>我们先来看下一般的传参过程<br>
+如果我们有void test(int a[]);<br>
+那么当我们传入a[]时,程序会在内存中开辟一个新的空间,把a[]的数据复制一份放到这个新的空间中,称为值传递,就像:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/pointer/1.jpg" alt="数据复制"><br>
+这样做的好处是能隔离数据,比如说<br>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> a[]={<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>};</span><br><span class="line">test(a);</span><br></pre></td></tr></table></figure></div><br>
+这样子无论test怎么操作a都不会对函数外的a数组造成任何改变,因为函数内的a[]的是独立的一块内存</p>
+<p>而这恰好又是缺点,因为要开辟一段新的内存空间而且还有进行数据复制,这就造成了内存和算力消耗.</p>
+<p>如果数据量小还好,数据量一大,函数外的数组占的空间本来就大,传参又开辟一块空间,而且要数据复制.<br>
+这样子看来直接访问好像不那么香了.</p>
+<p>如果我们用指针呢?<br>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">test</span><span class="params">(<span class="type">int</span> *a)</span>;</span><br></pre></td></tr></table></figure></div><br>
+传参时,函数只会开辟一块内存用来放指针,指针存着a[]的地址,这样函数访问a[]时,<br>
+将会顺着指针里的地址,找到函数外的a[],直接操作a数值这样子就避免了数据复制,称为指针传递,能节省很多内存空间和算力就像:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/pointer/2.jpg" alt="指针参数"></p>
+<p>但是呢,这也是缺点,函数对a[]的修改会直接影响到函数外的a[]没有达到隔离的效果,但是还是有解决方法<br>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">test</span><span class="params">(<span class="type">const</span> <span class="type">int</span>* a)</span>;</span><br></pre></td></tr></table></figure></div><br>
+这样定义成常量的话test就无法更改a数组的值</p>
+<h3 id="其实这种指针用法非常常见接下来例举几个常见函数">其实这种指针用法非常常见,接下来例举几个常见函数</h3>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">char</span> *<span class="title function_">strcpy</span><span class="params">(<span class="type">char</span>* dest, <span class="type">const</span> <span class="type">char</span> *src)</span>;  <span class="comment">//字符串拷贝</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">strcmp</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *s1,<span class="type">const</span> <span class="type">char</span> *s2)</span>;  <span class="comment">//字符串比较</span></span><br><span class="line"><span class="type">size_t</span> <span class="title function_">strlen</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *<span class="built_in">string</span>)</span>;          <span class="comment">//字符串长度计算</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<p>这些都用到了指针作为参数,<strong>避免了数据复制节省了空间大大提升了速度,加入const还能保证安全性</strong></p>
+<h2 id="x12-指针传递输出参数">0x12 指针传递输出参数</h2>
+<p>前面有提到如果用指针传参不加const的话,会导致函数可能修改函数外传入的值.<br>
+我们可以利用这个特性,达到用指针来传递输出参数<br>
+我们知道一个函数有一个返回值,但是我们用指针可以达到多个输出参数的效果如:<br>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**********************</span></span><br><span class="line"><span class="comment">功能:找到int型数组中的最大值并计数</span></span><br><span class="line"><span class="comment">参数:</span></span><br><span class="line"><span class="comment">    const int* Data:目标数组首地址</span></span><br><span class="line"><span class="comment">    int *Max:用于存放最大值的地址</span></span><br><span class="line"><span class="comment">    int *MaxNum:用于存放最大值个数的地址</span></span><br><span class="line"><span class="comment">    int count:搜索宽度</span></span><br><span class="line"><span class="comment">***********************/</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">FindMax</span><span class="params">(<span class="type">const</span> <span class="type">int</span>* Data,<span class="type">int</span> *Max,<span class="type">int</span> *MaxNum,<span class="type">int</span> count)</span>{</span><br><span class="line">    *(Max) = Data[<span class="number">0</span>];</span><br><span class="line">    *(MaxNum) = <span class="number">1</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;=count; i++){</span><br><span class="line">        <span class="keyword">if</span>(*(Max) &lt; Data[i])</span><br><span class="line">            *(Max) = Data[i];</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(*(Max) == Data[i])</span><br><span class="line">                (*MaxNum)++; </span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">{</span><br><span class="line">    <span class="type">int</span> Data[]={<span class="number">8</span>,<span class="number">9</span>,<span class="number">10</span>,<span class="number">10</span>,<span class="number">9</span>,<span class="number">8</span>};</span><br><span class="line">    <span class="type">int</span> Max,MaxNum;</span><br><span class="line">    </span><br><span class="line">    FindMax(Data,&amp;Max,&amp;MaxNum,<span class="number">6</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d,%d"</span>,Max,MaxNum);</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span>(<span class="number">0</span>);</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div><br>
+从上面的FindMax()可以看出这个函数有两个输出参数Max,MaxNum,就是因为函数通过指针对函数外的变量进行修改而达成的</p>
+<h2 id="x20传递返回值">0x20传递返回值</h2>
+<p>分装函数时常常会用到指针来返回句柄,用指针将模块内的公有部分返回,让主函数持有模块的“句柄”(相当于现实中的"把手")<br>
+便于程序对指定对象的操作.<br>
+比如说<br>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/************************</span></span><br><span class="line"><span class="comment">这是一个分装的模块里的一部分(假设)</span></span><br><span class="line"><span class="comment">************************/</span></span><br><span class="line"><span class="type">int</span> Time[]={<span class="number">19</span>,<span class="number">00</span>,<span class="number">00</span>};</span><br><span class="line"></span><br><span class="line"><span class="type">int</span>* <span class="title function_">GetTime</span><span class="params">()</span>{</span><br><span class="line">    <span class="keyword">return</span> Time;</span><br><span class="line">}</span><br><span class="line"><span class="comment">/*-------------------*/</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>{</span><br><span class="line">    <span class="type">int</span> *p = GetTime(); <span class="comment">//获取句柄</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//这样便可以对模块里的Time进行操作</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></div><br>
+如果我们不用句柄的方式来访问模块里的数据,将模块里的数据放出模块外来访问的话,很明显<br>
+这不利于分装,所以分装模块时常常会采取指针来传递返回值.</p>
+<!--
+## 0x30 直接访问物理地址下的数据
+### 0x31 访问硬件指定内存下的数据，如设备ID
+这里用51单片机举例
+-->
+<h3 id="x32-将复杂格式的数据转换为字节方便通信与存储">0x32
+将复杂格式的数据转换为字节，方便通信与存储</h3>
+<p>如果我们有一个float型变量a=12.345,我们想把它作为信息发送出去,我们可以利用指针特性来完成这件事.</p>
+<p>浮点型的数据存储方式比较特殊,这里且不展开讨论.<br>
+我们知道float占4个字节内存空间,看起来是这样的:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/pointer/3.jpg" alt="float存储"></p>
+<p>我们知道,char型变量占一个字节,char型指针能指向一个字节的空间,那么我们用char型指针指向a的地址,<br>
+再以数组的方式用循环遍历一次就可以实现数一字节一字节的发送了.我们用char数组接收,最后用一个float指针指向char数组的首地址.相当于是将数据先拆成好几份,送到目的地再重组,如图:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/pointer/4.jpg" alt="指针发送数据"><br>
+然后用*d就可以将c[]里的数据解码成float型了，相当于读取了c[]前四字节.<br>
+代码简易实现:<br>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">char</span> ReciveData[<span class="number">20</span>];        <span class="comment">//用于接收数据的数组</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//发送模块</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">SendData</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *data,<span class="type">int</span> count)</span>{</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i&lt; count; i++){      </span><br><span class="line">        ReciveData[i] = data[i];       <span class="comment">//发到ReciveData</span></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>{</span><br><span class="line">    <span class="type">float</span> a=<span class="number">12.345</span>;</span><br><span class="line">    <span class="type">char</span> *p=(<span class="type">char</span> *)&amp;a; <span class="comment">//char型指针指向a的地址</span></span><br><span class="line"></span><br><span class="line">    SendData(p,<span class="number">4</span>);  <span class="comment">//a数据将被拆成4份(因为float占四字节,char指针一次能指向一字节)发往ReciveData[],一个一个字节的发</span></span><br><span class="line"></span><br><span class="line">    <span class="type">float</span> *d = (<span class="type">float</span>*)ReciveData;     <span class="comment">//解码</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"a=%f     *d=%f"</span>,a,*d);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div><br>
+输出结果:<br>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">a=12.345000     *d=12.345000</span><br></pre></td></tr></table></figure></div></p>
+<p>之所以用char * 来当指针是因为内存最小单位是字节,而char
+*恰好能指向一个字节的空间,相当于单位操作,更灵活;</p>
+]]></content>
+      <tags>
+        <tag>C/C++</tag>
       </tags>
   </entry>
   <entry>
