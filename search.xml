@@ -153,7 +153,7 @@ to merge unrelated histories</p>
   <entry>
     <title>Java笔记</title>
     <url>/2024/03/23/javanote/</url>
-    <content><![CDATA[<h2 id="collection">Collection</h2>
+    <content><![CDATA[<h2 id="单列集合-collection">单列集合 Collection</h2>
 <pre class="mermaid">  graph TD;
       Collection--&gt;List;
       Collection--&gt;Set;
@@ -540,6 +540,61 @@ a的ascii码小于b,所以按升序排序.</p>
               <p>TreeSet,基于红黑树.</p>
               </div>
             </details>
+<h2 id="双列集合-map">双列集合 Map</h2>
+<pre class="mermaid">  graph TD;
+      Map--&gt;HashMap;
+      Map--&gt;Hashtable;
+      Map--&gt;TreeMap;
+      HashMap--&gt;LinkHashMap;
+      Hashtable--&gt;Properties;</pre>
+<p>特点:<br>
+1.双列集合一次需要存入一对数据,分别称为键和值.<br>
+2.键是不能重复的,也就是唯一的,而值可以重复.<br>
+3.键和值一一对应,每个键只能找到自己对应的值.<br>
+4.键 + 值
+这个整体我们叫做“键值对”或者"键值对对象",在Java中叫做"Entry对象".</p>
+<h3 id="map集合常用api">Map集合常用API</h3>
+
+  <div class="note p-4 mb-4 rounded-small red">
+    <p>Map是双列集合顶层接口,它的功能是全部双列集合都可以继承使用的.</p>
+
+  </div>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">V <span class="title function_">put</span><span class="params">(K key,V value)</span>  <span class="comment">//添加元素</span></span><br><span class="line">V <span class="title function_">remove</span><span class="params">(Object key)</span>  <span class="comment">//根据键删除键值对元素,并把删除的值返回</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">clear</span><span class="params">()</span>          <span class="comment">//清空集合</span></span><br><span class="line"><span class="type">boolean</span> <span class="title function_">containsKey</span><span class="params">(Object key)</span> <span class="comment">//判断集合是否包含指定的键</span></span><br><span class="line"><span class="type">boolean</span> <span class="title function_">containsValue</span><span class="params">(Object value)</span> <span class="comment">//判断集合是否包含指定的值</span></span><br><span class="line"><span class="type">boolean</span> <span class="title function_">isEmpty</span><span class="params">()</span>     <span class="comment">//判断集合是否为空</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">size</span><span class="params">()</span>            <span class="comment">//获取集合长度即键值对个数</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//put方法细节(添加/覆盖):</span></span><br><span class="line"><span class="comment">//在添加数据的时候,如果数据不存在,那么直接把键值对对象添加到map集合中,同时返回null</span></span><br><span class="line"><span class="comment">//在添加数据的时候,如果键是存在的,那么会把原有的键值对对象覆盖,同时把覆盖的值进行返回</span></span><br><span class="line">Map&lt;String,String&gt; m = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">m.put(<span class="string">"a"</span>,<span class="string">"b"</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">oldValue</span> <span class="operator">=</span> m.put(<span class="string">"a"</span>,<span class="string">"c"</span>);</span><br><span class="line">System.out.println(oldValue);     <span class="comment">//将会打印b</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<h3 id="map集合的遍历方式">Map集合的遍历方式</h3>
+<h4 id="键找值">1.键找值</h4>
+<p>1.先获取Map集合中的所有的键放到单列集合中<br>
+2.再通过get方法依次获取每个键对应的值.</p>
+<p>这种方式要用到map集合里的Set<k>
+keySet(),获取键并把键放入Set()集合.</k></p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">Map&lt;String,Integer&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">map.put(<span class="string">"a"</span>,<span class="number">1</span>);</span><br><span class="line">map.put(<span class="string">"b"</span>,<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取所有键,并放到Set集合.</span></span><br><span class="line">Set&lt;String&gt; keys = map.keySet();</span><br><span class="line"></span><br><span class="line"><span class="comment">//遍历单列集合得到每个键,同时获取键对应的值.</span></span><br><span class="line"><span class="keyword">for</span>(String key : keys){</span><br><span class="line">  <span class="type">int</span> <span class="variable">value</span> <span class="operator">=</span> map.get(key);</span><br><span class="line">  System.out.println(key + <span class="string">"="</span> + value);</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+<h4 id="键值对">2.键值对</h4>
+<p>依次获取每个键值对对象,并用getKey(),与getValue()来获取对应的键和值</p>
+<p>这种方式要用到Map集合中的Set&lt;Entry&lt;K,V&gt;&gt;
+entrySet()方法,会把获取出来的键值对对象放到Set集合中.</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">Map&lt;String,Integer&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">map.put(<span class="string">"a"</span>,<span class="number">1</span>);</span><br><span class="line">map.put(<span class="string">"b"</span>,<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取键值对并放入Set集合</span></span><br><span class="line">Set&lt;Entry&lt;String,Integer&gt;&gt; entries = map.entrySet();</span><br><span class="line"></span><br><span class="line"><span class="comment">//遍历entries集合,得到每一个键值对对象</span></span><br><span class="line"><span class="keyword">for</span>(Entry&lt;String,Integer&gt; entry : entries){</span><br><span class="line">  <span class="comment">//getKey(),与getValue()来获取对应的键和值</span></span><br><span class="line">  <span class="type">String</span> <span class="variable">key</span> <span class="operator">=</span> entry.getKey();</span><br><span class="line">  <span class="type">String</span> <span class="variable">Value</span> <span class="operator">=</span> entry.getValue();</span><br><span class="line">  System.out.println(key + <span class="string">"="</span> + value);</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+<h4 id="lambda表达式">3.Lambda表达式</h4>
+<p>用到Map里的一个方法:default void forEach(Biconsumer&lt;? super K,?
+super V&gt; action),其底层通过键值对遍历的<br>
+方式实现,把遍历出来的键和值交由Biconsumer接口实现类的accept方法处理.</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">Map&lt;String,Integer&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">map.put(<span class="string">"a"</span>,<span class="number">1</span>);</span><br><span class="line">map.put(<span class="string">"b"</span>,<span class="number">2</span>);</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">map.forEach(new BiConsumer&lt;String,Integer&gt;(){</span></span><br><span class="line"><span class="comment">  @Override</span></span><br><span class="line"><span class="comment">  public void accpet(String key,String value){</span></span><br><span class="line"><span class="comment">    System.out.println(key + "=" + value);</span></span><br><span class="line"><span class="comment">  }</span></span><br><span class="line"><span class="comment">})</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">map.forEach((key,value) -&gt; System.out.println(key + <span class="string">"="</span> + value))</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<h3 id="hashmap">HashMap</h3>
+<p>1.HashMap是Map的一个实现类.<br>
+2.相比于Map没有额外的特有方法,直接用Map里面的方法就可以了.<br>
+3.元素是无序,不重复,无索引,其中不重复是由键的特性带来的.<br>
+4.HashMap底层和HashSet底层原理是一样的都是基于哈希表结构.</p>
+<p>与HashSet不一样的是:<br>
+Entry对象的哈希值计算只有键有关与值无关.<br>
+当存入的位置有元素并且键的一样,那么会直接覆盖掉原有的元素(put方法),而不是像HashSet一样不存.</p>
+<p>于是乎:<br>
+1.HashMap底层是哈希表结构.<br>
+2.依赖HashCode和equals来保证键的唯一.<br>
+3.如果存的是自定义对象则要重写HashCode和equals方法</p>
+<h3 id="linkedhashmap">LinkedHashMap</h3>
+<p>1.由键决定:有序,不重复,无索引.<br>
+这里的有序指的是存入和取出的元素顺序一致.<br>
+原理:底层数据结构依然是哈希表,知识每个键值对元素有额外多了一个双链表机制记录存储的顺序</p>
+<p>也是与HashMap一样没有什么新的特有方法</p>
+<p>基本是与LinkedHashSet一样.</p>
 ]]></content>
       <categories>
         <category>编程</category>
