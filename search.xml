@@ -595,6 +595,42 @@ Entry对象的哈希值计算只有键有关与值无关.<br>
 原理:底层数据结构依然是哈希表,知识每个键值对元素有额外多了一个双链表机制记录存储的顺序</p>
 <p>也是与HashMap一样没有什么新的特有方法</p>
 <p>基本是与LinkedHashSet一样.</p>
+<h3 id="treemap">TreeMap</h3>
+
+  <div class="note p-4 mb-4 rounded-small red">
+    <p>同TreeSet.<br>
+排序只与键有关.</p>
+
+  </div>
+<h3 id="hashmap底层原理">HashMap底层原理</h3>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">HashMap&lt;String,Integer&gt; hm = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">pm.put(<span class="string">"aaa"</span>,<span class="number">111</span>);</span><br><span class="line">pm.put(<span class="string">"bbb"</span>,<span class="number">222</span>);</span><br><span class="line">pm.put(<span class="string">"ccc"</span>,<span class="number">333</span>);</span><br><span class="line">pm.put(<span class="string">"ddd"</span>,<span class="number">444</span>);</span><br></pre></td></tr></table></figure></div>
+<p>添加元素时至少考虑这三种情况:<br>
+1.数组位置为null.<br>
+2.数组位置不为null,键重复,元素覆盖.<br>
+3.数组位置不为null,键不重复,往下形成链表或红黑树.</p>
+<p>HashMap类里的一些内容:<br>
+<details class="green" data-header-exclude=""><summary><i class="fa-solid fa-chevron-right"></i>字段 </summary>
+              <div class="content">
+              <div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">DEFAULT_INITIAL_CAPACITY</span> <span class="operator">=</span> <span class="number">1</span> &lt;&lt; <span class="number">4</span>;  <span class="comment">//数组初始大小</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MAXIMUM_CAPACITY</span> <span class="operator">=</span> <span class="number">1</span> &lt;&lt; <span class="number">30</span>;    <span class="comment">//数组最大容量</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">float</span> <span class="variable">DEFAULT_LOAD_FACTOR</span> <span class="operator">=</span> <span class="number">0.75f</span>; <span class="comment">//默认加载因子</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">transient</span> Node&lt;K,V&gt;[] table;  <span class="comment">//HashSet里的数组</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+              </div>
+            </details></p>
+<p>构造方法:<br>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//可见空参构造并没有创建数组</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">HashMap</span><span class="params">()</span>{</span><br><span class="line">  <span class="built_in">this</span>.loadFactor = DEFAULT_LOAD_FACTOR;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div></p>
+<details class="blue" data-header-exclude=""><summary><i class="fa-solid fa-chevron-right"></i>Node类 </summary>
+              <div class="content">
+              <div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//HashMap中,每一个元素都是Node对象.</span></span><br><span class="line"><span class="comment">//Node类实现了Entry对象所以我们可以说每一个元素是Entry对象.</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">Node</span>&lt;K,V&gt; <span class="keyword">implements</span> <span class="title class_">Map</span>.Entry&lt;K,V&gt; {  </span><br><span class="line">    <span class="keyword">final</span> <span class="type">int</span> hash;   <span class="comment">//Hash值</span></span><br><span class="line">    <span class="keyword">final</span> K key;      <span class="comment">//键</span></span><br><span class="line">    V value;          <span class="comment">//值</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//用于记录下一个元素的地址值(当HashMap里出现链表结构时用上)</span></span><br><span class="line">    Node&lt;K,V&gt; next;   </span><br><span class="line"></span><br><span class="line">    Node(<span class="type">int</span> hash, K key, V value, Node&lt;K,V&gt; next) {</span><br><span class="line">        <span class="built_in">this</span>.hash = hash;</span><br><span class="line">        <span class="built_in">this</span>.key = key;</span><br><span class="line">        <span class="built_in">this</span>.value = value;</span><br><span class="line">        <span class="built_in">this</span>.next = next;</span><br><span class="line">    }</span><br></pre></td></tr></table></figure></div>
+              </div>
+            </details>
+<details class="blue" data-header-exclude=""><summary><i class="fa-solid fa-chevron-right"></i>TreeNode类 </summary>
+              <div class="content">
+              <div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">TreeNode</span>&lt;K,V&gt; <span class="keyword">extends</span> <span class="title class_">LinkedHashMap</span>.Entry&lt;K,V&gt; {</span><br><span class="line">    TreeNode&lt;K,V&gt; parent;  <span class="comment">// red-black tree links</span></span><br><span class="line">    TreeNode&lt;K,V&gt; left;</span><br><span class="line">    TreeNode&lt;K,V&gt; right;</span><br><span class="line">    TreeNode&lt;K,V&gt; prev;    <span class="comment">// needed to unlink next upon deletion</span></span><br><span class="line">    <span class="type">boolean</span> red;</span><br><span class="line">    TreeNode(<span class="type">int</span> hash, K key, V val, Node&lt;K,V&gt; next) {</span><br><span class="line">        <span class="built_in">super</span>(hash, key, val, next);</span><br><span class="line">    }</span><br><span class="line">    ......</span><br><span class="line"></span><br><span class="line">Node&lt;K,V&gt; <span class="title function_">newNode</span><span class="params">(<span class="type">int</span> hash, K key, V value, Node&lt;K,V&gt; next)</span> {</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Node</span>&lt;&gt;(hash, key, value, next);</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+              </div>
+            </details>
+<details class="red" data-header-exclude=""><summary><i class="fa-solid fa-chevron-right"></i>put方法 </summary>
+              <div class="content">
+              <div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">    <span class="keyword">public</span> V <span class="title function_">put</span><span class="params">(K key, V value)</span> {</span><br><span class="line">                      <span class="comment">//计算键的哈希值,键,值,</span></span><br><span class="line">                      <span class="comment">//第四个参:当前数据是否保留(put时覆盖)false为覆盖</span></span><br><span class="line">        <span class="keyword">return</span> putVal(hash(key), key, value, <span class="literal">false</span>, <span class="literal">true</span>);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> V <span class="title function_">putVal</span><span class="params">(<span class="type">int</span> hash, K key, V value, <span class="type">boolean</span> onlyIfAbsent,</span></span><br><span class="line"><span class="params">               <span class="type">boolean</span> evict)</span> {</span><br><span class="line">    <span class="comment">//利用局部变量记录数组的地址值,因为成员变量在堆里面,</span></span><br><span class="line">    <span class="comment">//而方法运行在栈,这里用tab直接记录table数组的地址值,</span></span><br><span class="line">    <span class="comment">//免得每次调用都要去堆里找table</span></span><br><span class="line">    Node&lt;K,V&gt;[] tab; </span><br><span class="line">    Node&lt;K,V&gt; p; <span class="comment">//临时记录键值对对象地址</span></span><br><span class="line">    <span class="type">int</span> n, i;   <span class="comment">//n:当前数组长度,i:索引</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//初始化tab并判断tab是否为null</span></span><br><span class="line">    <span class="keyword">if</span> ((tab = table) == <span class="literal">null</span> || (n = tab.length) == <span class="number">0</span>){</span><br><span class="line">      <span class="comment">//1.如果是第一次添加数据,底层会创建一个默认长度为16,加载因子为0.75的数组</span></span><br><span class="line">      <span class="comment">//2.如果不是第一次添加数据会看数组是否到达了扩容条件</span></span><br><span class="line">      <span class="comment">//如果没到达扩容条件,则resize()不会执行任何操作</span></span><br><span class="line">      <span class="comment">//如果达到了扩容条件,则扩容两倍并把数据全部转移到新的哈希表中.</span></span><br><span class="line">        tab = resize();</span><br><span class="line">        n = tab.length; <span class="comment">//更新数组长度记录变量</span></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">//(n - 1) &amp; hash会计算出当前键值对在数组中应存的位置,并赋值给i</span></span><br><span class="line">    <span class="comment">//判断当前元素要存的位置是否为null</span></span><br><span class="line">    <span class="keyword">if</span> ((p = tab[i = (n - <span class="number">1</span>) &amp; hash]) == <span class="literal">null</span>)</span><br><span class="line">        tab[i] = newNode(hash, key, value, <span class="literal">null</span>);</span><br><span class="line">    <span class="keyword">else</span> {</span><br><span class="line">        Node&lt;K,V&gt; e; K k;</span><br><span class="line">        <span class="keyword">if</span> (p.hash == hash &amp;&amp;</span><br><span class="line">            ((k = p.key) == key || (key != <span class="literal">null</span> &amp;&amp; key.equals(k))))</span><br><span class="line">            e = p;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (p <span class="keyword">instanceof</span> TreeNode)</span><br><span class="line">            e = ((TreeNode&lt;K,V&gt;)p).putTreeVal(<span class="built_in">this</span>, tab, hash, key, value);</span><br><span class="line">        <span class="keyword">else</span> {</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">binCount</span> <span class="operator">=</span> <span class="number">0</span>; ; ++binCount) {</span><br><span class="line">                <span class="keyword">if</span> ((e = p.next) == <span class="literal">null</span>) {</span><br><span class="line">                    p.next = newNode(hash, key, value, <span class="literal">null</span>);</span><br><span class="line">                    <span class="keyword">if</span> (binCount &gt;= TREEIFY_THRESHOLD - <span class="number">1</span>) <span class="comment">// -1 for 1st</span></span><br><span class="line">                        treeifyBin(tab, hash);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                }</span><br><span class="line">                <span class="keyword">if</span> (e.hash == hash &amp;&amp;</span><br><span class="line">                    ((k = e.key) == key || (key != <span class="literal">null</span> &amp;&amp; key.equals(k))))</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                p = e;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">if</span> (e != <span class="literal">null</span>) { <span class="comment">// existing mapping for key</span></span><br><span class="line">            <span class="type">V</span> <span class="variable">oldValue</span> <span class="operator">=</span> e.value;</span><br><span class="line">            <span class="keyword">if</span> (!onlyIfAbsent || oldValue == <span class="literal">null</span>)</span><br><span class="line">                e.value = value;</span><br><span class="line">            afterNodeAccess(e);</span><br><span class="line">            <span class="keyword">return</span> oldValue;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    ++modCount; <span class="comment">//用于处理并发修改</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//threshold:记录的数组长度*0.75</span></span><br><span class="line">    <span class="comment">//判断是否扩容,先让size自增来判断.</span></span><br><span class="line">    <span class="keyword">if</span> (++size &gt; threshold)</span><br><span class="line">        resize();</span><br><span class="line">    afterNodeInsertion(evict);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;    <span class="comment">//表示当前没有覆盖任何元素直接返回null</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> Node&lt;K,V&gt;[] resize() {</span><br><span class="line">    Node&lt;K,V&gt;[] oldTab = table;</span><br><span class="line">    <span class="type">int</span> <span class="variable">oldCap</span> <span class="operator">=</span> (oldTab == <span class="literal">null</span>) ? <span class="number">0</span> : oldTab.length;</span><br><span class="line">    <span class="type">int</span> <span class="variable">oldThr</span> <span class="operator">=</span> threshold;</span><br><span class="line">    <span class="type">int</span> newCap, newThr = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (oldCap &gt; <span class="number">0</span>) {</span><br><span class="line">        <span class="keyword">if</span> (oldCap &gt;= MAXIMUM_CAPACITY) {</span><br><span class="line">            threshold = Integer.MAX_VALUE;</span><br><span class="line">            <span class="keyword">return</span> oldTab;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> ((newCap = oldCap &lt;&lt; <span class="number">1</span>) &lt; MAXIMUM_CAPACITY &amp;&amp;</span><br><span class="line">                 oldCap &gt;= DEFAULT_INITIAL_CAPACITY)</span><br><span class="line">            newThr = oldThr &lt;&lt; <span class="number">1</span>; <span class="comment">// double threshold</span></span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (oldThr &gt; <span class="number">0</span>) <span class="comment">// initial capacity was placed in threshold</span></span><br><span class="line">        newCap = oldThr;</span><br><span class="line">    <span class="keyword">else</span> {               <span class="comment">// zero initial threshold signifies using defaults</span></span><br><span class="line">        newCap = DEFAULT_INITIAL_CAPACITY;</span><br><span class="line">        newThr = (<span class="type">int</span>)(DEFAULT_LOAD_FACTOR * DEFAULT_INITIAL_CAPACITY);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">if</span> (newThr == <span class="number">0</span>) {</span><br><span class="line">        <span class="type">float</span> <span class="variable">ft</span> <span class="operator">=</span> (<span class="type">float</span>)newCap * loadFactor;</span><br><span class="line">        newThr = (newCap &lt; MAXIMUM_CAPACITY &amp;&amp; ft &lt; (<span class="type">float</span>)MAXIMUM_CAPACITY ?</span><br><span class="line">                  (<span class="type">int</span>)ft : Integer.MAX_VALUE);</span><br><span class="line">    }</span><br><span class="line">    threshold = newThr;</span><br><span class="line">    <span class="meta">@SuppressWarnings({"rawtypes","unchecked"})</span></span><br><span class="line">    Node&lt;K,V&gt;[] newTab = (Node&lt;K,V&gt;[])<span class="keyword">new</span> <span class="title class_">Node</span>[newCap];</span><br><span class="line">    table = newTab;</span><br><span class="line">    <span class="keyword">if</span> (oldTab != <span class="literal">null</span>) {</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; oldCap; ++j) {</span><br><span class="line">            Node&lt;K,V&gt; e;</span><br><span class="line">            <span class="keyword">if</span> ((e = oldTab[j]) != <span class="literal">null</span>) {</span><br><span class="line">                oldTab[j] = <span class="literal">null</span>;</span><br><span class="line">                <span class="keyword">if</span> (e.next == <span class="literal">null</span>)</span><br><span class="line">                    newTab[e.hash &amp; (newCap - <span class="number">1</span>)] = e;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (e <span class="keyword">instanceof</span> TreeNode)</span><br><span class="line">                    ((TreeNode&lt;K,V&gt;)e).split(<span class="built_in">this</span>, newTab, j, oldCap);</span><br><span class="line">                <span class="keyword">else</span> { <span class="comment">// preserve order</span></span><br><span class="line">                    Node&lt;K,V&gt; loHead = <span class="literal">null</span>, loTail = <span class="literal">null</span>;</span><br><span class="line">                    Node&lt;K,V&gt; hiHead = <span class="literal">null</span>, hiTail = <span class="literal">null</span>;</span><br><span class="line">                    Node&lt;K,V&gt; next;</span><br><span class="line">                    <span class="keyword">do</span> {</span><br><span class="line">                        next = e.next;</span><br><span class="line">                        <span class="keyword">if</span> ((e.hash &amp; oldCap) == <span class="number">0</span>) {</span><br><span class="line">                            <span class="keyword">if</span> (loTail == <span class="literal">null</span>)</span><br><span class="line">                                loHead = e;</span><br><span class="line">                            <span class="keyword">else</span></span><br><span class="line">                                loTail.next = e;</span><br><span class="line">                            loTail = e;</span><br><span class="line">                        }</span><br><span class="line">                        <span class="keyword">else</span> {</span><br><span class="line">                            <span class="keyword">if</span> (hiTail == <span class="literal">null</span>)</span><br><span class="line">                                hiHead = e;</span><br><span class="line">                            <span class="keyword">else</span></span><br><span class="line">                                hiTail.next = e;</span><br><span class="line">                            hiTail = e;</span><br><span class="line">                        }</span><br><span class="line">                    } <span class="keyword">while</span> ((e = next) != <span class="literal">null</span>);</span><br><span class="line">                    <span class="keyword">if</span> (loTail != <span class="literal">null</span>) {</span><br><span class="line">                        loTail.next = <span class="literal">null</span>;</span><br><span class="line">                        newTab[j] = loHead;</span><br><span class="line">                    }</span><br><span class="line">                    <span class="keyword">if</span> (hiTail != <span class="literal">null</span>) {</span><br><span class="line">                        hiTail.next = <span class="literal">null</span>;</span><br><span class="line">                        newTab[j + oldCap] = hiHead;</span><br><span class="line">                    }</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> newTab;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+              </div>
+            </details>
 ]]></content>
       <categories>
         <category>编程</category>
@@ -2407,6 +2443,360 @@ sudo vim /etc/NetworkManager/NetworkManager.conf<br>
       </categories>
       <tags>
         <tag>Kali</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计算机组成原理笔记</title>
+    <url>/2024/06/03/computer_science/</url>
+    <content><![CDATA[<h2 id="现代计算机结构">现代计算机结构</h2>
+<p><img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/现代计算机结构.png" alt="现代计算机结构"></p>
+<h2 id="x00-存储设备">0x00 存储设备</h2>
+<h3 id="存储器的层次结构">存储器的层次结构</h3>
+按访问关系来看:<br>
+
+<pre class="mermaid">    flowchart LR
+    CPU --高速--&gt; Cache
+    CPU --低速--&gt; 主存
+    Cache --高速--&gt; CPU
+    Cache --低速--&gt; 主存
+    主存 --低速--&gt; Cache
+    主存 --低速--&gt; CPU
+    主存 --更低速--&gt; 辅存
+    辅存 --更低速--&gt; 主存</pre>
+<p>Cache一般由SRAM组成,成本更高,所以数量会更少,容量更低。</p>
+<p>主存一般是DRAM,相对来说便宜不少,所以能数量更多容量更大,但是因为他的刷新等特性,<br>
+导致速度相较于SRAM来说要慢得多.</p>
+<p>辅存诸如SSD,U盘,HDD等,速度与主存更是差更多,但得益于造价,可以有更大的容量,而且一般来说,都是能够持久性保存信息,不至于断电后丢丢失.</p>
+<h3 id="存储器的分类">存储器的分类</h3>
+按层次来看可以分为:<br>
+
+<pre class="mermaid">    flowchart LR
+    subgraph RAM
+    高速缓存-Cache
+    主存储器-主存,内存 
+    end
+    subgraph 辅助存储器
+    辅存,外存
+    end
+    CPU --直接访问--&gt; RAM</pre>
+<h4 id="存取方式">存取方式</h4>
+
+  <div class="note p-4 mb-4 rounded-small blue">
+    <p>随机存取存储器(Random Access
+Memory)RAM,读写任何一个存储单元所需要的时间都相同,与存储单元所在的物理位置无关.</p>
+
+  </div>
+
+  <div class="note p-4 mb-4 rounded-small red">
+    <p>串行的<br>
+顺序存取存储器(Sequential Access
+Memory)SAM,读写一个存储单元所需的时间取决于存储单元所在的物理位置.如:磁带</p>
+
+  </div>
+
+  <div class="note p-4 mb-4 rounded-small black">
+    <p>串行的<br>
+直接存取存储器(Direct Access
+Memory)DRM:即有随机存取的特性,也有顺序存取特性,先直接选取信息所在区域然后按顺序方式读取.如:HDD</p>
+
+  </div>
+
+  <div class="note p-4 mb-4 rounded-small green">
+    <p>相联存储器(Associative Memory)即可以按内容访问的存储器,(Content
+Addressed Memory,CAM),可以按照内容检索到存储位置进行读写,如:快表</p>
+
+  </div>
+<p>速度上:<br>
+RAM &gt; SAM &gt; DAM</p>
+<h4 id="信息的可更改性">信息的可更改性</h4>
+<p>读写存储器(Read/Wire
+Memory)即可读也可写的存储器,如:磁盘,内存,Cache<br>
+只读存储器(Read Only Memory)只能读,不能写(如:CD,Blue-Ray等)<br>
+事实上,现在的很多的ROM都可写.</p>
+<h3 id="存储器性能指标">存储器性能指标</h3>
+<p>存储容量: 存储字数 * 字长(如:1M * 8位)<br>
+单位成本: 每位价格 = 总成本/总容量<br>
+存储速度: 数据传输率 = 数据的宽度/存储周期<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/存取周期.png"><br>
+1.存取时间(Ta):存取时间是指从启动一次存储器操作到完成该操作所经历的时间,分为读出时间和写入时间,<br>
+2.存取周期(Tm):存取周期又称为读写周期或访问周期,它是指存储器进行一次完整读写所需要的全部时间,即连续两次独立地访问存储器操作,(读或写操作)之间所需的最小时间间隔</p>
+<p>主存带宽(Bm):主存带宽又称为数据传输率,表示每秒从主存进出信息的最大数量,单位为字/秒,字节/秒,位/秒</p>
+<h3 id="主存储器的基本组成">主存储器的基本组成</h3>
+<h4 id="半导体元件原理">半导体元件原理</h4>
+<pre class="mermaid">    graph TB
+    subgraph 主存储器逻辑结构
+    存储体
+    MAR-Memory_Address_Register
+    MDR-Memory_Data_Register
+    end</pre>
+<p>时序上的关系:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/主存时序.png"></p>
+<p>存储体由存储元构成:<br>
+由电容与MOS管构成<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/存储元.png"><br>
+由MOS管控制电容是否充放电,电容存储的电量是否达到一定阈值来决定存的是0还是1.</p>
+<p>用这样的存储元组成阵列来构成存储单元<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/存储阵列.png"><br>
+红色线即为MOS管控制线<br>
+一次并行操作8位,一次可以读出的二进制位称为存储字,上图存储字长为:8bit<br>
+两条8位阵列可以存下一个字的二进制位,使用多个存储单元即可组成存储体</p>
+<h4 id="存储芯片的基本原理">存储芯片的基本原理</h4>
+<p>为了时序协调工作与高效率控制,我们引入译码器来控制并行读写哪一个存储单元<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/译码读写.png"><br>
+我们给每一个存储单元编址,配合上译码器的话,译码器的n位地址可以表示2^n个存储单元.<br>
+那么总容量 = 存储单元个数 * 存储字长 这里是: 2^3 * 8bit = 8Byte<br>
+上图的译码器可以连接8个存储单元,输入接自MAR,MAR与地址总线连接</p>
+<p>数据传输上,将通过MDR完成,MDR接入上图绿色线,并接入数据总线.<br>
+地址总线打开相对应的存储单元后,数据将由MDR流出到数据总线.<br>
+使用控制电路来使得MAR与MDR协调工作:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/主存控制电路.png"></p>
+<p>这样一来我们便可以往上抽象:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/主存储器逻辑图.png"><br>
+译码驱动是指,译码器的输出电信号不一定稳定,译码驱动则是稳定信号用的<br>
+读写电路便是前面图中绿色和红色的线.</p>
+<p>结合以上的知识,如果我们有n条地址线接到MAR,那么说明就有2^n个存储单元<br>
+由此可以计算出总容量 = 存储单元个数 * 存储字长<br>
+有一种常见的描述存储芯片的说法:<br>
+8 * 8位的存储芯片<br>
+第一个8表示该芯片有8个存储单元<br>
+第二个8表示该芯片每个存储单元能存8位<br>
+8 * 8还可以写成 2^3 * 8bit也就是说,有三根地址线<br>
+#### 如何实现不同的寻址方式<br>
+先来看下面这张图<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/存储寻址.png"><br>
+每个格子表示一个字节<br>
+那么每行就表示一个存储字,字长为4Byte<br>
+假设该存储矩阵总容量为1KB,那么就有256个字,1K个单元.</p>
+<p>通常,现代计算机按字节编址,上图的存储矩阵我们假设了有1K个单元,那么便会有1K个地址,也就是说要十根地址线,通过10-1024的译码器.<br>
+虽然如此,现代计算机还是支持按字寻址,按半字,双字寻址的.</p>
+<p>如果在按字节编址的前提下,我们想按字寻址,那么只需要将按字节寻址的地址左移两位.对于按字寻址来说,每个单元将是4个字节,矩阵中有256个单元.</p>
+
+  <div class="note-large red">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>一个字等于多少字节?</p>
+
+    </div>
+    <div class="notel-content">
+      <p>一个字等于多少个字节，与系统硬件（总线、cpu命令字位数等）有关。总线一般被设计来传输固定大小的一块数据，这块数据被称为字-word<br>
+1字节（byte） = 8位（bit）<br>
+在16位的系统中（比如8086微机） 1字 （word）= 2字节（byte）=
+16（bit）<br>
+在32位的系统中（比如win32） 1字（word）= 4字节（byte）=32（bit）<br>
+在64位的系统中（比如win64）1字（word）= 8字节（byte）=64（bit）</p>
+
+    </div>
+  </div>
+<h3 id="sram-dram">SRAM &amp;&amp; DRAM</h3>
+<p>Dynamic Random Access Memory -- DRAM 动态RAM<br>
+Static Random Access Memory -- SRAM 静态RAM</p>
+<p>DRAM用于主存,SRAM用于Cache</p>
+<h4 id="存储元件不同导致的特性差异">存储元件不同导致的特性差异</h4>
+<p>SRAM通过双稳态触发器实现(想想D触发器),下面给出简略图:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/双稳态触发器.png"><br>
+这里不作详细探讨,有兴趣可以研究研究数电</p>
+<p>与DRAM最大的不同的就是,电容比较鸡肋.<br>
+DRAM读出1时,电容会放电,电流流入数据线,导致电容里由1变0信息丢失,这种读出叫破坏性读出.而强大的双稳态触发器并不存在这种问题.<br>
+再生--这种解决方法,解决了DRAM读出造成的数据丢失,但是也带来了读写速度大大下降的副作用,也就是读出后,再次回写数据.</p>
+<p>放一张对比图:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/SRAMvsDRAM.png"><br>
+足以看出DRAM的鸡肋.</p>
+<p>通常来说,DRAM里的栅极电容内的电荷只能维持2ms,就算不断电,2ms后存储的信息也会流失.</p>
+<h4 id="dram的刷新">DRAM的刷新</h4>
+<p>为了解决DRAM栅极电容带来的缺点,我们给DRAM的电容进行刷新操作.<br>
+那么:<br>
+刷新周期: 2ms<br>
+每次刷新数量: 以行为单位,每次刷新一行存储单元</p>
+<p>之所以以行为单位来刷新,是因为如果存储单元数量巨大,比如1M,那就有1M根选通线从译码器连出,工程量巨大,效率低下.<br>
+如果我们更改存储单元排列结构,将一维排布的存储单元转化为二位排列<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/存储单元二维排列.png"><br>
+使用两个译码器,一个行地址译码器,一个列地址译码器,这样可以优化存储单元排布。<br>
+一维的方案,译码器要处理 2^20
+(20根地址线)的信息,转到二维后每个译码器只需要处理2^10的信息,即1k根选通线</p>
+<p>一维转成二维后,对地址的解释也会有所变化,比如对于一维来说,0000
+0000,表示的是第0个存储单元,而对于二维来说,前四个0表示行后四个表示列,只有被行,列地址同时选中的存储单元才能被读写.</p>
+<p>刷新方法:这里且不讨论硬件实现,读出一行的信息后重新写入,占用1个读/写周期<br>
+在什么时刻刷新?<br>
+假设DRAM的内部结构排列成128 *
+128,存取周期0.5us,那么2ms的极限时间就有2ms/0.5us = 4000个周期<br>
+也就是说2ms可以执行4000个周期的读写操作</p>
+
+  <div class="note p-4 mb-4 rounded-small blue">
+    <p>思路一:每次读写完都刷新一行,也就是说,每次读写,用0.5us读写,0.5us刷新,系统的存取周期变1us--分散刷新</p>
+
+  </div>
+<p><img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/分散刷新.png"><br>
+那么在2ms内我们可以刷新2ms / 1us =
+2000次,而我们的DRAM阵列假设只有128行所以绰绰有余.<br>
+看起来很低效</p>
+
+  <div class="note p-4 mb-4 rounded-small green">
+    <p>思路二:2ms内集中安排时间全部刷新,那么系统的存取周期还是0.5us,2ms内划出一段时间来刷新,这个段时间无法访问存储器,这段时间被称为访存死区
+-- 集中刷新</p>
+
+  </div>
+<p><img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/集中刷新.png"><br>
+因为只有128行,所以我们只需要留下128个读写周期<br>
+看起来也好不到哪去</p>
+
+  <div class="note p-4 mb-4 rounded-small black">
+    <p>思路三:2ms内每行刷新一次即可,2ms内需要产生128次刷新请求,我们可以每隔2ms/128
+= 15.6us一次,也就是说,每15.6us会有0.5us的死区 -- 异步刷新</p>
+
+  </div>
+<p><img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/异步刷新.png"><br>
+而且我们可以选择在译码阶段我们进行刷新<br>
+看起来高效了很多</p>
+<h4 id="dram的地址线复用技术">DRAM的地址线复用技术</h4>
+<p>前面提到,我们把一维的存储单元排布转换成了二维.</p>
+<p>寻址时,如果我们同时把行地址列地址同时送到行地址译码器和列地址译码器,那么我们便需要相对应的地址线.比如0000
+0000这一个地址会同时送到行地址译码器,列地址译码器,也就是说地址线要8根.</p>
+<p>也就是说,我们的地址有多少位,我们就需要多少根地址线,这看起来理所当然,但我们有更好的方案,如果地址线一多,这种一次送到的方法就会显得鸡肋了.</p>
+<p>我们可以先传行地址再传列地址或者反过来,这样如果是8位地址,我们每次只需要传4位,也就是地址线数量减半,芯片引脚地址线减半<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/地址线复用.png"></p>
+<p>SRAM的容量较小,所以送地址的时候都是同时送,也就是不分批.</p>
+<h3 id="rom">ROM</h3>
+<p>Read Only Memory--只读存储器,断电后能持续保存数据<br>
+
+  <div class="note p-4 mb-4 rounded-small red">
+    <p>MROM(Mask Read-Only Memory) --掩模式只读存储器<br>
+厂家按照客户需求,在生产过程中直接写入信息,之后任何人不能重写,可靠性高,灵活性极低,生产周期长</p>
+
+  </div><br>
+
+  <div class="note p-4 mb-4 rounded-small green">
+    <p>PROM(Programmable Read-Only Memory) --可编程只读存储器<br>
+用户可用专门的PROM写入器来写入信息,一旦写入不可更改</p>
+
+  </div><br>
+
+  <div class="note p-4 mb-4 rounded-small orange">
+    <p>EPROM(Erasable Programmable Read-Only Memory)
+--可擦可编程只读存储器<br>
+允许用户写入信息,并用特定方式擦除数据,可以多次重写</p>
+
+  </div><br>
+
+  <div class="note p-4 mb-4 rounded-small cherry">
+    <p>UVEROM(Ultraviolet rays Read-Only Memory)
+--可擦可编程只读存储器<br>
+允许用户写入信息,用紫外线照射一定时间来擦除数据.</p>
+
+  </div><br>
+
+  <div class="note p-4 mb-4 rounded-small pink">
+    <p>EEPROM(Electrically Erase Programmable Read-Only Memory)
+--电可擦除可编程只读存储器<br>
+可用电擦除,擦除特定字</p>
+
+  </div><br>
+
+  <div class="note p-4 mb-4 rounded-small red">
+    <p>Flash Memory -- 闪速存储器<br>
+由EEPROM发展而来,可进行多次快速擦除重写,像是u盘,SD卡<br>
+由于闪存要先擦再写,所以闪存的读会比写快得多.</p>
+
+  </div><br>
+
+  <div class="note p-4 mb-4 rounded-small blue">
+    <p>SSD(Solid State Drives) --固态硬盘<br>
+由存储单元(Flash)+控制单元构成,可进行多次快速擦写.</p>
+
+  </div></p>
+<p>PC主板上的BIOS程序写在ROM里,逻辑上主存由RAM +
+ROM组成,而且常常统一编址,开机后先读取BISO程序.</p>
+<h3 id="优化ram速度">优化RAM速度</h3>
+<h4 id="双端口ram">双端口RAM</h4>
+<p>先看回存储周期:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/存储周期.png"><br>
+DRAM的恢复时间比较长,有可能是存取的几倍.<br>
+虽然存取的时间很快,但是存取完要相当长的恢复时间,对于多核CPU来说对性能削弱是毁灭性的.</p>
+<p>为了实现双端口RAM,我们要有两组完全独立的数据线,地址线,控制线.CPU,RAM里也要有更复杂的控制电路<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/双端口RAM.png"></p>
+<p>CPU1,CPU2对双端口RAM访问的可能情况:<br>
+1.两个端口同时对不同的地址存取数据 √<br>
+2.两个端口同时对同一地址读出数据 √<br>
+3.两个端口同时对同一地址写入数据 ×<br>
+4.两个端口对同一地址单元,一个写入,一个读出 ×</p>
+<p>解决方法: 使用"忙"信号,由判断逻辑决定暂时关闭一个端口 --
+即被延时访问</p>
+<p>感觉很低效.</p>
+<h4 id="多体并行存储器">多体并行存储器</h4>
+<p>每一列可以看成一根内存<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/交叉编址.png"></p>
+<p>每个模块都有相同的容量和存取速度,各模块都有独立的读写控制电路,地址寄存器和数据寄存器,他们既能并行工作又能交叉工作</p>
+<h5 id="高位交叉编址">高位交叉编址</h5>
+<p><img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/高位交叉编址.png"><br>
+CPU是通过地址来向访存的,高位交叉编址是指,在地址最高位留出一定的位置来区分访问哪一根内存,<br>
+图中有四个内存,假如8位地址,那么可以留出最前面的两位来确定访问哪一个根内存.</p>
+<p>假设每条内存有8个存储单元,那么有4 * 8 = 32个存储单元,也就是2 ^
+5个,也就是可以用5bit来作为地址,<br>
+那么对于第一根内存条有00 000,后面三个000表示体内地址<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/高位交叉编址1.png"><br>
+可以看出,地址编排方式是竖着编的</p>
+<p>假如说,每个存储体存储周期为T,存取时间为r假设T =
+4r,那么恢复时间为3r.<br>
+对于高位交叉编址,连续访问:00000,00001,00010,00011,00100<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/高位交叉编址访存.png"><br>
+可以看到压力全给到了M0内存<br>
+可以算出连续存取n个字,耗时nT,这里是5T.</p>
+<h5 id="低位交叉编址">低位交叉编址</h5>
+<p>同高位交叉编址,不过是用最低位来表示第几根内存<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/低位交叉编址.png"><br>
+可以看出,地址编排方式是横着编的</p>
+<p>假如说,每个存储体存储周期为T,存取时间为r假设T =
+4r,那么恢复时间为3r.<br>
+对于低位交叉编址,连续访问:00000,00001,00010,00011,00100<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/低位交叉编址访存.png"><br>
+可以看到负载均匀,在存取00000后,直接去存取00001不用等待M0的恢复,只花了r时间,如此往下,<br>
+M3开始,M0刚好恢复,所以可以直接存取00100.有多线程的味道了.</p>
+<p>图里划虚线的地方刚好是T,如果考虑上最后的恢复时间,那么总耗时是T +
+4r<br>
+如果只考虑存取的总用时,那么只有5r<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/低位交叉编址访存1.png"><br>
+那么可以得出通用计算公式: 连续取n个存储字 耗时 = nr + 3r = T + (n -1)r
+(包含了最后恢复时间)<br>
+根据公式来看,当连续读写的字越多,时间越接近r</p>
+<p>可以看出低位交叉编址比高位交叉编址高效的多的多.</p>
+<p>为什么是"连续访问"<br>
+不碰到跳转语句的话,程序是一句一句顺序的执行的,亦或者像是数组这种结构数据紧密相连.</p>
+<p>采用"流水线“(看看上面存储体时间图),看起来宏观上是并行的,微观上是串行的.宏观上,一个存储周期内,m体交叉存储器(m体指的是m个存储体,比如m条内存条),可以朝外提供的数据量为单个模块的m倍</p>
+<p>存储周期为T,存取时间为r(或总线传输周期为r --
+指cpu通过数据总线传输数据至少要r的时间)<br>
+,为了使得流水线不间断,我们应该保证模块数m(内存条数) &gt; T / r<br>
+原因如下:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/流水线存储体.png"></p>
+<p>如果给出一个地址x,我们可以通过体号(低位的那几个)来判断在那个存储体,也可以直接用x
+% m,m指的是存储体总量.</p>
+
+  <div class="note p-4 mb-4 rounded-small red">
+    <p>双通道内存使用的就是低位交叉的多体存储器</p>
+
+  </div>
+<h4 id="单体多字存储器">单体多字存储器</h4>
+<p>多体并行存储器的合并版.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/单体多字存储器.png"><br>
+整个存储器只有一套读写电路<br>
+本来每次只能读写一个字,但是到了这里的单体多字存储器一次能读4个字也就是一行.</p>
+<p>显然,一次只能读4个字就显示出了他的鸡肋 --
+不能单独取其中的某个字,假如数据存在第一行后面两个字和第二行前面两个字,那么要读两次,而且会出来4个字的无效数据,而且指令和数据在主存内都是连续存放的.</p>
+<p>但是吧,单体多字存储器确实提升了速度,每一个存取周期能读4个字</p>
+
+  <div class="note-large green">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>参考</p>
+
+    </div>
+    <div class="notel-content">
+      <p>https://blog.csdn.net/lws123253/article/details/119956926</p>
+
+    </div>
+  </div>
+]]></content>
+      <categories>
+        <category>Computer_Science</category>
+      </categories>
+      <tags>
+        <tag>计算机组成原理</tag>
       </tags>
   </entry>
 </search>
