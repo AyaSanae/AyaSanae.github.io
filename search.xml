@@ -3506,19 +3506,328 @@ Cache存的是主存块副本.是按地址寻访的.</p>
     从Cache中访问目标数据 --&gt; 结束;
     Cache-miss --&gt; 从主存中访问目标数据,并将主存块调入Cache;
     从主存中访问目标数据,并将主存块调入Cache --&gt; 结束;</pre>
+<h3 id="虚拟存储器">虚拟存储器</h3>
+<p>我们知道程序被保存在辅存,在运行前会被载入内存.但一般不会整个程序调入内存,而是依据程序局部性原理来调入.<br>
+所以我们可以打开多个程序,而不触发oom(Out Of Memory).<br>
+也就是说,用户感知到的存储系统容量要远大于其物理存储系统容量.</p>
+<p>游戏载盘,Loading,就是将程序从辅存调入主存的过程.</p>
+<h4 id="页式虚拟存储器">页式虚拟存储器</h4>
+<p>同主存调入Cache的原理,我们可以分页,也给辅存分块.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/页表1.png"><br>
+分页后调入主存,<br>
+我们还要升级我们的页表,如图中右下角.<br>
+原来的页表只有逻辑页号和主存块号,这里新增了外存块号,有效位,访问位,脏位.<br>
+这些词都不是很难理解.</p>
+<p>外存块号,用于表示该页在辅存的哪一块,要用到哪一页的时候直接到对应的外存块号找,当有效位为1时代表该页被调入主存,反之则未调入.</p>
+<p>访问位类似于Cache-主存的替换算法中的LFU的计数器,这里不展开.<br>
+脏位用于表示该块是否被修改,淘汰时回写辅存.</p>
+<p>再放一张图,你应该就看得懂了:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/虚拟存储.png"></p>
+<h4 id="段式虚拟存储器">段式虚拟存储器</h4>
+<p>按照功能模块拆分,如图中,0段时自己的代码,1段时库函数,2段时变量.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/段式.png"><br>
+不同于每一页大小都相等的页式存储器.段式存储器的每一段大小取决于功能模块大小.</p>
+<p>为了找到我们段的实地址,显然我们需要一个段表,与页表一样,段表存在主存.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/段式存储.png"></p>
+<p>这里不展开讨论,需要移步到隔壁Operating System</p>
+<h4 id="段页式虚拟存储器">段页式虚拟存储器</h4>
+<p>把程序按逻辑结构分段,每段再划分为固定大小的页,把主存空间也划分为大小相等的页,<br>
+程序对主存的调入,调出仍然以页为基本传送单位,<br>
+每个程序对应一个段表,每段对应一个页表</p>
+<p>那么虚地址 = 段号 + 段内页号 + 页内地址</p>
+<h2 id="x0c-指令系统">0x0C 指令系统</h2>
+
+  <div class="note p-4 mb-4 rounded-small green">
+    <p>“计算机擅长接受指令,不擅了解你的思想。” – 高德纳(Donald Knuth)</p>
+
+  </div>
+<p>我们知道指令是由操作码+地址码组成的.这一章来研究计算机的语言.<br>
+指令指的是计算机执行某种操作的命令,是计算机运行的最小功能单位,一台计算机的所有指令集合构成该机的指令系统,即指令集</p>
+<p>一条指令通常包括操作码字段和地址码字段:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/指令组成.png"></p>
+<p>对于n位地址码,直接寻址范围是2^n,若指令总长度不变,则地址码数量越多,寻址能力越差.</p>
+<h3 id="指令格式分类">指令格式分类</h3>
+<h4 id="地址码数目">地址码数目</h4>
+<h5 id="零地址指令">零地址指令</h5>
+<p>1.不需要操作数,如空操作,停机,关中断等指令.<br>
+2.堆栈计算机,两个操作数隐含存在栈顶和次栈顶,计算结果压回栈顶.</p>
+<h5 id="一地址指令">一地址指令</h5>
+<p>格式: OP + A1
+(操作数+一个操作数,操作数指出指令执行的操作所需要数据的来源)<br>
+1.只需要单操作数,如加1,减1,取反,求补等<br>
+含义: OP(A1) -&gt; A1
+(取出A1地址指向的数,根据操作数执行计算操作,结果放回A1,(A1)表示A1所指向的内容),三次访存:
+取地址 -&gt; 读A1 -&gt; 写A1</p>
+<p>2.需要两个操作数,但其中一个操作数隐含在某个寄存器(如ACC)<br>
+格式:（ACC)OP(A1)-&gt;ACC
+(取出ACC,A1,根据操作数执行计算操作,结果放回ACC)<br>
+两次访存: 取址 -&gt; 读A1</p>
+<h5 id="二地址指令-三地址指令">二地址指令 &amp;&amp; 三地址指令</h5>
+<p>格式: OP+ A1 + A2<br>
+A1为目的操作数,A2为源操作数<br>
+指令含义: (A1)OP(A2) -&gt; A1</p>
+<p>常用于需要两个操作数的算术运算,四次访存: 取指 -&gt; 读A1 -&gt; 读A2
+-&gt; 写A1</p>
+<p>三地址:<br>
+格式: OP + A1 + A2 + A3(结果)<br>
+指令含义: (A1)OP(A2) -&gt; A3<br>
+四次访存: 取指 -&gt; 读A1 -&gt; 读A2 -&gt; 写A3</p>
+<h5 id="四地址指令">四地址指令</h5>
+<p>格式: OP + A1 + A2 + A3(结果) + A4(下一地址)<br>
+指令含义: (A1)OP(A2) -&gt; A3, A4 = 下一条将要执行指令的地址<br>
+四次访存: 取指 -&gt; 读A1 -&gt; 读A2 -&gt; 写A3<br>
+执行指令后,将PC值修改为A4指向的地址.</p>
+<h4 id="指令长度">指令长度</h4>
+<p>指令字长: 一条指令的总长度.(可能会变)<br>
+机器字长:
+CPU进行一次整数运算所能处理的二进制位数.(通常和ALU直接相关)<br>
+存储字长：一个存储单元中的二进制代码位数.(通常等于MDR)</p>
+<p>我们可以用半字长,单字长,双字长指令来描述一条指令长度是机器字长的多少倍.<br>
+显然指令支撑会影响取指令所需要的时间,如:机器字长 = 存储字长 =
+16bit,则一条双字长指令要两次访存.</p>
+<p>定长指令字结构: 指令系统中所有指令的长度都相等.<br>
+变长指令字结构: 指令系统重各种指令长度不等.</p>
+<h4 id="操作码长度">操作码长度</h4>
+<p>定长操作码: 指令系统中所有指令的操作码长度都相等.<br>
+定长操作码的数量是有限的,是2^n条,这样的话控制器设计就会简单,但是明显,灵活性差.</p>
+<p>可变长操作码:指令系统重的各指令操作码长度可变.</p>
+<h4 id="操作类型">操作类型</h4>
 
   <div class="note-large green">
     <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
-      <p>参考</p>
+      <p>数据传送类</p>
 
     </div>
     <div class="notel-content">
-      <p>https://blog.csdn.net/lws123253/article/details/119956926<br>
-https://baike.baidu.com/item/%E7%A3%81%E7%9B%98%E6%A0%BC%E5%BC%8F%E5%8C%96/3180247?fr=ge_ala<br>
-https://baike.baidu.com/item/%E8%BD%AC%E8%AF%91%E5%90%8E%E5%A4%87%E7%BC%93%E5%86%B2%E5%8C%BA/22685572?fr=ge_ala</p>
+      <p>LOAD:把存储器(源)中的数据放到寄存器(目的)中<br>
+STORE:把寄存器(源)中的数据放到存储器(目的)中</p>
 
     </div>
   </div>
+
+  <div class="note-large blue">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>运算类</p>
+
+    </div>
+    <div class="notel-content">
+      <p>算术运算: 加减,乘除,自增,自减,求补,浮点运算,十进制运算<br>
+逻辑运算: 与,或,非,异或,位运算<br>
+移位操作:算术移位,逻辑移位,循环移位(带进位和不带进位)</p>
+
+    </div>
+  </div>
+
+  <div class="note-large orange">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>程序控制类</p>
+
+    </div>
+    <div class="notel-content">
+      <p>转移操作:<br>
+无条件转移<br>
+条件转移<br>
+调用和返回<br>
+陷阱与陷阱指令</p>
+
+    </div>
+  </div>
+
+  <div class="note-large pink">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>输入输出操作</p>
+
+    </div>
+    <div class="notel-content">
+      <p>CPU用于IO端口之间的数据传送(端口即IO接口中的寄存器)</p>
+
+    </div>
+  </div>
+<h3 id="扩展操作码">扩展操作码</h3>
+<p>定长指令字 + 可变长操作码 = 扩展操作码指令格式</p>
+<p>例:指令字长16bit,每个地址码占4bit,前4bit为基本操作码字段OP,另有3个4bit长的地址字段A1,A2,A3.</p>
+<p>如果我们把前4bit的操作码全部用于设计三地址指令,那一共能表示2^4,也就是16条<br>
+但这样我们就设计不了0,1,2,地址指令.我们可以把前4bit的 1111
+这个数留做用于表示二地址指令,三地址指令不使用1111,也就是说,这种情况三地址指令只能有15条.</p>
+<p>也就是说二地址指令的前4bit一定是1111,5-8bit用于表示操作码,留下1111给一地址指令用,那就是15条二地址指令.</p>
+<p>以此类推,能得到零地址,一地址指令:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/扩展操作码.png"><br>
+值得一提的是零地址指令不用再预留,也就是有16条.</p>
+<p>短码:更短的操作码<br>
+长码:更长的操作码<br>
+像是上图的二地址指令是相较于三地址指令是长码.</p>
+<p>在设计扩展操作码指令格式时,必须注意:<br>
+1.不允许短码是长码的前缀,即短操作码不能与长操作码前面部分的代码相同.<br>
+很好理解,要是三地址的前4bit是1111,就会被认为是二地址.<br>
+2.各指令操作码不能重复</p>
+
+  <div class="note p-4 mb-4 rounded-small red">
+    <p>通常,对使用频率高的指令,分配较短的操作码,对使用频率较低的指令,分配较长的操作码,从而尽可能减少指令译码和分析时间.</p>
+
+  </div>
+<p>来看个例子:设指令固定长度为16bit,设计一套指令系统满足:<br>
+1.15条三地址<br>
+2.12条二地址<br>
+3.62条一地址<br>
+4.32条零地址</p>
+<p>那么:<br>
+1.我们要保留后面12bit来表示三地址,要十五条三地址的话:<br>
+前四位只需要0000 - 1110也就是十五条,同时留出1111</p>
+<p>2.对于二地址,开头4bit一定是1111,同时他需要后面8bit表示地址,要12条的话:<br>
+我们只需要0000 -
+1011,也就是12条,1011往后也就是1100,也就是二地址指令留出的.</p>
+<p>3.对于一地址,开头一定是 1111
+11,这样就不会和二地址指令重合,同时我们只需要留出最后4bit来表地址,62条的话:1111
+11 000000 - 1111 11 11111110,也就是62条,留出1111 11 111111给零地址</p>
+<p>4.这里就不多写了,直接放张图:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/指令设计.png"></p>
+<p>对于扩展操作码来说,如果地址长度为n,上层留出m种状态,那下一层可以扩展出m
+* 2^n 种状态</p>
+<h3 id="指令寻址">指令寻址</h3>
+<p>我们知道计算机执行的是指令,我们要怎么确定下一条指令在哪里呢?</p>
+<h4 id="顺序寻址">顺序寻址</h4>
+<p>正常情况下,按字编址的下一条指令的地址是(PC) +1 -&gt;
+PC也就是程序计数器PC+1<br>
+但要是我们的主存是按字节编址而不是按字编址呢? 那我们的PC就应该+2<br>
+如果用的变长指令字结构又要怎么办呢?
+PC加多少就取决于变长指令字的长度了.</p>
+<p>所以对于指令寻址,并不是简单地让PC+1,但是可以确定的是PC始终存放了下一条指令的地址<br>
+而且是顺序往下的,虽然不是简单+1,但是无论是+2,+3都是顺序往下加的不会跳过某些指令.</p>
+<h4 id="跳跃寻址">跳跃寻址</h4>
+<p>跳跃寻址由转移指令给出,如:JMP指令<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/跳跃寻址.png"><br>
+没什么好说的,顾名思义,挺容易懂.这就就放张图好了.</p>
+<h3 id="数据寻址">数据寻址</h3>
+
+  <div class="note p-4 mb-4 rounded-small green">
+    <p>数据寻址用于确定本条指令的地址码指明的真实地址</p>
+
+  </div>
+<p>你可能会说为什么不直接把真实地址用作地址码,will,往下看.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/数据寻址.png"></p>
+<p>看看这两个程序,指令完全一模一样(你可以看做把程序挪了个位置),但是运行结果不一样,就是因为JMP的地址码导致的.</p>
+<p>如果我们把第二个程序的地址码的7解释成是程序开始后的第七个地址,那这两个程序运行结果就一样了.<br>
+要是再改改程序:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/数据寻址1.png"><br>
+这下的3要怎么解释呢?我们可以解释为PC计数器+3,因为CPU取出指令后会立即给PC+1.</p>
+<p>可以看到我们有很多不同的解释方式,那我们怎么区分是什么方式呢?<br>
+yes,加标识位.<br>
+于是指令就可以变成: 操作码 + 寻址特征 + 形式地址(A)<br>
+对于多地址指令: 操作码 + 寻址特征 + 形式地址A1 + 寻址特征 +
+形式地址A2<br>
+真实地址称为有效地址(EA)</p>
+<p>ok基本的概念都理解了,接下来要来看各种寻址方法,一共十种:</p>
+<pre class="mermaid">    graph LR;
+    数据寻址 --&gt; 直接寻址;
+    数据寻址 --&gt; 间接寻址;
+    数据寻址 --&gt; 寄存器寻址;
+    数据寻址 --&gt; 寄存器间接寻址;
+    数据寻址 --&gt; 相对寻址;
+    数据寻址 --&gt; 基址寻址;
+    数据寻址 --&gt; 变址寻址;
+    数据寻址 --&gt; 堆栈寻址;
+    数据寻址 --&gt; 隐含寻址;
+    数据寻址 --&gt; 立即寻址;</pre>
+
+  <div class="note p-4 mb-4 rounded-small red">
+    <p>为了方便,接下来的寻址,我们假设<br>
+指令字长 = 机器字长 = 存储字长<br>
+操作数为3</p>
+
+  </div>
+<h4 id="直接寻址">直接寻址</h4>
+
+  <div class="note p-4 mb-4 rounded-small green">
+    <p>指令字中的形式地址A就是操作数的真实地址EA,也就是EA = A</p>
+
+  </div>
+<p><img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/直接寻址.png"></p>
+<p>对于图中的访存:<br>
+取指令 -&gt; 执行指令 2次</p>
+<p>优点:
+简单,指令执行阶段只需要访问一次主存,不需要专门计算操作数地址.<br>
+缺点: A的位数决定了该指令的操作数的寻址范围,操作数的地址不易修改.<br>
+假如我们的操作数只有16bit,那寻址能力只有0 -- 2^16 -1</p>
+<h4 id="间接寻址">间接寻址</h4>
+
+  <div class="note p-4 mb-4 rounded-small red">
+    <p>指令的地址字段给出的形式地址不是真正的地址,而是操作数的有效地址所在的存储单元的地址,也就是操作数地址的地址,即EA
+= (A)</p>
+
+  </div>
+<p><img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/间接寻址.png"></p>
+<p>对于图中的访存:<br>
+取指令 -&gt; 执行指令找真地址 -&gt; 执行指令 3次</p>
+<p>emmm,我认为你下面这张两次间接寻址图也能看懂,A1旁边的1代表不是真实地址,就不多说了.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/两次间接寻址.png"></p>
+<p>优点:<br>
+可扩大寻址范围(有效地址EA的位数大于形式地址A的位数)<br>
+对于16bit的形式地址,因为他前面还跟着操作码,所以可以表示的只有0- 2 ^ 16
+-1 个地址,<br>
+然而我们可以在A地址的主存位置上存满真实地址,这一定会比形式地址大,因为整个主存块都可以用于保存真实地址,而不用考虑操作码.<br>
+没看懂的话,结合上面一次间接寻址的图看看,再想想是不是这么回事.</p>
+<p>多次间接寻址有利于写程序,用间接寻址可以方便的完成子程序返回(想想函数间多次间多次调用然后按顺序出栈)</p>
+<p>缺点:<br>
+指令在执行阶段要多次访存.</p>
+<h4 id="寄存器寻址">寄存器寻址</h4>
+
+  <div class="note p-4 mb-4 rounded-small pink">
+    <p>在指令字中直接给出操作数所在的寄存器编号,即EA =
+Ri,其操作数在由Ri所指的寄存器中</p>
+
+  </div>
+<p><img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/寄存器寻址.png"></p>
+<p>访存:<br>
+取指令 -&gt; 执行指令 1次</p>
+<p>优点:<br>
+快!
+指令在执行阶段不访问主存,只访问寄存器,指令字短(因为寄存器不多)而且执行速度快,支持向量/矩阵运算.</p>
+<p>缺点:<br>
+贵,寄存器贵,寄存器有限,所以寻址能力有限.</p>
+<h4 id="寄存器间接寻址">寄存器间接寻址</h4>
+
+  <div class="note p-4 mb-4 rounded-small orange">
+    <p>寄存器Ri中给出的不是一个操作数,而是操作数所在主存单元的地址,即EA =
+(Ri)</p>
+
+  </div>
+<p><img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/寄存器间接寻址.png"></p>
+<p>访存:<br>
+取指令 -&gt; 执行指令(访问寄存器记录的主存地址) 2次</p>
+<p>特点:<br>
+比一般间接寻址速度快,但最后还是要访存</p>
+<h4 id="隐含寻址">隐含寻址</h4>
+
+  <div class="note p-4 mb-4 rounded-small black">
+    <p>不是明显给出操作数地址,而是指令中隐含操作水地址</p>
+
+  </div>
+<p><img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/隐含寻址.png"></p>
+<p>像图中,ACC里面值的地址并没有在地址码A中显式指出,而是默认已经在ACC里</p>
+<p>优点:有利于缩短指令字长.<br>
+缺点:要增加存储操作数或隐含地址的硬件.</p>
+<h4 id="立即寻址">立即寻址</h4>
+
+  <div class="note p-4 mb-4 rounded-small green">
+    <p>形式地址A就是操作数本身,又称为立即数,一般采用补码形式表示,#表示立即寻址特征.<br>
+格式: 操作码 + # + 立即数</p>
+
+  </div>
+
+  <div class="note p-4 mb-4 rounded-small warning">
+    <p>请不要和直接寻址搞混,立即寻址的地址码的地方就是操作数,直接寻址还要根据地址去找操作数.</p>
+
+  </div>
+<p>访存:<br>
+取指令 -&gt; 执行指令(不需要再找了) 1次</p>
+<p>优点:指令执行阶段不访问主存,指令执行时间最短<br>
+缺点:A的位数限制了立即数的范围,<br>
+如A的位数为n,且立即数采用补码时,可表示的范围为: -2^n-1 -- 2^n-1 -1</p>
+<h3 id="参考">参考</h3>
+<pre><code>https://blog.csdn.net/lws123253/article/details/119956926
+https://baike.baidu.com/item/%E7%A3%81%E7%9B%98%E6%A0%BC%E5%BC%8F%E5%8C%96/3180247?fr=ge_ala
+https://baike.baidu.com/item/%E8%BD%AC%E8%AF%91%E5%90%8E%E5%A4%87%E7%BC%93%E5%86%B2%E5%8C%BA/22685572?fr=ge_ala
+https://baike.baidu.com/item/%E6%93%8D%E4%BD%9C%E6%95%B0/7658270?fr=ge_ala</code></pre>
 ]]></content>
       <categories>
         <category>Computer_Science</category>
