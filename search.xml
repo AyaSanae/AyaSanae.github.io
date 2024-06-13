@@ -3722,9 +3722,9 @@ yes,加标识位.<br>
     数据寻址 --&gt; 间接寻址;
     数据寻址 --&gt; 寄存器寻址;
     数据寻址 --&gt; 寄存器间接寻址;
-    数据寻址 --&gt; 相对寻址;
     数据寻址 --&gt; 基址寻址;
     数据寻址 --&gt; 变址寻址;
+    数据寻址 --&gt; 相对寻址;
     数据寻址 --&gt; 堆栈寻址;
     数据寻址 --&gt; 隐含寻址;
     数据寻址 --&gt; 立即寻址;</pre>
@@ -3823,6 +3823,118 @@ Ri,其操作数在由Ri所指的寄存器中</p>
 <p>优点:指令执行阶段不访问主存,指令执行时间最短<br>
 缺点:A的位数限制了立即数的范围,<br>
 如A的位数为n,且立即数采用补码时,可表示的范围为: -2^n-1 -- 2^n-1 -1</p>
+<h4 id="偏移寻址">偏移寻址</h4>
+
+  <div class="note p-4 mb-4 rounded-small green">
+    <p>以某个地址作为起点,形式地址视为偏移量</p>
+
+  </div>
+这里先给个偏移寻址的总结:<br>
+
+<pre class="mermaid">    graph LR;
+    偏移寻址 --&gt; 基址寻址;
+    偏移寻址 --&gt; 变址寻址;
+    偏移寻址 --&gt; 相对寻址;
+    基址寻址 --&gt; A["EA=(BR)+A"];
+    变址寻址 --&gt; B["EA=(IX)+A"];
+    相对寻址 --&gt; C["EA=(PC)+A"];</pre>
+<p>区别在于便偏移的起点不一样.指令执行期间访存次数都为1次</p>
+<h5 id="基质寻址">基质寻址</h5>
+
+  <div class="note p-4 mb-4 rounded-small orange">
+    <p>将CPU中的基址寄存器(BR -- Base Address
+Register)的内容加上指令格式中的形式地址A,从而形成操作数的有效地址,即EA =
+(BR) + A.</p>
+
+  </div>
+<p>这里提到的基址寄存器就是重定位寄存器.</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/基址寻址.png"></p>
+<p>当然基址寄存器不一定集成在CPU内,我们可以使用通用寄存器,对应的,<br>
+我们要在指令中指明要使用哪个通用寄存器.那么我们应该留几个bit来存放这个信息?<br>
+答案要看有几个寄存器,然后用2 ^n =
+寄存器数量,其中n就是要留出的bit,这里不懂的回去重修.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/通用寄存器基址寻址.png"><br>
+寻址特征后的R0就是指明的寄存器.</p>
+
+  <div class="note p-4 mb-4 rounded-small warning">
+    <p>值得一提的是,基址寄存器是面向操作系统的,内容由操作系统或管理程序确定,在程序执行过程中基址寄存器内容不变(作为基地址),形式地址可变(作为偏移量.)<br>
+当采用通用寄存器作为基址寄存器时,可由用户决定哪个寄存器作为基质寄存器,但其内容仍然由操作系统决定.</p>
+
+  </div>
+<p>优点:
+扩大寻址范围(基址寄存器的位数大于形式地址A的位数),用户不必考虑自己的程序存在主存的哪里,有利于多道程序设计,以及可用于编写浮动程序(整个程序在内存内浮动)</p>
+<h5 id="变址寻址">变址寻址</h5>
+
+  <div class="note p-4 mb-4 rounded-small pink">
+    <p>有效地址EA等于指令字中的形式地址A与变址寄存器(IX -- Index
+Register)的内容相加之和,即EA = (IX) +
+A其中IX可为专用变址寄存器,也可为通用寄存器.</p>
+
+  </div>
+<p><img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/变址寄存器.png"></p>
+<p>变址寄存器是面向用户的,在程序执行过程中,变址寄存器的内容可由用于改变,<br>
+IX作为偏移量,形式地址A不变(作为基地址).<br>
+和基址寻址刚好相反.</p>
+<p>来看下面这段代码:<br>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)</span><br><span class="line">    sum += a[i];</span><br></pre></td></tr></table></figure></div><br>
+编译过来大概是这样:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/变址寻址作用.png"><br>
+可以看到,用直接寻址的方式实现比较鸡肋,数组一长就完了.</p>
+<p>如果我们引入变址寻址:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/变址寻址作用1.png"></p>
+<p>我想你也看的懂了,这里用了IX来做计数器,相当于i,每次变址寻址结束,也就是主存地址2那一条指令,IX就会自增.基址就是7,偏移量IX在改变.<br>
+sum会放到ACC里.</p>
+<p>在数组处理过程中,可以设定A为数组的首地址,不断改变变址寄存器IX的内容,便可很容易找到数组中任意数据的地址,特别适合编址循环程序.</p>
+<h6 id="基址变址复合寻址">基址&amp;变址复合寻址</h6>
+<p>假如我们的程序的起始地址不是0,那我们要结合基址寻址来寻址<br>
+即:<br>
+先基址寻址再变址寻址: EA = ((IX) + (BR) + A)<br>
+想想是不是这样,先从起始地址(基址)偏移到指令,再通过变址寻址来找到数组元素.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/基址变址寻址.png"></p>
+<h5 id="相对寻址">相对寻址</h5>
+
+  <div class="note p-4 mb-4 rounded-small black">
+    <p>把程序计数器PC的内容加上指令格式中的形式地址A而形成操作数的有效地址,<br>
+即EA = (PC) + A,其中A是相对于PC所指地址的偏移量,可正可负,用补码表示.</p>
+
+  </div>
+<p><img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/相对寻址.png"></p>
+<p>我们知道,当CPU取出一条指令后PC会自动指向下一条指令,也就是说,A是相对于下一条指令地址的偏移量.<br>
+比如当前指令地址是1000,指令字长2B,那在执行我们这条1000地址的相对寻址的指令时,PC已经+2了,也就是1002.最后算EA的时候就是A
++ 1002</p>
+<p>来看看相对寻址有什么用,还是用这个程序:<br>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)</span><br><span class="line">    sum += a[i];</span><br></pre></td></tr></table></figure></div></p>
+<p>随着代码越写越多,你可能会想要挪动这段代码:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/相对寻址作用.png"><br>
+挪动代码:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/相对寻址作用1.png"><br>
+很明显,直接挪肯定不行.</p>
+<p>仔细想想,我们只要解决完跳转带来的错误就可以了.<br>
+如果我们把条件跳转的地址码改成补码表示的-4(这里说的-4是往前4条指令),然后采用相对寻址,也就是说,<br>
+让PC-4,然后跳转指令就会修改PC的值为PC-4,最后PC重新指向正确位置(这里是主存地址M)</p>
+<p>这样一来无论这段代码怎么动,这段循环都能正常运行.</p>
+<p>那数组怎么办?很明显我们移动后,数组相对我们的程序的位置改变了.<br>
+那我们可以分段,分为程序段,和数据段,然后把数据段的首地址固定下来.</p>
+<p>这样看来,相对寻址的优点:
+操作数地址不固定,随PC值变化,且指令间总是差一个固定值,因此方便<br>
+汇编程序浮动.<br>
+相对寻址广泛用于转移指令</p>
+<h4 id="堆栈寻址">堆栈寻址</h4>
+
+  <div class="note p-4 mb-4 rounded-small green">
+    <p>操作数存放在堆栈中,隐含使用堆栈指针(SP--Stack
+Poniter)作为操作数地址.<br>
+堆栈指针放于寄存器或在主存中划出一块区域.</p>
+
+  </div>
+<p>如果你知道栈这种数据结构,那下面的不难理解,把栈里的两个元素相加结果压回栈:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/堆栈寻址.png"><br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/堆栈寻址1.png"></p>
+<p>像是上图的那种方式实现的堆栈称为硬堆栈,因为由寄存器实现.<br>
+如果用内存实现则是软堆栈.</p>
+<p>堆栈可用于函数调用时保存当前函数的先关信息.</p>
+<h4 id="寻址总结">寻址总结</h4>
+<p><img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/寻址总结.png"></p>
 <h3 id="参考">参考</h3>
 <pre><code>https://blog.csdn.net/lws123253/article/details/119956926
 https://baike.baidu.com/item/%E7%A3%81%E7%9B%98%E6%A0%BC%E5%BC%8F%E5%8C%96/3180247?fr=ge_ala
