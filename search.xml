@@ -2549,6 +2549,224 @@ WB阶段: 空段</p>
     <p>WrPC段越早完成,就越能避免控制冲突,当然也有的地方会在WB段时间内才修改PC值</p>
 
   </div>
+<h3 id="多处理器">多处理器</h3>
+
+  <div class="note p-4 mb-4 rounded-small green">
+    <p>基于指令流的数量和数据流的数量,对计算机体系结构分为SISD,SIMD,MISD和MIMD<br>
+常规单处理器属于SISD,多处理器属于MIMD</p>
+
+  </div>
+<p>共享内存多处理器(Shared Memory multiProcessor,SMP) -
+多处理器系统(简称)和MIMD,多核处理器是一个东西<br>
+多核处理器:一个CPU芯片包含多个处理器,也就是多个Core(核心),因此通常也常称为片级多处理器,意思是一块芯片上集成多个处理器,所有核共享一个LLC(Last-Level
+Cache),并共享主存储器,和SMP,MIMD是一个东西.</p>
+<h4 id="sisd----单指令流数据流">SISD -- 单指令流数据流</h4>
+<p>特性: 各指令序列只能并发,不能并行,每条指令处理一到两个数据(如 ADD
+a,b),我们前面提到的所有都是基于SISD.<br>
+放张不太严谨的图:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/单指令数据.png"></p>
+<p>图中的处理器在同一时间段内,只能处理同一个指令序列,这是单指令<br>
+每一条指令只能处理一到两个数据,这是单数据流,也就是不支持数据级的并行技术.</p>
+<p>硬件组成上:<br>
+一个处理器 + 一个存储器<br>
+若采用指令流水线,需要设置多个功能部件,采用多模块交叉存储器(前面提到的双通道RAM就是一种)</p>
+<h4 id="simd----单指令多数据流">SIMD -- 单指令多数据流</h4>
+<p>特性:
+各指令只能并发不能并行,但是每条指令能同时处理很多歌具有相同特征的数据.是一种数据级并行技术<br>
+放张不太严谨的图:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/单指令多数据.png"></p>
+<p>每个处理单元虽然都执行的是同一条指令,但每一个执行部件都有独立的存储器,因此,不同处理单元执行同一条指令,所处理的数据是不同的.<br>
+这种结构很适合对结构类似的大量数据进行相同处理,一条指令处理很多个数据.</p>
+<p>早期的一些显卡常采用SIMD,图像处理时,常对每个像素点进行完全一样的渲染.<br>
+也可以用于优化for循环中的对数组元素的重复处理.也就是处理内容是完全一致的,对每个元素采取一模一样的处理,我们可以拆开数组,放到不同处理部件的存储器,然后发出相同指令.这样就可以并行处理数据.</p>
+<p>硬件组成:<br>
+一个指令控制部件(CU) + 多个处理单元/执行单元(如ALU) + 多个局部存储器 +
+一个主存储器<br>
+每个执行单元有各自的寄存器组,局部寄存器,地址寄存器<br>
+不同执行单元执行同一指令,处理不同数据</p>
+<h5 id="向量处理机">向量处理机</h5>
+<p>这是SIMD思想的进阶运用,特性:<br>
+一条指令处理的对象是"向量",擅长对向量型数据并行计算(比如矩阵运算),浮点数运算,常被用于超级计算机中,处理科学研究中的巨大运算量.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/向量处理机.png"><br>
+硬件组成:<br>
+多个处理单元,多组向量寄存器<br>
+主存储器采用"多个端口同时读取"的交叉多模块存储器<br>
+主存储器大小限定了机器的解题规模,因此要有大容量的,集中式的主存储器.</p>
+<h4 id="misd----多指令单数据流">MISD -- 多指令单数据流</h4>
+<p>多条指令并行执行,处理同一个数据,事实上,这种计算机并不存在,<br>
+属于是闲着没事,一条指令能解决完全没必要整多条指令</p>
+<h4 id="mimd----多指令多数据流">MIMD -- 多指令多数据流</h4>
+<p>共享存储多处理器系统<br>
+MIMD是我们比较熟悉的处理器系统,我们常见的I5,I7等处理器都是MIMD<br>
+放张不太严谨的图:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/MIMD.png"></p>
+<p>特性:
+各指令序列并行执行,分别处理多个不同数据,线程级并行(每个核心能运行各自的线程),甚至是线程级以上的并行(每个核处理一个进程)</p>
+<p>MIMD又分为多处理器系统,多计算机系统</p>
+
+  <div class="note-large green">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>多处理器系统</p>
+
+    </div>
+    <div class="notel-content">
+      <p>各处理器共享同一主存和最低一级Cache<br>
+特性:
+各处理器之间,可以通过LOAD/STORE指令访问同一个主存储器,可以通过主存相互传送数据<br>
+硬件组成:<br>
+一台计算机内,包含多个处理器,一个主存储器<br>
+多个处理器共享单一的物理地址空间,如上图的LLC,也就是L1缓存.</p>
+
+    </div>
+  </div>
+
+  <div class="note-large blue">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>多计算机系统</p>
+
+    </div>
+    <div class="notel-content">
+      <p>特性:各计算机之间,不能通过LOAD/STORE指令直接访问对方存储器,只能通过"消息传递"(如局域网)相互传送数据<br>
+硬件组成:<br>
+由台计算机组成,因此拥有多个处理器+多个主存储器<br>
+每台计算机拥有各自私有存储器,物理地址空间相互独立</p>
+
+    </div>
+  </div>
+<p>很多分布式系统就是由多台计算机组成的.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/多计算机系统.png"></p>
+<h3 id="硬件多线程">硬件多线程</h3>
+<p>放张不太严谨的图:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/硬件多线程1.png"><br>
+很明显,不支持硬件多线程的处理器,一次只能处理一个线程,如果有两个线程的两段代码同时要运行,<br>
+假设已经先运行线程a,那就只能先暂停a然后把a的在PC的值通用寄存器组等的数据保存到主存然后把b加载进来运行.可以看出要切换线程就要访存来保存临时数据,时间开销比较大<br>
+但是对于支撑硬件多线程的处理器,就没这问题,看上图.</p>
+<p>好了想必你已经理解硬件多线程了:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/硬件多线程.png"><br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/硬件多线程2.png"></p>
+<h2 id="x19-总线">0x19 总线</h2>
+<p>我们前面已经简单的用过总线了,比如CPU内部总线,数据,地址总线等.同一时刻只能有一个部件发送数据,但是可以有多个部件接收数据.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/总线简图.png"><br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/总线简图1.png"><br>
+上图很明显是4bit宽度的总线.4根信号线组成的一根总线.</p>
+<p>总线的定义: 是一组能为多个部件分时共享的公共信息传输线路<br>
+采用总线能实现随时增减外部设备,如PCI总线,不需要独显直接拔掉独显,就相当于把独显从总线上移除.</p>
+
+  <div class="note-large orange">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>总线特性</p>
+
+    </div>
+    <div class="notel-content">
+      <p>机械特性: 尺寸,形状,管脚数,排列顺序<br>
+电器特性: 传输方向和有效电平范围<br>
+功能特性: 每根传输线的功能(地址,数据,控制)<br>
+时间特性: 信号的时序关系</p>
+
+    </div>
+  </div>
+<h3 id="总线分类">总线分类</h3>
+<h4 id="按数据传输格式">按数据传输格式</h4>
+<h5 id="串行总线-并行总线">串行总线 &amp;&amp; 并行总线</h5>
+<p><img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/串并总线.png"><br>
+串行只能1bit,1bit发也就是排着队发,USB就是串行总线<br>
+只需要一根传输线,成本低,广泛用于长距离传输(抗干扰强,便宜),应用于计算机内部是,可以节省布线空间,当然速度上没法和并行比.还要考虑串行转并行.</p>
+<p>而并行则是一下子全部发过去,如8bit宽并行总线,一下子能并行地发8bit.优点是逻辑时序简单,实现起来容易,缺点就是信号线数量多,占用更多布线空间,远距离传输成本高.<br>
+由于工作频率高时并行的信号线之间会产生严重感染,对每条线等长的要求也越高,所以无法持续提升工作效率.</p>
+<h4 id="按总线功能">按总线功能</h4>
+<h5 id="片内总线">片内总线</h5>
+
+  <div class="note p-4 mb-4 rounded-small green">
+    <p>是芯片内部总线,是CPU芯片内部寄存器与寄存器之间,寄存器与ALU之间的公共连线.</p>
+
+  </div>
+<h5 id="通信总线">通信总线</h5>
+
+  <div class="note p-4 mb-4 rounded-small blue">
+    <p>通信总线适用于计算机系统之间或计算机系统与其他系统(如远程通信设备,测试设备)之间信息传送的总线,通信总线也称为外部总线.</p>
+
+  </div>
+<h5 id="系统总线">系统总线</h5>
+
+  <div class="note p-4 mb-4 rounded-small red">
+    <p>是计算机系统内各功能部件(CPU,主存,IO接口)之间相互连接的总线</p>
+
+  </div>
+<p>按系统总线传输内容不同又可以分为:数据总线,地址总线,控制总线</p>
+<p>数据总线(DataBus,DB):传输各功能部件之间的数据信息,包括指令和操作数,位数(根数)与机器字长,存储字长有关.双向的.不要和数据通路混淆,数据通路是表示数据流经的途径.数据总线是承载的媒介</p>
+<p>地址总线(AddressBus,AB):传输地址信息,包括主存单元或IO端口的地址,位数(根数)与主存地址空间大小以及设备数量有关(统一编址).单向的.</p>
+<p>控制总线(ControlBus,CB):一根控制线传输一个信号,有出:CPU送出控制命令,有入:主存或外设返回CPU反馈信号.</p>
+<h6 id="系统总线结构">系统总线结构</h6>
+<p>单总线结构:所有部件(CPU,主存等)都连接在一组总线(包含DB,AB,CB)上,允许IO设备直接,IO设备与CPU或IO设备与主存直接交换信息.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/单总线.png"><br>
+单总线并不是指只有一根信号线.<br>
+优点:简单,成本低,易于接入新设备<br>
+缺点:带宽低,负载重多个部件只能争用唯一总线,且不支持并行传送操作.</p>
+<p>双总线结构:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/双总线.png"><br>
+我们可以把图中的通道理解为阉割版CPU,专门用来管理IO的,主存总线支持突发(猝发)传送:送出一个地址,收到多个地址连续的数据.</p>
+<p>双总线结构有两条总线,一条是主存总线,用于CPU,主存和通道之间进行数据传输,另外一条是IO总线,用于多个外部设备与通道之间进行数据传送.</p>
+<p>优点:降低速IO设备送单总线上分离,实现存储器总线和IO总线分离<br>
+缺点:需要增加通道等硬件设备.</p>
+<p>三总线结构:<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/三总线.png"><br>
+DMA: Direct Memory Access -- 直接内存访问<br>
+我们对磁盘读写是以块为单位的,让磁盘和主存通过DMA总线访问,就不用去和慢速IO总线抢占了,就可以快速完成读取.</p>
+<p>结构:三总线结构是在计算机系统各部件之间采用3条各自独立的总线来构成信息通路,分别为主存总线,IO总线,和DMA总线.</p>
+<p>优点:提高了IO设备性能,使其更快响应命令,提高系统吞吐.<br>
+缺点:三总线同一时刻只能有一条总线工作,导致系统工作效率低.</p>
+<p>四总线结构(现代计算机总线结构):<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/四总线.png"><br>
+桥接器:用于连接不同的总线,具有数据缓冲,转换和控制功能.主板上的南桥,北桥就是这样的桥接器.<br>
+靠近CPU的总线速度较快.</p>
+<h3 id="总线的性能指标">总线的性能指标</h3>
+<p>1.总线的传输周期(总线周期)<br>
+一次总线操作所需的时间(包括申请阶段,寻址阶段,传输阶段和结束阶段),通常由若干个总线时钟周期组成.</p>
+<p>2.总线时钟周期<br>
+即机器时钟周期,计算机有一个统一的时钟,以控制整个计算机的各个部件,总线也要受此时钟控制.当然在现代计算机的总线时钟由桥接器给出.</p>
+
+  <div class="note p-4 mb-4 rounded-small green">
+    <p>大多数情况,一个总线周期包含多个总线时钟周期.<br>
+有的时候,一个总线周期就是一个总线时钟周期<br>
+有的时候,一个总线时钟周期可包含多个总线周期.</p>
+
+  </div>
+<p>关于一个总线时钟周期可包含多个总线周期,可以想一下时钟信号的方波,上升沿可以作为总线周期,下降沿也就可以,也就是一个总线时钟周期可包含多个总线周期.</p>
+<p>3.总线的工作频率<br>
+总线上的各种操作的频率,为总线周期的倒数,<br>
+若总线周期= N个时钟周期,则总线的工作频率 = 时钟频率/N<br>
+实际上指1秒内传几次数据.</p>
+<p>4.总线的时钟频率<br>
+即机器的时钟频率,f = 1/T,T为时钟周期,f为频率<br>
+实际上值一秒内有多少个时钟周期.</p>
+<p>5.总线宽度<br>
+又称为总线位宽,是总线上同时能传输的数据位数,通常指数据总线的根数,如32根称为32bit总线.</p>
+<p>6.总线带宽<br>
+可理解为总线的数据传输率,即单位时间内总线上可传输数据的位数,通常用每秒钟传送信息的字节数来衡量,单位可用字节/秒(B/s)表示,指的是总线本身所能达到的最高传输速率(包含校验位等等)</p>
+<p>也就是总线带宽 = 总线工作频率 * 总线宽度(bit/s) = 总线工作频率 *
+(总线宽度 / 8) (B/s)<br>
+还可以总线带宽 = 总线宽度 / 总线周期(bit/s) = (总线宽度/8) /总线周期
+(B/s)</p>
+
+  <div class="note-large blue">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>串行总线与并行总线速度</p>
+
+    </div>
+    <div class="notel-content">
+      <p>对于并行总线,由于工作频率高时,并行的信号线之间会产生严重干扰,所以对每条线等长的要求也越高,所以无法持续提升工作频率.<br>
+而串行总线就不存在这样的问题,所以串行总线的工作频率可以更高.</p>
+<p>如果工作频率相同那串行总线是慢于并行的.</p>
+
+    </div>
+  </div>
+<p>7.总线复用<br>
+总线复用是指一种信号线在不同时间传输不同信息,可以使用较少的线传输更多信息,从而节省了空间和成本.<br>
+<img lazyload="" src="/images/loading.svg" data-src="/assets/computer-structure/总线复用.png"><br>
+如果我们用总线复用技术,那写入和访存都至少需要两个总线周期,即先传地址再传数据.<br>
+虽然节约了成本,但是速度也有所下降.</p>
+<p>8.信号线数<br>
+地址总线,数据总线和控制总线3种总线数的总和称为信号线数.</p>
 <h3 id="参考">参考</h3>
 <pre><code>https://blog.csdn.net/lws123253/article/details/119956926
 https://baike.baidu.com/item/%E7%A3%81%E7%9B%98%E6%A0%BC%E5%BC%8F%E5%8C%96/3180247?fr=ge_ala
