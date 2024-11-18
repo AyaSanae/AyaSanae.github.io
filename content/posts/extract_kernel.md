@@ -16,7 +16,7 @@ description: ""
 canonicalURL: "https://canonical.url/to/page"
 disableShare: false
 hideSummary: false
-searchHidden: true
+searchHidden: false
 ShowReadingTime: true
 ShowBreadCrumbs: true
 ShowPostNavLinks: true

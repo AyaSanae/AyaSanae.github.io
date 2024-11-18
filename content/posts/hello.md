@@ -16,7 +16,7 @@ description: "Desc Text."
 canonicalURL: "https://canonical.url/to/page"
 disableShare: true
 hideSummary: false
-searchHidden: true
+searchHidden: false
 ShowReadingTime: true
 ShowBreadCrumbs: true
 ShowPostNavLinks: true

@@ -143,3 +143,9 @@ markup:
     lineNos: true
     noClasses: false
     style: catppuccin-mocha
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON # necessary for search
