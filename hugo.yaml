@@ -141,9 +141,8 @@ markup:
     codeFences: true
     guessSyntax: true
     lineNos: true
-    noClasses: false
-    style: catppuccin-mocha
-
+    # noClasses: false
+    style: catppuccin-latte
 outputs:
   home:
     - HTML
